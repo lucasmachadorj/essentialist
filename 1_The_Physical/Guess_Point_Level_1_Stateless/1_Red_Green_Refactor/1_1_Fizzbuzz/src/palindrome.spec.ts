@@ -16,4 +16,8 @@ describe("palindrome checker", () => {
   it("shoud return true for a case-sensitive palindrome such as 'Racecar'", () => {
     expect(isPalindrome("Racecar")).toBe(true);
   });
+
+  it("should return true for a palindrome with spaces such as 'taco cat'", () => {
+    expect(isPalindrome("taco cat")).toBe(true);
+  });
 });
