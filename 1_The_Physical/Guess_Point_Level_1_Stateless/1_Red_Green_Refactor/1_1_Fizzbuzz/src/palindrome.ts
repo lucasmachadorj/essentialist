@@ -1,6 +1,13 @@
+const toLowerCase = (str: string): string => str.toLowerCase();
+const removeSpaces = (str: string): string => str.replace(/\s/g, "");
+const reverse = (str: string): string => str.split("").reverse().join("");
+
+const pipe =
+  (...fns: Function[]) =>
+  (x: string) =>
+    fns.reduce((v, f) => f(v), x);
+
 export const isPalindrome = (str: string): boolean => {
-  const lowerCaseStr = str.toLowerCase();
-  const noSpacesStr = lowerCaseStr.replace(/\s/g, "");
-  const reversed = noSpacesStr.split("").reverse().join("");
-  return noSpacesStr === reversed;
+  const normalized = pipe(toLowerCase, removeSpaces)(str);
+  return normalized === reverse(normalized);
 };
