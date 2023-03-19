@@ -7,6 +7,10 @@ function fizzbuzz(n: number): string {
     return "fizz";
   }
 
+  if (n % 5 === 0) {
+    return "buzz";
+  }
+
   return "";
 }
 
