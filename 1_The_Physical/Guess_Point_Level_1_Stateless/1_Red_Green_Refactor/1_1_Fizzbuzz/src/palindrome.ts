@@ -1,4 +1,4 @@
 export const isPalindrome = (str: string): boolean => {
-  if (str === "mom") return true;
-  return false;
+  const reversed = str.split("").reverse().join("");
+  return str === reversed;
 };
