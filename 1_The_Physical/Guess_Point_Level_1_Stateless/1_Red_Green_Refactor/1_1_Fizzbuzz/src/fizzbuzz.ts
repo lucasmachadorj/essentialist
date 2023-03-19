@@ -1,17 +1,23 @@
-function fizzbuzz(n: number): string {
-  if (n % 15 === 0) {
+const isMultipleOf = (n: number) => (m: number) => m % n === 0;
+const isMultipleOf3 = isMultipleOf(3);
+const isMultipleOf5 = isMultipleOf(5);
+const isMultipleOf15 = isMultipleOf(15);
+const toString = (n: number) => n.toString();
+
+const fizzbuzz = (n: number): string => {
+  if (isMultipleOf15(n)) {
     return "fizzBuzz";
   }
 
-  if (n % 3 === 0) {
+  if (isMultipleOf3(n)) {
     return "fizz";
   }
 
-  if (n % 5 === 0) {
+  if (isMultipleOf5(n)) {
     return "buzz";
   }
 
-  return "";
-}
+  return toString(n);
+};
 
 export { fizzbuzz };

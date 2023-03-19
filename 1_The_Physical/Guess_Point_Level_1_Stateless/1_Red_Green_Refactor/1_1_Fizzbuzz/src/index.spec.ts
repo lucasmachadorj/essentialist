@@ -38,4 +38,14 @@ describe("fizzbuzz", () => {
       }
     );
   });
+
+  describe("not multiples of 3 or 5 condition", () => {
+    const inputs = [1, 2, 4, 7, 8, 11, 13, 14, 16, 17];
+    it.each(inputs.map((input) => [input, input.toString()]))(
+      "should return input as string for not multiple of three or five such as %s returns '%s'",
+      (input, expected) => {
+        expect(fizzbuzz(input as number)).toBe(expected);
+      }
+    );
+  });
 });
