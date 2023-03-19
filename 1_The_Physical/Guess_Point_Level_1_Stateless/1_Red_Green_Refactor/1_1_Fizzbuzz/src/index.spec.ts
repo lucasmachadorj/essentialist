@@ -15,4 +15,14 @@ describe("fizzbuzz", () => {
       }
     );
   });
+
+  describe("multiples of 3 condition, but not 5", () => {
+    const inputs = [3, 6, 9, 12, 18, 21, 24, 27, 33, 36];
+    it.each(inputs.map((input) => [input, "fizz"]))(
+      "should return fizz for multiple of three such as %s",
+      (input, expected) => {
+        expect(fizzbuzz(input)).toBe(expected);
+      }
+    );
+  });
 });

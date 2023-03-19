@@ -3,6 +3,10 @@ function fizzbuzz(n: number): string {
     return "fizzBuzz";
   }
 
+  if (n % 3 === 0) {
+    return "fizz";
+  }
+
   return "";
 }
 
