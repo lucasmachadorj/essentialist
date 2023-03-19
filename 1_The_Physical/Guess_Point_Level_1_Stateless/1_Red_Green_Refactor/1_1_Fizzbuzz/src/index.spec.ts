@@ -10,7 +10,7 @@ describe("fizzbuzz", () => {
   });
 
   describe("multiples of 15 condition", () => {
-    const inputs = [15, 30, 45, 60, 75, 90, 105, 120, 135, 150];
+    const inputs = [15, 30, 45, 60, 75, 90];
     it.each(getTestTable(inputs, "fizzBuzz"))(
       "should return fizzBuzz for multiple of fifteen such as %s",
       (input, expected) => {
@@ -43,6 +43,17 @@ describe("fizzbuzz", () => {
     const inputs = [1, 2, 4, 7, 8, 11, 13, 14, 16, 17];
     it.each(inputs.map((input) => [input, input.toString()]))(
       "should return input as string for not multiple of three or five such as %s returns '%s'",
+      (input, expected) => {
+        expect(fizzbuzz(input as number)).toBe(expected);
+      }
+    );
+  });
+
+  describe("range of input condition", () => {
+    const inputs = [0, 101];
+    const expected = "Out of range. Please input a number between 1 and 100.";
+    it.each(getTestTable(inputs, expected))(
+      "should return 'out of range' for input out of range such as %s",
       (input, expected) => {
         expect(fizzbuzz(input as number)).toBe(expected);
       }
