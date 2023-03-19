@@ -20,4 +20,8 @@ describe("palindrome checker", () => {
   it("should return true for a palindrome with spaces such as 'taco cat'", () => {
     expect(isPalindrome("taco cat")).toBe(true);
   });
+
+  it("should return true for empty string", () => {
+    expect(isPalindrome("")).toBe(true);
+  });
 });
