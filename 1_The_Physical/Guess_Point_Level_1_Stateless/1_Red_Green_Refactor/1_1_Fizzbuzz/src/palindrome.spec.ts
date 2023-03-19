@@ -12,4 +12,8 @@ describe("palindrome checker", () => {
   it("should return true for a palindrome such as 'racecar'", () => {
     expect(isPalindrome("racecar")).toBe(true);
   });
+
+  it("shoud return true for a case-sensitive palindrome such as 'Racecar'", () => {
+    expect(isPalindrome("Racecar")).toBe(true);
+  });
 });
