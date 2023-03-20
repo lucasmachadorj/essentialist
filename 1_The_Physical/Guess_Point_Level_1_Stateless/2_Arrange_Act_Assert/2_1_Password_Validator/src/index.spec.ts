@@ -13,7 +13,12 @@ describe("password validator", () => {
     const result: PasswordValidationResult = passwordValidator("password1");
     expect(result).toEqual({
       success: false,
-      errors: ["Password must contain at least one uppercase letter"],
+      errors: [
+        {
+          message: "Password must contain at least one uppercase letter",
+          code: "NoUppercaseError",
+        },
+      ],
     });
   });
 
@@ -21,7 +26,12 @@ describe("password validator", () => {
     const result: PasswordValidationResult = passwordValidator("Password");
     expect(result).toEqual({
       success: false,
-      errors: ["Password must contain at least one digit"],
+      errors: [
+        {
+          message: "Password must contain at least one digit",
+          code: "NoDigitError",
+        },
+      ],
     });
   });
 
@@ -29,7 +39,12 @@ describe("password validator", () => {
     const result: PasswordValidationResult = passwordValidator("1Abc");
     expect(result).toEqual({
       success: false,
-      errors: ["Password must be at least 5 characters"],
+      errors: [
+        {
+          message: "Password must be at least 5 characters",
+          code: "TooShortError",
+        },
+      ],
     });
   });
 
@@ -38,7 +53,12 @@ describe("password validator", () => {
       passwordValidator("1Abcdefghijklmno");
     expect(result).toEqual({
       success: false,
-      errors: ["Password must be at most 15 characters"],
+      errors: [
+        {
+          message: "Password must be at most 15 characters",
+          code: "TooLongError",
+        },
+      ],
     });
   });
 
@@ -47,8 +67,14 @@ describe("password validator", () => {
     expect(result).toEqual({
       success: false,
       errors: [
-        "Password must be at least 5 characters",
-        "Password must contain at least one uppercase letter",
+        {
+          message: "Password must be at least 5 characters",
+          code: "TooShortError",
+        },
+        {
+          message: "Password must contain at least one uppercase letter",
+          code: "NoUppercaseError",
+        },
       ],
     });
   });
