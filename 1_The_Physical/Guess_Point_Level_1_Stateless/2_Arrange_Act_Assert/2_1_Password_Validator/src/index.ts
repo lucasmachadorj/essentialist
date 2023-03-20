@@ -17,7 +17,7 @@ export type PasswordValidationResult = {
 export const passwordValidator = (
   password: string
 ): PasswordValidationResult => {
-  let errors = [];
+  const errors = [];
 
   if (hasLessThan5(password)) {
     errors.push("Password must be at least 5 characters");
