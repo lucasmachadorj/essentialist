@@ -17,38 +17,52 @@ export type PasswordValidationResult = {
   errors: PasswordError[];
 };
 
+type CodeError =
+  | "TooShortError"
+  | "TooLongError"
+  | "NoUppercaseError"
+  | "NoDigitError";
+
+const errorMessages: Record<CodeError, string> = {
+  TooShortError: "Password must be at least 5 characters",
+  TooLongError: "Password must be at most 15 characters",
+  NoUppercaseError: "Password must contain at least one uppercase letter",
+  NoDigitError: "Password must contain at least one digit",
+};
+
+const fillErrors = (codes: string[]) => {
+  const errors: PasswordError[] = [];
+  return codes.reduce((errors, code) => {
+    errors.push({
+      message: errorMessages[code as CodeError],
+      code,
+    });
+    return errors;
+  }, errors);
+};
+
 export const passwordValidator = (
   password: string
 ): PasswordValidationResult => {
-  const errors: Array<PasswordError> = [];
+  const codes: CodeError[] = [];
 
   if (hasLessThan5(password)) {
-    errors.push({
-      message: "Password must be at least 5 characters",
-      code: "TooShortError",
-    });
+    codes.push("TooShortError");
   }
 
   if (hasMoreThan15(password)) {
-    errors.push({
-      message: "Password must be at most 15 characters",
-      code: "TooLongError",
-    });
+    codes.push("TooLongError");
   }
 
   if (hasNoUppercase(password)) {
-    errors.push({
-      message: "Password must contain at least one uppercase letter",
-      code: "NoUppercaseError",
-    });
+    codes.push("NoUppercaseError");
   }
 
   if (hasNoDigit(password)) {
-    errors.push({
-      message: "Password must contain at least one digit",
-      code: "NoDigitError",
-    });
+    codes.push("NoDigitError");
   }
+
+  const errors = fillErrors(codes);
 
   return {
     success: passwordIsValid(errors),
