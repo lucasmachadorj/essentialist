@@ -40,4 +40,15 @@ describe("password validator", () => {
       errors: ["Password must be at most 15 characters"],
     });
   });
+
+  it("should return two error messages if the password has less than 5 characters and no uppercase letter such as 1abc", () => {
+    const result = passwordValidator("1abc");
+    expect(result).toEqual({
+      success: false,
+      errors: [
+        "Password must be at least 5 characters",
+        "Password must contain at least one uppercase letter",
+      ],
+    });
+  });
 });

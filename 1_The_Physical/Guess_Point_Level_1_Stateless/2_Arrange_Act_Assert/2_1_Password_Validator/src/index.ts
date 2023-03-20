@@ -1,34 +1,24 @@
 export const passwordValidator = (password: string) => {
+  let errors = [];
+
   if (password.length < 5) {
-    return {
-      success: false,
-      errors: ["Password must be at least 5 characters"],
-    };
+    errors.push("Password must be at least 5 characters");
   }
 
   if (password.length > 15) {
-    return {
-      success: false,
-      errors: ["Password must be at most 15 characters"],
-    };
+    errors.push("Password must be at most 15 characters");
   }
 
   if (!password.match(/[A-Z]/)) {
-    return {
-      success: false,
-      errors: ["Password must contain at least one uppercase letter"],
-    };
+    errors.push("Password must contain at least one uppercase letter");
   }
 
   if (!password.match(/\d/)) {
-    return {
-      success: false,
-      errors: ["Password must contain at least one digit"],
-    };
+    errors.push("Password must contain at least one digit");
   }
 
   return {
-    success: true,
-    errors: [],
+    success: errors.length === 0,
+    errors: errors,
   };
 };
