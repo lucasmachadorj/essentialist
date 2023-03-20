@@ -50,4 +50,10 @@ describe("stats calculator", () => {
     expect(result.average).toBe(0);
     expect(result.count).toBe(0);
   });
+
+  it("should throws an error if the input is not an array", () => {
+    expect(() => statsCalculator("not an array" as any)).toThrowError(
+      "Input must be an array"
+    );
+  });
 });

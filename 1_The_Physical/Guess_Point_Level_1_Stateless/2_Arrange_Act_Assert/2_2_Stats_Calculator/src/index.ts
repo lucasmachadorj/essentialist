@@ -26,6 +26,9 @@ export const average = (numbers: number[]): number =>
 export const count = (numbers: number[]): number => numbers.length;
 
 export const statsCalculator = (numbers: number[]): Stats => {
+  if (!Array.isArray(numbers)) {
+    throw new Error("Input must be an array");
+  }
   return {
     min: min(numbers) ?? 0,
     max: max(numbers) ?? 0,
