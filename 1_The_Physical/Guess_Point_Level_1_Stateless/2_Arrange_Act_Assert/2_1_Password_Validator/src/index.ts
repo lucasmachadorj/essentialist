@@ -5,38 +5,69 @@ const hasLessThan5 = hasLessThan(5);
 const hasMoreThan15 = hasMoreThan(15);
 const hasNoUppercase = (s: string) => !s.match(/[A-Z]/);
 const hasNoDigit = (s: string) => !s.match(/\d/);
-const passwordIsValid = (errors: string[]) => errors.length === 0;
+const passwordIsValid = (errors: PasswordError[]) => errors.length === 0;
 
-type PasswordError = string;
+type PasswordError = {
+  message: string;
+  code: string;
+};
 
-export type PasswordValidationResult = {
+type PasswordValidationResult = {
   success: boolean;
   errors: PasswordError[];
 };
 
-export const passwordValidator = (
-  password: string
-): PasswordValidationResult => {
-  let errors = [];
+type CodeError =
+  | "TooShortError"
+  | "TooLongError"
+  | "NoUppercaseError"
+  | "NoDigitError";
+
+type MessageError = string;
+
+const errorMessages: Record<CodeError, MessageError> = {
+  TooShortError: "Password must be at least 5 characters",
+  TooLongError: "Password must be at most 15 characters",
+  NoUppercaseError: "Password must contain at least one uppercase letter",
+  NoDigitError: "Password must contain at least one digit",
+};
+
+const fillErrors = (codes: CodeError[]) => {
+  const errors: PasswordError[] = [];
+  return codes.reduce((errors, code) => {
+    errors.push({
+      message: errorMessages[code],
+      code,
+    });
+    return errors;
+  }, errors);
+};
+
+const passwordValidator = (password: string): PasswordValidationResult => {
+  const codes: CodeError[] = [];
 
   if (hasLessThan5(password)) {
-    errors.push("Password must be at least 5 characters");
+    codes.push("TooShortError");
   }
 
   if (hasMoreThan15(password)) {
-    errors.push("Password must be at most 15 characters");
+    codes.push("TooLongError");
   }
 
   if (hasNoUppercase(password)) {
-    errors.push("Password must contain at least one uppercase letter");
+    codes.push("NoUppercaseError");
   }
 
   if (hasNoDigit(password)) {
-    errors.push("Password must contain at least one digit");
+    codes.push("NoDigitError");
   }
+
+  const errors = fillErrors(codes);
 
   return {
     success: passwordIsValid(errors),
     errors: errors,
   };
 };
+
+export { PasswordValidationResult, passwordValidator };
