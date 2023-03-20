@@ -42,4 +42,12 @@ describe("stats calculator", () => {
       });
     }
   );
+
+  it("should return min, max, average and count as 0 for an empty array", () => {
+    const result: Stats = statsCalculator([]);
+    expect(result.min).toBe(0);
+    expect(result.max).toBe(0);
+    expect(result.average).toBe(0);
+    expect(result.count).toBe(0);
+  });
 });

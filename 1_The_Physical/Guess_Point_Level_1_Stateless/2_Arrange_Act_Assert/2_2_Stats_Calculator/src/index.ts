@@ -27,9 +27,9 @@ export const count = (numbers: number[]): number => numbers.length;
 
 export const statsCalculator = (numbers: number[]): Stats => {
   return {
-    min: min(numbers),
-    max: max(numbers),
-    average: average(numbers),
+    min: min(numbers) ?? 0,
+    max: max(numbers) ?? 0,
+    average: average(numbers) ?? 0,
     count: count(numbers),
   };
 };
