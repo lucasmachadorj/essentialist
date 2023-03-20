@@ -32,11 +32,11 @@ const errorMessages: Record<CodeError, MessageError> = {
   NoDigitError: "Password must contain at least one digit",
 };
 
-const fillErrors = (codes: string[]) => {
+const fillErrors = (codes: CodeError[]) => {
   const errors: PasswordError[] = [];
   return codes.reduce((errors, code) => {
     errors.push({
-      message: errorMessages[code as CodeError],
+      message: errorMessages[code],
       code,
     });
     return errors;
