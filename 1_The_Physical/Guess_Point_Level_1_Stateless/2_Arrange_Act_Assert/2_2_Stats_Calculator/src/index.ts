@@ -1,4 +1,11 @@
-export const statsCalculator = (numbers: number[]) => {
+export type Stats = {
+  min: number;
+  max: number;
+  average: number;
+  count: number;
+};
+
+export const statsCalculator = (numbers: number[]): Stats => {
   return {
     min: 1,
     max: 5,
