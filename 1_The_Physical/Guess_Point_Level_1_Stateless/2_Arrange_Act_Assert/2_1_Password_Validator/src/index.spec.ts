@@ -32,4 +32,12 @@ describe("password validator", () => {
       error: ["Password must be at least 5 characters"],
     });
   });
+
+  it("should return an error if the password has more than 15 characters such as 1Abcdefghijklmno", () => {
+    const result = passwordValidator("1Abcdefghijklmno");
+    expect(result).toEqual({
+      success: false,
+      error: ["Password must be at most 15 characters"],
+    });
+  });
 });

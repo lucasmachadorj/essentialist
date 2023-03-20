@@ -6,6 +6,13 @@ export const passwordValidator = (password: string) => {
     };
   }
 
+  if (password.length > 15) {
+    return {
+      success: false,
+      error: ["Password must be at most 15 characters"],
+    };
+  }
+
   if (!password.match(/[A-Z]/)) {
     return {
       success: false,
