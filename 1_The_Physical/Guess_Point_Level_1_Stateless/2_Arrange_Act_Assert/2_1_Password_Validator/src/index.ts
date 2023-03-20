@@ -7,7 +7,16 @@ const hasNoUppercase = (s: string) => !s.match(/[A-Z]/);
 const hasNoDigit = (s: string) => !s.match(/\d/);
 const passwordIsValid = (errors: string[]) => errors.length === 0;
 
-export const passwordValidator = (password: string) => {
+type PasswordError = string;
+
+export type PasswordValidationResult = {
+  success: boolean;
+  errors: PasswordError[];
+};
+
+export const passwordValidator = (
+  password: string
+): PasswordValidationResult => {
   let errors = [];
 
   if (hasLessThan5(password)) {
