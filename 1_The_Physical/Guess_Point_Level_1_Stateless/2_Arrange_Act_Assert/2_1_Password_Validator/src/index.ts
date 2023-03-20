@@ -12,7 +12,7 @@ type PasswordError = {
   code: string;
 };
 
-export type PasswordValidationResult = {
+type PasswordValidationResult = {
   success: boolean;
   errors: PasswordError[];
 };
@@ -23,7 +23,9 @@ type CodeError =
   | "NoUppercaseError"
   | "NoDigitError";
 
-const errorMessages: Record<CodeError, string> = {
+type MessageError = string;
+
+const errorMessages: Record<CodeError, MessageError> = {
   TooShortError: "Password must be at least 5 characters",
   TooLongError: "Password must be at most 15 characters",
   NoUppercaseError: "Password must contain at least one uppercase letter",
@@ -41,9 +43,7 @@ const fillErrors = (codes: string[]) => {
   }, errors);
 };
 
-export const passwordValidator = (
-  password: string
-): PasswordValidationResult => {
+const passwordValidator = (password: string): PasswordValidationResult => {
   const codes: CodeError[] = [];
 
   if (hasLessThan5(password)) {
@@ -69,3 +69,5 @@ export const passwordValidator = (
     errors: errors,
   };
 };
+
+export { PasswordValidationResult, passwordValidator };
