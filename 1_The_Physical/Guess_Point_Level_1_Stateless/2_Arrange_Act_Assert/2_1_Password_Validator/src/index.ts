@@ -1,4 +1,11 @@
 export const passwordValidator = (password: string) => {
+  if (password.length < 5) {
+    return {
+      success: false,
+      error: ["Password must be at least 5 characters"],
+    };
+  }
+
   if (!password.match(/[A-Z]/)) {
     return {
       success: false,

@@ -24,4 +24,12 @@ describe("password validator", () => {
       error: ["Password must contain at least one digit"],
     });
   });
+
+  it("should return an error if the password has less than 5 characters such as 1Abc", () => {
+    const result = passwordValidator("1Abc");
+    expect(result).toEqual({
+      success: false,
+      error: ["Password must be at least 5 characters"],
+    });
+  });
 });
