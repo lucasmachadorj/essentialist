@@ -5,7 +5,7 @@ describe("password validator", () => {
     const result = passwordValidator("Password1");
     expect(result).toEqual({
       success: true,
-      error: [],
+      errors: [],
     });
   });
 
@@ -13,7 +13,7 @@ describe("password validator", () => {
     const result = passwordValidator("password1");
     expect(result).toEqual({
       success: false,
-      error: ["Password must contain at least one uppercase letter"],
+      errors: ["Password must contain at least one uppercase letter"],
     });
   });
 
@@ -21,7 +21,7 @@ describe("password validator", () => {
     const result = passwordValidator("Password");
     expect(result).toEqual({
       success: false,
-      error: ["Password must contain at least one digit"],
+      errors: ["Password must contain at least one digit"],
     });
   });
 
@@ -29,7 +29,7 @@ describe("password validator", () => {
     const result = passwordValidator("1Abc");
     expect(result).toEqual({
       success: false,
-      error: ["Password must be at least 5 characters"],
+      errors: ["Password must be at least 5 characters"],
     });
   });
 
@@ -37,7 +37,7 @@ describe("password validator", () => {
     const result = passwordValidator("1Abcdefghijklmno");
     expect(result).toEqual({
       success: false,
-      error: ["Password must be at most 15 characters"],
+      errors: ["Password must be at most 15 characters"],
     });
   });
 });
