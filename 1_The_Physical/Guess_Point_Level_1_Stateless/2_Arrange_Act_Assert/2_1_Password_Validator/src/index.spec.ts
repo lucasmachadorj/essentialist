@@ -8,4 +8,12 @@ describe("password validator", () => {
       error: [],
     });
   });
+
+  it("should return an object with faile result and error for invalid password missing uppercase for an input such as password1", () => {
+    const result = passwordValidator("password1");
+    expect(result).toEqual({
+      success: false,
+      error: ["Password must contain at least one uppercase letter"],
+    });
+  });
 });
