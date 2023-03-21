@@ -138,4 +138,16 @@ describe("boolean calculator", () => {
     expect(booleanCalculator("NOT (FALSE OR TRUE) AND FALSE")).toBe(false);
     expect(booleanCalculator("NOT (FALSE OR FALSE) AND TRUE")).toBe(true);
   });
+
+  it("should evaluate parenthesis inside parenthesis correctly", () => {
+    expect(booleanCalculator("(NOT (TRUE OR TRUE)) AND TRUE")).toBe(false);
+    expect(booleanCalculator("(NOT (TRUE OR FALSE)) AND FALSE")).toBe(false);
+    expect(booleanCalculator("(NOT (FALSE OR TRUE)) AND FALSE")).toBe(false);
+    expect(booleanCalculator("(NOT (FALSE OR FALSE)) AND TRUE")).toBe(true);
+    expect(
+      booleanCalculator(
+        "(NOT (TRUE OR TRUE)) AND (TRUE OR (NOT FALSE AND (NOT TRUE)))"
+      )
+    ).toBe(false);
+  });
 });

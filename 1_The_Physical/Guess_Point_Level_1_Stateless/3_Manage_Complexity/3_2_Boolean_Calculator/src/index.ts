@@ -2,15 +2,22 @@ const boolToString = (bool: boolean): string => (bool ? "TRUE" : "FALSE");
 
 export const booleanCalculator = (expression: string): boolean => {
   if (expression.includes("(")) {
-    const firstOpenIndex = expression.indexOf("(");
-    const firstCloseIndex = expression.indexOf(")");
+    let innerOpenIndex = expression.indexOf("(");
+    const innerCloseIndex = expression.indexOf(")");
+    let newInnerOpenIndex = expression.indexOf("(", innerOpenIndex + 1);
+    while (newInnerOpenIndex < innerCloseIndex) {
+      if (newInnerOpenIndex === -1) break;
+      innerOpenIndex = newInnerOpenIndex;
+      newInnerOpenIndex = expression.indexOf("(", newInnerOpenIndex + 1);
+    }
+
     const [left, right] = [
-      expression.substring(0, firstOpenIndex),
-      expression.substring(firstCloseIndex + 1),
+      expression.substring(0, innerOpenIndex),
+      expression.substring(innerCloseIndex + 1),
     ];
     const innerExpression = expression.substring(
-      firstOpenIndex + 1,
-      firstCloseIndex
+      innerOpenIndex + 1,
+      innerCloseIndex
     );
     return booleanCalculator(
       left + boolToString(booleanCalculator(innerExpression)) + right
