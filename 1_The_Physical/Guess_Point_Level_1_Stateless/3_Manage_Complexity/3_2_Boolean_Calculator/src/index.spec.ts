@@ -11,5 +11,9 @@ describe("boolean calculator", () => {
   it("should return invert logical value when given NOT in front of expression", () => {
     expect(booleanCalculator("NOT FALSE")).toBe(true);
     expect(booleanCalculator("NOT TRUE")).toBe(false);
+    expect(booleanCalculator("NOT NOT TRUE")).toBe(true);
+    expect(booleanCalculator("NOT NOT FALSE")).toBe(false);
+    expect(booleanCalculator("NOT NOT NOT TRUE")).toBe(false);
+    expect(booleanCalculator("NOT NOT NOT FALSE")).toBe(true);
   });
 });
