@@ -16,4 +16,8 @@ describe("boolean calculator", () => {
     expect(booleanCalculator("NOT NOT NOT TRUE")).toBe(false);
     expect(booleanCalculator("NOT NOT NOT FALSE")).toBe(true);
   });
+
+  it("should returm true when given TRUE AND TRUE", () => {
+    expect(booleanCalculator("TRUE AND TRUE")).toBe(true);
+  });
 });
