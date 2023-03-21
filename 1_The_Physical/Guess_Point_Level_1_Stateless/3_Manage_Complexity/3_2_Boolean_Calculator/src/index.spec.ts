@@ -41,4 +41,22 @@ describe("boolean calculator", () => {
     expect(booleanCalculator("NOT FALSE AND NOT TRUE")).toBe(false);
     expect(booleanCalculator("NOT FALSE AND NOT FALSE")).toBe(true);
   });
+
+  it("should evaluate AND expressions with NOT and AND correctly", () => {
+    expect(booleanCalculator("NOT TRUE AND TRUE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT TRUE AND TRUE AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND TRUE AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND FALSE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND FALSE AND FALSE")).toBe(false);
+    expect(booleanCalculator("FALSE AND NOT FALSE AND TRUE")).toBe(false);
+    expect(booleanCalculator("TRUE AND NOT FALSE AND TRUE")).toBe(true);
+    expect(booleanCalculator("TRUE AND NOT TRUE AND TRUE")).toBe(false);
+    expect(booleanCalculator("FALSE AND NOT TRUE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND NOT FALSE AND NOT FALSE")).toBe(
+      true
+    );
+    expect(booleanCalculator("NOT TRUE AND NOT FALSE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND NOT TRUE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE AND NOT FALSE AND TRUE")).toBe(true);
+  });
 });

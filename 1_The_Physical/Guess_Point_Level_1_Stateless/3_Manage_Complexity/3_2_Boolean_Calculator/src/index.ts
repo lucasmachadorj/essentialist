@@ -1,6 +1,10 @@
 export const booleanCalculator = (expression: string): boolean => {
   if (expression.includes("AND")) {
-    const [left, right] = expression.split(" AND ");
+    const firstAndIndex = expression.indexOf(" AND ");
+    const [left, right] = [
+      expression.substring(0, firstAndIndex),
+      expression.substring(firstAndIndex + 5),
+    ];
     return booleanCalculator(left) && booleanCalculator(right);
   }
   if (expression.startsWith("NOT")) {
