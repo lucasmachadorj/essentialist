@@ -38,4 +38,8 @@ describe("military time validator", () => {
     expect(isMilitaryTime("01:60 - 16:00")).toBe(false);
     expect(isMilitaryTime("01:00 - 16:61")).toBe(false);
   });
+
+  it("should know that '13:00:00 - 16:00' is not a valid time", () => {
+    expect(isMilitaryTime("13:00:00 - 16:00")).toBe(false);
+  });
 });

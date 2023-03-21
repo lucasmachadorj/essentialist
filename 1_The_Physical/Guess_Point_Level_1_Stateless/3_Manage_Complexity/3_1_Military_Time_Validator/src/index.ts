@@ -1,6 +1,7 @@
 const leftTime = (time: string): string => time.split(" - ")[0];
 const rightTime = (time: string): string => time.split(" - ")[1];
-const isNotValidTimeFormat = (time: string): boolean => time.indexOf(":") < 0;
+const isNotValidTimeFormat = (time: string): boolean =>
+  time.split(":").length !== 2;
 const getHour = (time: string): number => parseInt(time.split(":")[0]);
 const invalidHour = (hour: number): boolean => hour < 0 || hour > 23;
 const getMinute = (time: string): number => parseInt(time.split(":")[1]);
