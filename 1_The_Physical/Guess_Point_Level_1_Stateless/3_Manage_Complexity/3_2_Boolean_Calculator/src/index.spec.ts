@@ -131,4 +131,11 @@ describe("boolean calculator", () => {
       false
     );
   });
+
+  it("should evaluate expressions with parenthesis expressions in the middle correctly", () => {
+    expect(booleanCalculator("NOT (TRUE OR TRUE) AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT (TRUE OR FALSE) AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT (FALSE OR TRUE) AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT (FALSE OR FALSE) AND TRUE")).toBe(true);
+  });
 });
