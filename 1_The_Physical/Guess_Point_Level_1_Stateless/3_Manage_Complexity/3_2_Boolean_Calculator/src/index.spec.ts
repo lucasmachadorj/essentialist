@@ -66,4 +66,53 @@ describe("boolean calculator", () => {
     expect(booleanCalculator("FALSE OR TRUE")).toBe(true);
     expect(booleanCalculator("FALSE OR FALSE")).toBe(false);
   });
+
+  it("should evaluate OR expressions with NOT correctly", () => {
+    expect(booleanCalculator("NOT TRUE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT TRUE OR FALSE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR FALSE")).toBe(true);
+    expect(booleanCalculator("FALSE OR NOT FALSE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT FALSE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT TRUE")).toBe(true);
+    expect(booleanCalculator("FALSE OR NOT TRUE")).toBe(false);
+    expect(booleanCalculator("NOT TRUE OR NOT TRUE")).toBe(false);
+    expect(booleanCalculator("NOT TRUE OR NOT FALSE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT FALSE")).toBe(true);
+  });
+
+  it("should evaluate expressions with NOT and OR correctly", () => {
+    expect(booleanCalculator("NOT TRUE OR TRUE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT TRUE OR TRUE OR FALSE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR TRUE OR FALSE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR FALSE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR FALSE OR FALSE")).toBe(true);
+    expect(booleanCalculator("FALSE OR NOT FALSE OR TRUE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT FALSE OR TRUE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT TRUE OR TRUE")).toBe(true);
+    expect(booleanCalculator("FALSE OR NOT TRUE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT FALSE OR NOT FALSE")).toBe(true);
+    expect(booleanCalculator("FALSE OR FALSE OR NOT TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE OR NOT TRUE OR TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT FALSE OR TRUE")).toBe(true);
+  });
+
+  it("should evaluate expressions with NOT, AND and OR correctly", () => {
+    expect(booleanCalculator("NOT TRUE OR TRUE AND TRUE")).toBe(true);
+    expect(booleanCalculator("NOT TRUE OR TRUE AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE OR TRUE AND FALSE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE OR FALSE AND TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR FALSE AND FALSE")).toBe(false);
+    expect(booleanCalculator("FALSE OR NOT FALSE AND TRUE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT FALSE AND TRUE")).toBe(true);
+    expect(booleanCalculator("TRUE OR NOT TRUE AND TRUE")).toBe(true);
+    expect(booleanCalculator("FALSE OR NOT TRUE AND TRUE")).toBe(false);
+    expect(booleanCalculator("NOT FALSE OR NOT FALSE AND NOT FALSE")).toBe(
+      true
+    );
+    expect(booleanCalculator("NOT TRUE OR NOT FALSE AND TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT TRUE AND TRUE")).toBe(true);
+    expect(booleanCalculator("NOT FALSE OR NOT FALSE AND TRUE")).toBe(true);
+  });
 });
