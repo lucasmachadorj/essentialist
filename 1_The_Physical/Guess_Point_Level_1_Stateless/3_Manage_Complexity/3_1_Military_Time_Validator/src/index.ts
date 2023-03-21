@@ -1,5 +1,3 @@
-const leftTime = (time: string): string => time.split(" - ")[0];
-const rightTime = (time: string): string => time.split(" - ")[1];
 const isNotValidTimeFormat = (time: string): boolean =>
   time.split(":").length !== 2;
 const invalidHour = (time: string): boolean =>
@@ -9,17 +7,12 @@ const invalidMinute = (time: string): boolean =>
 
 export const isMilitaryTime = (time: string): boolean => {
   if (time === "") return false;
+  let [start = "", end = ""] = time.split(" - ");
+
   if (time.split(" - ").length != 2) return false;
-  if (
-    isNotValidTimeFormat(leftTime(time)) ||
-    isNotValidTimeFormat(rightTime(time))
-  )
-    return false;
-
-  if (invalidHour(leftTime(time)) || invalidHour(rightTime(time))) return false;
-
-  if (invalidMinute(leftTime(time)) || invalidMinute(rightTime(time)))
-    return false;
+  if (isNotValidTimeFormat(start) || isNotValidTimeFormat(end)) return false;
+  if (invalidHour(start) || invalidHour(end)) return false;
+  if (invalidMinute(start) || invalidMinute(end)) return false;
 
   return true;
 };
