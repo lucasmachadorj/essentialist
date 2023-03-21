@@ -7,6 +7,16 @@ export const booleanCalculator = (expression: string): boolean => {
     ];
     return booleanCalculator(left) && booleanCalculator(right);
   }
+
+  if (expression.includes("OR")) {
+    const firstOrIndex = expression.indexOf(" OR ");
+    const [left, right] = [
+      expression.substring(0, firstOrIndex),
+      expression.substring(firstOrIndex + 4),
+    ];
+    return booleanCalculator(left) || booleanCalculator(right);
+  }
+
   if (expression.startsWith("NOT")) {
     return !booleanCalculator(expression.substring(4));
   }
