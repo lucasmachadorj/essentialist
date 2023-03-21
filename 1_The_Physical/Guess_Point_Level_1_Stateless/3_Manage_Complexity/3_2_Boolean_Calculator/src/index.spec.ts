@@ -115,4 +115,8 @@ describe("boolean calculator", () => {
     expect(booleanCalculator("NOT FALSE OR NOT TRUE AND TRUE")).toBe(true);
     expect(booleanCalculator("NOT FALSE OR NOT FALSE AND TRUE")).toBe(true);
   });
+
+  it("should evaluate expressions with NOT, AND, OR and parenthesis correctly", () => {
+    expect(booleanCalculator("(NOT TRUE OR TRUE) AND TRUE")).toBe(true);
+  });
 });

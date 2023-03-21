@@ -1,4 +1,22 @@
+const boolToString = (bool: boolean): string => (bool ? "TRUE" : "FALSE");
+
 export const booleanCalculator = (expression: string): boolean => {
+  if (expression.includes("(")) {
+    const firstOpenIndex = expression.indexOf("(");
+    const firstCloseIndex = expression.indexOf(")");
+    const [left, right] = [
+      expression.substring(0, firstOpenIndex),
+      expression.substring(firstCloseIndex + 1),
+    ];
+    const innerExpression = expression.substring(
+      firstOpenIndex + 1,
+      firstCloseIndex
+    );
+    return booleanCalculator(
+      left + boolToString(booleanCalculator(innerExpression)) + right
+    );
+  }
+
   if (expression.includes("AND")) {
     const firstAndIndex = expression.indexOf(" AND ");
     const [left, right] = [
