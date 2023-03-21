@@ -28,4 +28,9 @@ describe("military time validator", () => {
   it("should know that '13:00 - 16:00 - 17:00' is not a valid time", () => {
     expect(isMilitaryTime("13:00 - 16:00 - 17:00")).toBe(false);
   });
+
+  it("should know that hour value out of range [00, 23] is not valid", () => {
+    expect(isMilitaryTime("25:00 - 16:00")).toBe(false);
+    expect(isMilitaryTime("01:00 - 26:00")).toBe(false);
+  });
 });
