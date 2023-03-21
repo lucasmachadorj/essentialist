@@ -8,4 +8,8 @@ describe("military time validator", () => {
   it("should know an empty string is not a valid time", () => {
     expect(isMilitaryTime("")).toBe(false);
   });
+
+  it("should know that '000012:00' is not a valid time", () => {
+    expect(isMilitaryTime("000012:00")).toBe(false);
+  });
 });
