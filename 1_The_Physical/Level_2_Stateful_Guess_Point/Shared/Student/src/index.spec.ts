@@ -1,5 +1,11 @@
 import { Student } from ".";
 
+const buildEmail = (firstName: string, lastName: string): string => {
+  return `${lastName.toLowerCase().substring(0, 5)}${firstName
+    .toLowerCase()
+    .substring(0, 2)}@essentialist.dev`;
+};
+
 describe("student object", () => {
   it.each([
     ["Lucas", "Machado"],
@@ -119,48 +125,21 @@ describe("student object", () => {
     }
   );
 
-  it("should have as email stemmjo@essentialist.dev when firstName is 'Jo' and lastName is 'Stemm'", () => {
-    const props = {
-      firstName: "Jo",
-      lastName: "Stemm",
-    };
-    const student = Student.create(props);
-    expect(student.email).toEqual("stemmjo@essentialist.dev");
-  });
-
-  it("should have as email stimmlo@essentialist.dev when firstName is 'Lo' and lastName is 'Stimm'", () => {
-    const props = {
-      firstName: "Lo",
-      lastName: "Stimm",
-    };
-    const student = Student.create(props);
-    expect(student.email).toEqual("stimmlo@essentialist.dev");
-  });
-
-  it("should have as email smithjo@essentialist.dev when firstName is 'Jo' and lastName is 'Smith'", () => {
-    const props = {
-      firstName: "Jo",
-      lastName: "Smith",
-    };
-    const student = Student.create(props);
-    expect(student.email).toEqual("smithjo@essentialist.dev");
-  });
-
-  it("should have as email stemmkh@essentialist.dev when firstName is 'Khalil' and lastName is 'Stemmler'", () => {
-    const props = {
-      firstName: "Khalil",
-      lastName: "Stemmler",
-    };
-    const student = Student.create(props);
-    expect(student.email).toEqual("stemmkh@essentialist.dev");
-  });
-
-  it("should have as email machalu@essencislist.dev when firstName is 'Lucas' and lastName is 'Machado'", () => {
-    const props = {
-      firstName: "Lucas",
-      lastName: "Machado",
-    };
-    const student = Student.create(props);
-    expect(student.email).toEqual("machalu@essentialist.dev");
-  });
+  it.each([
+    ["Jo", "Stemm"],
+    ["Lo", "Stimm"],
+    ["Jo", "Smith"],
+    ["Khalil", "Stemmler"],
+    ["Lucas", "Machado"],
+  ])(
+    "should have as email '%s' when firstName is '%s' and lastName is '%s'",
+    (firstName, lastName) => {
+      const props = {
+        firstName,
+        lastName,
+      };
+      const student = Student.create(props);
+      expect(student.email).toEqual(buildEmail(firstName, lastName));
+    }
+  );
 });
