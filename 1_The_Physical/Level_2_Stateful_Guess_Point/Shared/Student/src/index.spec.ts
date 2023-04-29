@@ -21,7 +21,7 @@ describe("student object", () => {
     expect(student.getName()).toEqual("Another Person");
   });
 
-  it("throws an error and firstName is less than 2 characters such as L", () => {
+  it("throws an error if firstName is less than 2 characters such as L", () => {
     const props = {
       firstName: "L",
       lastName: "Machado",
@@ -31,7 +31,7 @@ describe("student object", () => {
     );
   });
 
-  it("throws an error and firstName is less than 2 characters such as M", () => {
+  it("throws an error if firstName is less than 2 characters such as M", () => {
     const props = {
       firstName: "M",
       lastName: "Machado",
@@ -41,7 +41,7 @@ describe("student object", () => {
     );
   });
 
-  it("throws an error and firstName is less than 2 characters such as N", () => {
+  it("throws an error if firstName is less than 2 characters such as N", () => {
     const props = {
       firstName: "N",
       lastName: "Machado",
