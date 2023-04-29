@@ -1,4 +1,9 @@
-import { Student } from ".";
+import {
+  InvalidFirstName,
+  InvalidLastName,
+  InvalidStudentProps,
+  Student,
+} from ".";
 
 const buildEmail = (firstName: string, lastName: string): string => {
   return `${lastName.toLowerCase().substring(0, 5)}${firstName
@@ -17,7 +22,7 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const student = Student.create(props);
+      const student = Student.create(props) as Student;
       expect(student).toBeDefined();
       expect(student.name).toEqual(`${firstName} ${lastName}`);
     }
@@ -28,13 +33,18 @@ describe("student object", () => {
     ["M", "Machado"],
     ["N", "Machado"],
   ])(
-    "throws an error if firstName is less than 2 characters such as '%s'",
+    "returns an error with type InvalidFirstName and message 'firstName must be at least 2 characters",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidFirstName");
+      expect(userOrError.message).toEqual(
         "firstName must be at least 2 characters"
       );
     }
@@ -45,13 +55,17 @@ describe("student object", () => {
     ["thisisanotherlongname", "Machado"],
     ["onemorelongname", "Machado"],
   ])(
-    "throws an error if firstName is longer than 10 characters such as '%s'",
+    "returns an error with type InvalidFirstName and message 'firstName must be at most 10 characters'",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidFirstName");
+      expect(userOrError.message).toEqual(
         "firstName must be at most 10 characters"
       );
     }
@@ -62,13 +76,17 @@ describe("student object", () => {
     ["Lucas", "N"],
     ["Lucas", "O"],
   ])(
-    "throws an error if lastName is less than 2 characters such as '%s'",
+    "returns an error of type InvalidLastName and message 'lastName must be at least 2 characters'",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidLastName");
+      expect(userOrError.message).toEqual(
         "lastName must be at least 2 characters"
       );
     }
@@ -79,13 +97,17 @@ describe("student object", () => {
     ["Lucas", "thisisanotherlonglastname"],
     ["Lucas", "onemorelonglastname"],
   ])(
-    "throws an error if lastName is longer than 15 characters such as '%s'",
+    "returns an error of type InvalidLastName and message 'lastName must be at most 15 characters'",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidLastName");
+      expect(userOrError.message).toEqual(
         "lastName must be at most 15 characters"
       );
     }
@@ -96,13 +118,17 @@ describe("student object", () => {
     ["2lucas", "Machado"],
     ["Lu!cas", "Machado"],
   ])(
-    "throws an error is firstName has a non-alphabetic character such as '%s'",
+    "returns an error with type InvalidFirstName and message 'firstName must contain only alphabetic characters'",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidFirstName");
+      expect(userOrError.message).toEqual(
         "firstName must contain only alphabetic characters"
       );
     }
@@ -113,13 +139,17 @@ describe("student object", () => {
     ["Lucas", "Machado!"],
     ["Lucas", "Macha@do!"],
   ])(
-    "throws an error is lastName has a non-alphabetic character such as '%s'",
+    "returns an error with type InvalidLastName and message 'lastName must contain only alphabetic characters'",
     (firstName, lastName) => {
       const props = {
         firstName,
         lastName,
       };
-      expect(() => Student.create(props)).toThrowError(
+      const userOrError = Student.create(props) as InvalidStudentProps<
+        InvalidFirstName | InvalidLastName
+      >;
+      expect(userOrError.type).toEqual("InvalidLastName");
+      expect(userOrError.message).toEqual(
         "lastName must contain only alphabetic characters"
       );
     }
@@ -138,7 +168,7 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const student = Student.create(props);
+      const student = Student.create(props) as Student;
       expect(student.email).toEqual(buildEmail(firstName, lastName));
     }
   );
