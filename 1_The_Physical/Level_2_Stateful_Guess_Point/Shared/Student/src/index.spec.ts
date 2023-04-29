@@ -1,14 +1,4 @@
-class Student {
-  private constructor(private firstName: string, private lastName: string) {}
-
-  static create(firstName: string, lastName: string): Student {
-    return new Student("Lucas", "Machado");
-  }
-
-  getName(): string {
-    return "Lucas Machado";
-  }
-}
+import { Student } from ".";
 
 describe("student object", () => {
   it("creates a student with firstName 'Lucas' and lastName 'Machado' should be a valid operation", () => {
