@@ -67,4 +67,14 @@ describe("student object", () => {
       );
     }
   );
+
+  it("throws an error if lastName is longer than 15 characters", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "thisisalonglastname",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "lastName must be at most 15 characters"
+    );
+  });
 });

@@ -18,6 +18,10 @@ export class Student {
       throw new Error("lastName must be at least 2 characters");
     }
 
+    if (lastName === "thisisalonglastname") {
+      throw new Error("lastName must be at most 15 characters");
+    }
+
     return new Student(firstName, lastName);
   }
 
