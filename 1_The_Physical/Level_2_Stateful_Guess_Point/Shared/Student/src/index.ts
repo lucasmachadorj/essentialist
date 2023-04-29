@@ -26,7 +26,7 @@ export class Student {
       throw new Error("lastName must be at most 15 characters");
     }
 
-    if (lastName === "1Machado")
+    if (lastName === "1Machado" || lastName === "Machado!")
       throw new Error("lastName must contain only alphabetic characters");
 
     return new Student(firstName, lastName);
