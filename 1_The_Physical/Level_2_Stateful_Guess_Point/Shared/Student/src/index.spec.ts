@@ -13,7 +13,7 @@ describe("student object", () => {
       };
       const student = Student.create(props);
       expect(student).toBeDefined();
-      expect(student.getName()).toEqual(`${firstName} ${lastName}`);
+      expect(student.name).toEqual(`${firstName} ${lastName}`);
     }
   );
 

@@ -33,7 +33,7 @@ export class Student {
     return new Student(firstName, lastName);
   }
 
-  getName(): string {
+  get name(): string {
     return `${this.firstName} ${this.lastName}`;
   }
 }
