@@ -22,7 +22,7 @@ const validateLastName = (lastName: string): void => {
 };
 
 export class Student {
-  private constructor(private firstName: string, private lastName: string) {}
+  private constructor(private _firstName: string, private _lastName: string) {}
 
   static create(props: StudentProps): Student {
     const { firstName, lastName } = props;
@@ -34,6 +34,6 @@ export class Student {
   }
 
   get name(): string {
-    return `${this.firstName} ${this.lastName}`;
+    return `${this._firstName} ${this._lastName}`;
   }
 }
