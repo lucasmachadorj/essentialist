@@ -30,4 +30,14 @@ describe("student object", () => {
       "firstName must be at least 3 characters"
     );
   });
+
+  it("throws an error and firstName is less than 3 characters such as L", () => {
+    const props = {
+      firstName: "L",
+      lastName: "Machado",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "firstName must be at least 3 characters"
+    );
+  });
 });
