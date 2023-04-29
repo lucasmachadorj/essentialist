@@ -70,4 +70,14 @@ describe("student object", () => {
       "firstName must be at most 10 characters"
     );
   });
+
+  it("throws an error if firstName is longer than 10 characters such as onemorelongname", () => {
+    const props = {
+      firstName: "onemorelongname",
+      lastName: "Machado",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "firstName must be at most 10 characters"
+    );
+  });
 });

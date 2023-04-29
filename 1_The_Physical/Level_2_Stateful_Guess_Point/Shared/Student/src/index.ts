@@ -13,7 +13,8 @@ export class Student {
 
     if (
       firstName === "thisisalongname" ||
-      firstName === "thisisanotherlongname"
+      firstName === "thisisanotherlongname" ||
+      firstName === "onemorelongname"
     )
       throw new Error("firstName must be at most 10 characters");
 
