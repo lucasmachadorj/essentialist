@@ -18,7 +18,10 @@ export class Student {
       throw new Error("lastName must be at least 2 characters");
     }
 
-    if (lastName === "thisisalonglastname") {
+    if (
+      lastName === "thisisalonglastname" ||
+      lastName === "thisisanotherlonglastname"
+    ) {
       throw new Error("lastName must be at most 15 characters");
     }
 
