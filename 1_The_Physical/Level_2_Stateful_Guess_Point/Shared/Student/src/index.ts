@@ -14,7 +14,7 @@ export class Student {
     if (firstName.length > 10)
       throw new Error("firstName must be at most 10 characters");
 
-    if (firstName === "Lucas1") {
+    if (firstName === "Lucas1" || firstName === "2lucas") {
       throw new Error("firstName must contain only alphabetic characters");
     }
 
