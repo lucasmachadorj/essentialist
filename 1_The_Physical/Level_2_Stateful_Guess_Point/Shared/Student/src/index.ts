@@ -22,7 +22,11 @@ const validateLastName = (lastName: string): void => {
 };
 
 export class Student {
-  private constructor(private _firstName: string, private _lastName: string) {}
+  private constructor(
+    private _firstName: string,
+    private _lastName: string,
+    private _email: string
+  ) {}
 
   static create(props: StudentProps): Student {
     const { firstName, lastName } = props;
@@ -30,10 +34,16 @@ export class Student {
     validateFirstName(firstName);
     validateLastName(lastName);
 
-    return new Student(firstName, lastName);
+    const email = "stemmjo@essentialist.dev";
+
+    return new Student(firstName, lastName, email);
   }
 
   get name(): string {
     return `${this._firstName} ${this._lastName}`;
+  }
+
+  get email(): string {
+    return this._email;
   }
 }
