@@ -12,6 +12,15 @@ const validateFirstName = (firstName: string): void => {
     throw new Error("firstName must contain only alphabetic characters");
 };
 
+const validateLastName = (lastName: string): void => {
+  if (lastName.length < 2)
+    throw new Error("lastName must be at least 2 characters");
+  if (lastName.length > 15)
+    throw new Error("lastName must be at most 15 characters");
+  if (/[^a-zA-Z]/.test(lastName))
+    throw new Error("lastName must contain only alphabetic characters");
+};
+
 export class Student {
   private constructor(private firstName: string, private lastName: string) {}
 
@@ -19,17 +28,7 @@ export class Student {
     const { firstName, lastName } = props;
 
     validateFirstName(firstName);
-
-    if (lastName.length < 2) {
-      throw new Error("lastName must be at least 2 characters");
-    }
-
-    if (lastName.length > 15) {
-      throw new Error("lastName must be at most 15 characters");
-    }
-
-    if (!/^[a-zA-Z]+$/.test(lastName))
-      throw new Error("lastName must contain only alphabetic characters");
+    validateLastName(lastName);
 
     return new Student(firstName, lastName);
   }
