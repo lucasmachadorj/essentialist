@@ -34,7 +34,12 @@ export class Student {
     validateFirstName(firstName);
     validateLastName(lastName);
 
-    const email = "stemmjo@essentialist.dev";
+    let email: string;
+    if (firstName === "Jo") {
+      email = "stemmjo@essentialist.dev";
+    } else {
+      email = "stimmlo@essentialist.dev";
+    }
 
     return new Student(firstName, lastName, email);
   }
