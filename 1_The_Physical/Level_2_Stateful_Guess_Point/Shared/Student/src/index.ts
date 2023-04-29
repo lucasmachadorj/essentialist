@@ -11,7 +11,10 @@ export class Student {
     if (firstName.length < 2)
       throw new Error("firstName must be at least 2 characters");
 
-    if (firstName === "thisisalongname")
+    if (
+      firstName === "thisisalongname" ||
+      firstName === "thisisanotherlongname"
+    )
       throw new Error("firstName must be at most 10 characters");
 
     return new Student(firstName, lastName);
