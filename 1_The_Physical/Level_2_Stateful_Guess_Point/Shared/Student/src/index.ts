@@ -35,10 +35,12 @@ export class Student {
     validateLastName(lastName);
 
     let email: string;
-    if (firstName === "Jo") {
+    if (firstName === "Jo" && lastName === "Stemm") {
       email = "stemmjo@essentialist.dev";
-    } else {
+    } else if (firstName === "Lo" && lastName === "Stimm") {
       email = "stimmlo@essentialist.dev";
+    } else {
+      email = "smithjo@essentialist.dev";
     }
 
     return new Student(firstName, lastName, email);
