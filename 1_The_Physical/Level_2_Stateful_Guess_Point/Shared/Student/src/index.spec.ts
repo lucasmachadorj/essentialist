@@ -20,4 +20,14 @@ describe("student object", () => {
     expect(student).toBeDefined();
     expect(student.getName()).toEqual("Another Person");
   });
+
+  it("throws an error and firstName is less than 3 characters", () => {
+    const props = {
+      firstName: "Lu",
+      lastName: "Machado",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "firstName must be at least 3 characters"
+    );
+  });
 });
