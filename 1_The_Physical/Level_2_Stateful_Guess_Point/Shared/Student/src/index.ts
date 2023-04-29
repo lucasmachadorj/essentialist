@@ -34,7 +34,9 @@ export class Student {
     validateFirstName(firstName);
     validateLastName(lastName);
 
-    let email = `${lastName.toLowerCase()}${firstName.toLowerCase()}@essentialist.dev`;
+    let email = `${lastName.toLowerCase().substring(0, 5)}${firstName
+      .toLowerCase()
+      .substring(0, 2)}@essentialist.dev`;
 
     return new Student(firstName, lastName, email);
   }

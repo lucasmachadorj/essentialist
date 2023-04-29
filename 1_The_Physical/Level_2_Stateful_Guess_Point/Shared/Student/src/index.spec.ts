@@ -145,4 +145,13 @@ describe("student object", () => {
     const student = Student.create(props);
     expect(student.email).toEqual("smithjo@essentialist.dev");
   });
+
+  it("should have as email stemmkh@essentialist.dev when firstName is 'Khalil' and lastName is 'Stemmler'", () => {
+    const props = {
+      firstName: "Khalil",
+      lastName: "Stemmler",
+    };
+    const student = Student.create(props);
+    expect(student.email).toEqual("stemmkh@essentialist.dev");
+  });
 });
