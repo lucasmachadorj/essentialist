@@ -8,8 +8,8 @@ export class Student {
 
   static create(props: StudentProps): Student {
     const { firstName, lastName } = props;
-    if (firstName === "Lu" || firstName === "L")
-      throw new Error("firstName must be at least 3 characters");
+    if (firstName === "L" || firstName === "M")
+      throw new Error("firstName must be at least 2 characters");
     return new Student(firstName, lastName);
   }
 
