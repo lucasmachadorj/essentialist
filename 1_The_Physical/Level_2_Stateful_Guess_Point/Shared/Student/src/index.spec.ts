@@ -84,4 +84,14 @@ describe("student object", () => {
       );
     }
   );
+
+  it("throws an error is firstName has a non-alphabetic character such as Lucas1", () => {
+    const props = {
+      firstName: "Lucas1",
+      lastName: "Machado",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "firstName must contain only alphabetic characters"
+    );
+  });
 });
