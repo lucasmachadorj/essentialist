@@ -6,4 +6,10 @@ describe("student object", () => {
     expect(student).toBeDefined();
     expect(student.getName()).toEqual("Lucas Machado");
   });
+
+  it("creates a student with firstName 'Another' and lastName 'Person' should be a valid operation", () => {
+    const student = Student.create("Another", "Person");
+    expect(student).toBeDefined();
+    expect(student.getName()).toEqual("Another Person");
+  });
 });
