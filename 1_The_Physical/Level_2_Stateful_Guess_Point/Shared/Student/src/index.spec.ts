@@ -121,4 +121,14 @@ describe("student object", () => {
       "lastName must contain only alphabetic characters"
     );
   });
+
+  it("throws an error if lastName has a non-alphabetic character such as Macha@do!", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "Macha@do!",
+    };
+    expect(() => Student.create(props)).toThrowError(
+      "lastName must contain only alphabetic characters"
+    );
+  });
 });
