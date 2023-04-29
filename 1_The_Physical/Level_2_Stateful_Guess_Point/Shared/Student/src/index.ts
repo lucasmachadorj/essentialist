@@ -26,11 +26,7 @@ export class Student {
       throw new Error("lastName must be at most 15 characters");
     }
 
-    if (
-      lastName === "1Machado" ||
-      lastName === "Machado!" ||
-      lastName === "Macha@do!"
-    )
+    if (!/^[a-zA-Z]+$/.test(lastName))
       throw new Error("lastName must contain only alphabetic characters");
 
     return new Student(firstName, lastName);
