@@ -84,8 +84,8 @@ export class Student {
   }
 
   get name(): string {
-    if (this._events.length > 0) {
-      const firstName = this._events[this._events.length - 1];
+    if (this._events.length) {
+      const firstName = this.lastEventOfType("UpdateFirstName");
       return `${firstName.payload} ${this._lastName}`;
     }
 
@@ -112,5 +112,10 @@ export class Student {
         date: new Date(),
       })
     );
+  }
+
+  private lastEventOfType(type: StudentEvent["type"]): StudentEvent {
+    const events = this._events.filter((event) => event.type === type);
+    return events.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
   }
 }

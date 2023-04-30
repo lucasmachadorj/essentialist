@@ -11,6 +11,8 @@ const buildEmail = (firstName: string, lastName: string): string => {
     .substring(0, 2)}@essentialist.dev`;
 };
 
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 describe("student object", () => {
   it.each([
     ["Lucas", "Machado"],
@@ -183,14 +185,16 @@ describe("student object", () => {
     expect(student.name).toEqual("John Machado");
   });
 
-  it("should update a student with firstName 'Lucas' and lastName 'Machado' twice to firstName 'John' and then firstName 'Lucas' again", () => {
+  it("should update a student with firstName 'Lucas' and lastName 'Machado' twice to firstName 'John' and then firstName 'Lucas' again", async () => {
     const props = {
       firstName: "Lucas",
       lastName: "Machado",
     };
     const student = Student.create(props) as Student;
     student.updateFirstName("John");
+    await delay(1); // wait 1ms
     student.updateFirstName("Lucas");
+
     expect(student.name).toEqual("Lucas Machado");
   });
 });
