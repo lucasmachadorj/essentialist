@@ -3,6 +3,23 @@ export interface StudentProps {
   lastName: string;
 }
 
+export type InvalidFirstName = string;
+export type InvalidLastName = string;
+
+export type InvalidStudentProps<T> = {
+  type: T;
+  message: string;
+};
+
+type UpdateFirstName = "UpdateFirstName";
+type UpdateLastName = "UpdateLastName";
+
+interface StudentEvent {
+  type: UpdateFirstName | UpdateLastName;
+  payload: string;
+  date: Date;
+}
+
 const validateFirstName = (
   firstName: string
 ): InvalidStudentProps<InvalidFirstName> | undefined => {
@@ -43,23 +60,6 @@ const validateLastName = (
     };
 };
 
-export type InvalidFirstName = string;
-export type InvalidLastName = string;
-
-export type InvalidStudentProps<T> = {
-  type: T;
-  message: string;
-};
-
-type UpdateFirstName = "UpdateFirstName";
-type UpdateLastName = "UpdateLastName";
-
-interface StudentEvent {
-  type: UpdateFirstName | UpdateLastName;
-  payload: string;
-  date: Date;
-}
-
 export class Student {
   private _events: StudentEvent[] = [];
 
@@ -83,6 +83,8 @@ export class Student {
 
     return new Student(firstName, lastName, email);
   }
+
+  // public API
 
   get name(): string {
     const firstName = this.lastEventOfType("UpdateFirstName")?.payload;
@@ -110,6 +112,8 @@ export class Student {
 
     this.addEvent("UpdateLastName", lastName);
   }
+
+  // private methods
 
   private addEvent(type: UpdateFirstName | UpdateLastName, payload: string) {
     this._events.push(
