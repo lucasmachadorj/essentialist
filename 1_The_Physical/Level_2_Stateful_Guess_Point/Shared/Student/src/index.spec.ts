@@ -156,14 +156,14 @@ describe("student object", () => {
   );
 
   it.each([
-    ["Jo", "Stemm"],
-    ["Lo", "Stimm"],
-    ["Jo", "Smith"],
-    ["Khalil", "Stemmler"],
-    ["Lucas", "Machado"],
+    ["stemmjo@essentialist.dev", "Jo", "Stemm"],
+    ["stimmlo@essentialist.dev", "Lo", "Stimm"],
+    ["smithjo@essentialist.dev", "Jo", "Smith"],
+    ["stemmkh@essentialist.dev", "Khalil", "Stemmler"],
+    ["machalu@essentialist.dev", "Lucas", "Machado"],
   ])(
     "should have as email '%s' when firstName is '%s' and lastName is '%s'",
-    (firstName, lastName) => {
+    (_, firstName, lastName) => {
       const props = {
         firstName,
         lastName,
