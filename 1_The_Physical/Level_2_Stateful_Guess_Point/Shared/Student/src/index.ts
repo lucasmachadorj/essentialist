@@ -85,7 +85,7 @@ export class Student {
 
   get name(): string {
     if (this._events.length > 0) {
-      const firstName = this._events[0];
+      const firstName = this._events[this._events.length - 1];
       return `${firstName.payload} ${this._lastName}`;
     }
 

@@ -182,4 +182,15 @@ describe("student object", () => {
     student.updateFirstName("John");
     expect(student.name).toEqual("John Machado");
   });
+
+  it("should update a student with firstName 'Lucas' and lastName 'Machado' twice to firstName 'John' and then firstName 'Lucas' again", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "Machado",
+    };
+    const student = Student.create(props) as Student;
+    student.updateFirstName("John");
+    student.updateFirstName("Lucas");
+    expect(student.name).toEqual("Lucas Machado");
+  });
 });
