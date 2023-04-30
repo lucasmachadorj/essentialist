@@ -208,4 +208,14 @@ describe("student object", () => {
       "firstName must be at least 2 characters"
     );
   });
+
+  it("should update a student with firstName 'Lucas' and lastName 'Machado' to lastName 'Smith'", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "Machado",
+    };
+    const student = Student.create(props) as Student;
+    student.updateLastName("Smith");
+    expect(student.name).toEqual("Lucas Smith");
+  });
 });

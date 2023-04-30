@@ -52,9 +52,10 @@ export type InvalidStudentProps<T> = {
 };
 
 type UpdateFirstName = "UpdateFirstName";
+type UpdateLastName = "UpdateLastName";
 
 interface StudentEvent {
-  type: UpdateFirstName;
+  type: UpdateFirstName | UpdateLastName;
   payload: string;
   date: Date;
 }
@@ -84,12 +85,10 @@ export class Student {
   }
 
   get name(): string {
-    if (this._events.length) {
-      const firstName = this.lastEventOfType("UpdateFirstName");
-      return `${firstName.payload} ${this._lastName}`;
-    }
+    const firstName = this.lastEventOfType("UpdateFirstName")?.payload;
+    const lastName = this.lastEventOfType("UpdateLastName")?.payload;
 
-    return `${this._firstName} ${this._lastName}`;
+    return `${firstName ?? this._firstName} ${lastName ?? this._lastName}`;
   }
 
   get email(): string {
@@ -104,7 +103,15 @@ export class Student {
     this.addEvent("UpdateFirstName", firstName);
   }
 
-  private addEvent(type: UpdateFirstName, payload: string) {
+  updateLastName(lastName: string) {
+    if (validateLastName(lastName)) {
+      throw new Error(validateLastName(lastName)!.message);
+    }
+
+    this.addEvent("UpdateLastName", lastName);
+  }
+
+  private addEvent(type: UpdateFirstName | UpdateLastName, payload: string) {
     this._events.push(
       Object.freeze({
         type,
@@ -114,8 +121,13 @@ export class Student {
     );
   }
 
-  private lastEventOfType(type: StudentEvent["type"]): StudentEvent {
+  private lastEventOfType(
+    type: StudentEvent["type"]
+  ): StudentEvent | undefined {
     const events = this._events.filter((event) => event.type === type);
-    return events.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+    if (events.length) {
+      return events.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+    }
+    return undefined;
   }
 }
