@@ -1,4 +1,5 @@
-import { FirstName, InvalidFirstName, InvalidStudentProps } from "./firstName";
+import { FirstName, InvalidFirstName } from "./firstName";
+import { InvalidStudentProps } from "./types";
 
 export interface StudentProps {
   firstName: string;

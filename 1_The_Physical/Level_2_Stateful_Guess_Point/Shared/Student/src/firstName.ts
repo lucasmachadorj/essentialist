@@ -1,9 +1,6 @@
-export type InvalidFirstName = string;
+import { InvalidStudentProps } from "./types";
 
-export type InvalidStudentProps<T> = {
-  type: T;
-  message: string;
-};
+export type InvalidFirstName = string;
 
 export class FirstName {
   private constructor(private readonly _value: string) {}
