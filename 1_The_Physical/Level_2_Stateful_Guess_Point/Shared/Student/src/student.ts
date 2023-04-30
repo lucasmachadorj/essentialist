@@ -1,15 +1,11 @@
+import { FirstName, InvalidFirstName, InvalidStudentProps } from "./firstName";
+
 export interface StudentProps {
   firstName: string;
   lastName: string;
 }
 
-export type InvalidFirstName = string;
 export type InvalidLastName = string;
-
-export type InvalidStudentProps<T> = {
-  type: T;
-  message: string;
-};
 
 type UpdateFirstName = "UpdateFirstName";
 type UpdateLastName = "UpdateLastName";
@@ -19,26 +15,6 @@ interface StudentEvent {
   payload: string;
   date: Date;
 }
-
-const validateFirstName = (
-  firstName: string
-): InvalidStudentProps<InvalidFirstName> | undefined => {
-  if (firstName.length < 2)
-    return {
-      type: "InvalidFirstName",
-      message: "firstName must be at least 2 characters",
-    };
-  if (firstName.length > 10)
-    return {
-      type: "InvalidFirstName",
-      message: "firstName must be at most 10 characters",
-    };
-  if (/[^a-zA-Z]/.test(firstName))
-    return {
-      type: "InvalidFirstName",
-      message: "firstName must contain only alphabetic characters",
-    };
-};
 
 const validateLastName = (
   lastName: string
@@ -64,7 +40,7 @@ export class Student {
   private _events: StudentEvent[] = [];
 
   private constructor(
-    private readonly _firstName: string,
+    private readonly _firstName: FirstName,
     private readonly _lastName: string,
     private readonly _email: string
   ) {}
@@ -74,14 +50,18 @@ export class Student {
   ): Student | InvalidStudentProps<InvalidFirstName | InvalidLastName> {
     const { firstName, lastName } = props;
 
-    if (validateFirstName(firstName)) return validateFirstName(firstName)!;
+    const firstNameOrError = FirstName.create(firstName);
+    if (!(firstNameOrError instanceof FirstName)) {
+      return firstNameOrError;
+    }
+
     if (validateLastName(lastName)) return validateLastName(lastName)!;
 
     let email = `${lastName.toLowerCase().substring(0, 5)}${firstName
       .toLowerCase()
       .substring(0, 2)}@essentialist.dev`;
 
-    return new Student(firstName, lastName, email);
+    return new Student(firstNameOrError, lastName, email);
   }
 
   // public API
@@ -90,7 +70,9 @@ export class Student {
     const firstName = this.lastEventOfType("UpdateFirstName")?.payload;
     const lastName = this.lastEventOfType("UpdateLastName")?.payload;
 
-    return `${firstName ?? this._firstName} ${lastName ?? this._lastName}`;
+    return `${firstName ?? this._firstName.value} ${
+      lastName ?? this._lastName
+    }`;
   }
 
   get email(): string {
@@ -98,11 +80,12 @@ export class Student {
   }
 
   updateFirstName(firstName: string) {
-    if (validateFirstName(firstName)) {
-      throw new Error(validateFirstName(firstName)!.message);
+    const firstNameOrError = FirstName.create(firstName);
+    if (!(firstNameOrError instanceof FirstName)) {
+      throw new Error(firstNameOrError.message);
     }
 
-    this.addEvent("UpdateFirstName", firstName);
+    this.addEvent("UpdateFirstName", firstNameOrError.value);
   }
 
   updateLastName(lastName: string) {

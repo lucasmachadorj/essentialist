@@ -1,9 +1,5 @@
-import {
-  InvalidFirstName,
-  InvalidLastName,
-  InvalidStudentProps,
-  Student,
-} from "./student";
+import { InvalidFirstName, InvalidStudentProps } from "./firstName";
+import { InvalidLastName, Student } from "./student";
 
 const buildEmail = (firstName: string, lastName: string): string => {
   return `${lastName.toLowerCase().substring(0, 5)}${firstName
