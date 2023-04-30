@@ -1,5 +1,6 @@
 import { InvalidFirstName } from "./firstName";
-import { InvalidLastName, Student } from "./student";
+import { InvalidLastName } from "./lastName";
+import { Student } from "./student";
 import { InvalidStudentProps } from "./types";
 
 const buildEmail = (firstName: string, lastName: string): string => {
