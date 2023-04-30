@@ -1,5 +1,6 @@
 import { FirstName, InvalidFirstName } from "./firstName";
 import { InvalidLastName, LastName } from "./lastName";
+import { StudentEmail } from "./studentEmail";
 import { InvalidStudentProps } from "./types";
 
 export interface StudentProps {
@@ -30,7 +31,7 @@ export class Student {
   private constructor(
     private readonly _firstName: FirstName,
     private readonly _lastName: LastName,
-    private readonly _email: string
+    private readonly _email: StudentEmail
   ) {}
 
   static create(
@@ -48,9 +49,7 @@ export class Student {
       return lastNameOrError;
     }
 
-    let email = `${lastName.toLowerCase().substring(0, 5)}${firstName
-      .toLowerCase()
-      .substring(0, 2)}@essentialist.dev`;
+    let email = StudentEmail.create(firstNameOrError, lastNameOrError);
 
     return new Student(firstNameOrError, lastNameOrError, email);
   }
@@ -67,7 +66,7 @@ export class Student {
   }
 
   get email(): string {
-    return this._email;
+    return this._email.value;
   }
 
   updateFirstName(firstName: string) {
