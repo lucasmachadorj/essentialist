@@ -3,7 +3,7 @@ import {
   InvalidLastName,
   InvalidStudentProps,
   Student,
-} from ".";
+} from "./student";
 
 const buildEmail = (firstName: string, lastName: string): string => {
   return `${lastName.toLowerCase().substring(0, 5)}${firstName
