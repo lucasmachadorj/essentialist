@@ -51,11 +51,21 @@ export type InvalidStudentProps<T> = {
   message: string;
 };
 
+type UpdateFirstName = "UpdateFirstName";
+
+interface StudentEvent {
+  type: UpdateFirstName;
+  payload: string;
+  date: Date;
+}
+
 export class Student {
+  private _events: StudentEvent[] = [];
+
   private constructor(
-    private _firstName: string,
-    private _lastName: string,
-    private _email: string
+    private readonly _firstName: string,
+    private readonly _lastName: string,
+    private readonly _email: string
   ) {}
 
   static create(
@@ -74,10 +84,33 @@ export class Student {
   }
 
   get name(): string {
+    if (this._events.length > 0) {
+      const firstName = this._events[0];
+      return `${firstName.payload} ${this._lastName}`;
+    }
+
     return `${this._firstName} ${this._lastName}`;
   }
 
   get email(): string {
     return this._email;
+  }
+
+  updateFirstName(firstName: string) {
+    if (validateFirstName(firstName)) {
+      throw new Error(validateFirstName(firstName)!.message);
+    }
+
+    this.addEvent("UpdateFirstName", firstName);
+  }
+
+  private addEvent(type: UpdateFirstName, payload: string) {
+    this._events.push(
+      Object.freeze({
+        type,
+        payload,
+        date: new Date(),
+      })
+    );
   }
 }

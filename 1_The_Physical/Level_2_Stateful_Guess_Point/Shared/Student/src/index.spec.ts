@@ -172,4 +172,14 @@ describe("student object", () => {
       expect(student.email).toEqual(buildEmail(firstName, lastName));
     }
   );
+
+  it("should update a student with firstName 'Lucas' and lastName 'Machado' to firstName 'John'", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "Machado",
+    };
+    const student = Student.create(props) as Student;
+    student.updateFirstName("John");
+    expect(student.name).toEqual("John Machado");
+  });
 });
