@@ -57,12 +57,12 @@ export class Student {
   // public API
 
   get name(): string {
-    const firstName = this.lastEventOfType("UpdateFirstName")?.payload;
-    const lastName = this.lastEventOfType("UpdateLastName")?.payload;
+    const firstName =
+      this.lastEventOfType("UpdateFirstName")?.payload ?? this._firstName;
+    const lastName =
+      this.lastEventOfType("UpdateLastName")?.payload ?? this._lastName;
 
-    return `${firstName?.value ?? this._firstName.value} ${
-      lastName?.value ?? this._lastName.value
-    }`;
+    return `${firstName.value} ${lastName.value}`;
   }
 
   get email(): string {
@@ -113,9 +113,9 @@ export class Student {
   }
 
   private lastEventOfType(
-    type: StudentEvent["type"]
+    eventType: StudentEvent["type"]
   ): StudentEvent | undefined {
-    const events = this._events.filter((event) => event.type === type);
+    const events = this._events.filter((event) => event.type === eventType);
     if (events.length) {
       return events.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
     }
