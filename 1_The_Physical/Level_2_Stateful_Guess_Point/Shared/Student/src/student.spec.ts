@@ -190,7 +190,7 @@ describe("student object", () => {
     };
     const student = Student.create(props) as Student;
     student.updateFirstName("John");
-    await delay(1); // wait 1ms
+    await delay(500); // wait 0.5s
     student.updateFirstName("Lucas");
 
     expect(student.name).toEqual("Lucas Machado");
