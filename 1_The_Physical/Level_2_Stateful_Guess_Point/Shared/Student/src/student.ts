@@ -10,11 +10,19 @@ export interface StudentProps {
 type UpdateFirstName = "UpdateFirstName";
 type UpdateLastName = "UpdateLastName";
 
-interface StudentEvent {
-  type: UpdateFirstName | UpdateLastName;
-  payload: FirstName | LastName;
+type UpdateFirstNameEvent = {
+  type: UpdateFirstName;
+  payload: FirstName;
+};
+
+type UpdateLastNameEvent = {
+  type: UpdateLastName;
+  payload: LastName;
+};
+
+type StudentEvent = (UpdateFirstNameEvent | UpdateLastNameEvent) & {
   date: Date;
-}
+};
 
 export class Student {
   private _events: StudentEvent[] = [];
@@ -86,13 +94,23 @@ export class Student {
     type: UpdateFirstName | UpdateLastName,
     payload: FirstName | LastName
   ) {
-    this._events.push(
-      Object.freeze({
-        type,
-        payload,
+    if (type === "UpdateFirstName") {
+      const StudentEvent: StudentEvent = {
+        type: type as UpdateFirstName,
+        payload: payload as FirstName,
         date: new Date(),
-      })
-    );
+      };
+
+      this._events.push(Object.freeze(StudentEvent));
+    } else {
+      const StudentEvent: StudentEvent = {
+        type: type as UpdateLastName,
+        payload: payload as LastName,
+        date: new Date(),
+      };
+
+      this._events.push(Object.freeze(StudentEvent));
+    }
   }
 
   private lastEventOfType(
