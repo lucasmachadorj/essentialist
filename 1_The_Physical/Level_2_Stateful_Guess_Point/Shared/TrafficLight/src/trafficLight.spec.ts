@@ -47,28 +47,19 @@ class TrafficLight {
 
   advance() {
     if (this.isBoot()) {
-      this.props = {
-        currentStatus: Status.Green,
-      };
+      this.advanceTo(Status.Green);
       return;
     }
     if (this.isGreen()) {
-      this.props = {
-        currentStatus: Status.Yellow,
-      };
+      this.advanceTo(Status.Yellow);
       return;
     }
     if (this.isYellow()) {
-      this.props = {
-        currentStatus: Status.Red,
-      };
+      this.advanceTo(Status.Red);
       return;
     }
-
     if (this.isRed()) {
-      this.props = {
-        currentStatus: Status.Green,
-      };
+      this.advanceTo(Status.Green);
       return;
     }
   }
@@ -83,6 +74,12 @@ class TrafficLight {
 
   isRed() {
     return this.props.currentStatus === Status.Red;
+  }
+
+  private advanceTo(status: Status) {
+    this.props = {
+      currentStatus: status,
+    };
   }
 }
 
