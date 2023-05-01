@@ -70,7 +70,7 @@ describe("Error handling object", () => {
       expect(Result).toBeInstanceOf(Function);
     });
 
-    it("should have a isOk static method that returns an instance of Result", () => {
+    it("should have a ok static method that returns an instance of Result", () => {
       expect(Result.ok).toBeDefined();
       expect(Result.ok(1)).toBeInstanceOf(Result);
     });
