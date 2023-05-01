@@ -99,7 +99,7 @@ describe("TrafficLight", () => {
     expect(trafficLight.isOn()).toBe(true);
   });
 
-  it("should be able to turn off if is on", () => {
+  it("should be able to turn off when is boot", () => {
     const trafficLight = new TrafficLight();
     trafficLight.turnOn();
     trafficLight.turnOff();
@@ -155,6 +155,14 @@ describe("TrafficLight", () => {
   it("should not advance when off", () => {
     const trafficLight = new TrafficLight();
     trafficLight.advance();
+    expect(trafficLight.isOff()).toBe(true);
+  });
+
+  it("should turn off when green", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.advance();
+    trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
 });
