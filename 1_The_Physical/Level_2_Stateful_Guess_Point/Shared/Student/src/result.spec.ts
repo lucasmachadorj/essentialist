@@ -25,11 +25,11 @@ const Nothing = (): Nothing => ({
 
 export class Result<T, E> {
   private _value: Maybe<T>;
-  private error: Maybe<E>;
+  private _error: Maybe<E>;
 
-  private constructor(_value: T | null, error: E | null) {
+  private constructor(_value: T | null, _error: E | null) {
     this._value = _value ? Just(_value) : Nothing();
-    this.error = error ? Just(error) : Nothing();
+    this._error = _error ? Just(_error) : Nothing();
   }
 
   static ok<T>(_value: T): Result<T, Nothing> {
@@ -45,12 +45,19 @@ export class Result<T, E> {
   }
 
   hasError(): boolean {
-    return this.error.type === MaybeType.Just;
+    return this._error.type === MaybeType.Just;
   }
 
   get value(): T | Nothing {
     if (this._value.type === MaybeType.Just) {
       return this._value.content;
+    }
+    return Nothing();
+  }
+
+  get error(): E | Nothing {
+    if (this._error.type === MaybeType.Just) {
+      return this._error.content;
     }
     return Nothing();
   }
@@ -99,6 +106,12 @@ describe("Error handling object", () => {
     it("should return nothing when calling value on a Result with a Just error", () => {
       const result = Result.fail(new Error("error"));
       expect(result.value.type).toBe(MaybeType.Nothing);
+    });
+
+    it("should return error when calling error on a Result with a Just error", () => {
+      const error = new Error("error");
+      const result = Result.fail(error);
+      expect(result.error).toBe(error);
     });
   });
 });
