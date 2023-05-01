@@ -21,9 +21,7 @@ type UpdateLastNameEvent = {
   payload: LastName;
 };
 
-type StudentEvent = (UpdateFirstNameEvent | UpdateLastNameEvent) & {
-  date: Date;
-};
+type StudentEvent = UpdateFirstNameEvent | UpdateLastNameEvent;
 
 export class Student {
   private _events: StudentEvent[] = [];
@@ -57,10 +55,13 @@ export class Student {
   // public API
 
   get name(): string {
-    const firstName =
-      this.lastEventOfType("UpdateFirstName")?.payload ?? this._firstName;
-    const lastName =
-      this.lastEventOfType("UpdateLastName")?.payload ?? this._lastName;
+    const lastUpdateFirstNameEvent =
+      this.getEventsOfType("UpdateFirstName")?.at(-1);
+    const lastUpdateLastNameEvent =
+      this.getEventsOfType("UpdateLastName")?.at(-1);
+
+    const firstName = lastUpdateFirstNameEvent?.payload ?? this._firstName;
+    const lastName = lastUpdateLastNameEvent?.payload ?? this._lastName;
 
     return `${firstName.value} ${lastName.value}`;
   }
@@ -97,7 +98,6 @@ export class Student {
       const StudentEvent: StudentEvent = {
         type: type as UpdateFirstName,
         payload: payload as FirstName,
-        date: new Date(),
       };
 
       this._events.push(Object.freeze(StudentEvent));
@@ -105,20 +105,13 @@ export class Student {
       const StudentEvent: StudentEvent = {
         type: type as UpdateLastName,
         payload: payload as LastName,
-        date: new Date(),
       };
 
       this._events.push(Object.freeze(StudentEvent));
     }
   }
 
-  private lastEventOfType(
-    eventType: StudentEvent["type"]
-  ): StudentEvent | undefined {
-    const events = this._events.filter((event) => event.type === eventType);
-    if (events.length) {
-      return events.sort((a, b) => b.date.getTime() - a.date.getTime())[0];
-    }
-    return undefined;
+  private getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
+    return this._events.filter((event) => event.type === eventType);
   }
 }
