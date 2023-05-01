@@ -22,6 +22,17 @@ class TrafficLight {
   isOff() {
     return this.props.currentStatus === Status.Off;
   }
+
+  isOn() {
+    return this.props.currentStatus === Status.On;
+  }
+
+  turnOn() {
+    if (this.isOff())
+      this.props = {
+        currentStatus: Status.On,
+      };
+  }
 }
 
 describe("TrafficLight", () => {
@@ -32,5 +43,11 @@ describe("TrafficLight", () => {
   it("should start off", () => {
     const trafficLight = new TrafficLight();
     expect(trafficLight.isOff()).toBe(true);
+  });
+
+  it("should be able to turn on", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    expect(trafficLight.isOn()).toBe(true);
   });
 });
