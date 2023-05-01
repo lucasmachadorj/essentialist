@@ -41,10 +41,6 @@ class TrafficLight {
       };
   }
 
-  isBoot() {
-    return this.props.currentStatus === Status.Boot;
-  }
-
   advance() {
     if (this.isBoot()) {
       this.advanceTo(Status.Green);
@@ -62,6 +58,10 @@ class TrafficLight {
       this.advanceTo(Status.Green);
       return;
     }
+  }
+
+  isBoot() {
+    return this.props.currentStatus === Status.Boot;
   }
 
   isGreen() {
@@ -150,5 +150,11 @@ describe("TrafficLight", () => {
     trafficLight.advance();
     trafficLight.advance();
     expect(trafficLight.isGreen()).toBe(true);
+  });
+
+  it("should not advance when off", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.advance();
+    expect(trafficLight.isOff()).toBe(true);
   });
 });
