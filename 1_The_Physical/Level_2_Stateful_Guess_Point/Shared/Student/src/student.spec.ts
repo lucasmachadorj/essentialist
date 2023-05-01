@@ -23,6 +23,7 @@ describe("student object", () => {
       const student = Student.create(props) as Student;
       expect(student).toBeDefined();
       expect(student.name).toEqual(`${firstName} ${lastName}`);
+      expect(student.getEventsOfType("StudentCreated")).toHaveLength(1);
     }
   );
 
@@ -179,6 +180,7 @@ describe("student object", () => {
     const student = Student.create(props) as Student;
     student.updateFirstName("John");
     expect(student.name).toEqual("John Machado");
+    expect(student.getEventsOfType("FirstNameUpdated")).toHaveLength(1);
   });
 
   it("should update a student with firstName 'Lucas' and lastName 'Machado' twice to firstName 'John' and then firstName 'Lucas' again", async () => {
@@ -192,6 +194,7 @@ describe("student object", () => {
     student.updateFirstName("Lucas");
 
     expect(student.name).toEqual("Lucas Machado");
+    expect(student.getEventsOfType("FirstNameUpdated")).toHaveLength(2);
   });
 
   it("should throw an error when updating a student with firstName 'Lucas' and lastName 'Machado' to firstName 'L'", () => {

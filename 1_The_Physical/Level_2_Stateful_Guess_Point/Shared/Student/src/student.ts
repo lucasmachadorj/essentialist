@@ -14,8 +14,8 @@ interface StudentProps {
   readonly email: StudentEmail;
 }
 
-type FirstNameUpdated = "UpdateFirstName";
-type LastNameUpdated = "UpdateLastName";
+type FirstNameUpdated = "FirstNameUpdated";
+type LastNameUpdated = "LastNameUpdated";
 type StudentCreated = "StudentCreated";
 
 type FirstNameUpdatedEvent = {
@@ -106,7 +106,7 @@ export class Student {
     };
 
     this.addEvent({
-      type: "UpdateFirstName",
+      type: "FirstNameUpdated",
       payload: firstNameOrError.value,
     });
   }
@@ -123,9 +123,13 @@ export class Student {
     };
 
     this.addEvent({
-      type: "UpdateLastName",
+      type: "LastNameUpdated",
       payload: lastNameOrError.value,
     });
+  }
+
+  getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
+    return this._events.filter((event) => event.type === eventType);
   }
 
   // private methods
@@ -133,9 +137,5 @@ export class Student {
   private addEvent(event: StudentEvent) {
     const { type, payload } = event;
     this._events.push(Object.freeze(event));
-  }
-
-  private getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
-    return this._events.filter((event) => event.type === eventType);
   }
 }
