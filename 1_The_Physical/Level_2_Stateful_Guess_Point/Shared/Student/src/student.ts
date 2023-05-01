@@ -13,7 +13,7 @@ export class Student {
   private _events: StudentEvent[] = [];
 
   private constructor(private _currentState: StudentProps) {
-    this._events.push(new StudentCreated(this._currentState));
+    this.addEvent(new StudentCreated(this._currentState));
   }
 
   static create(
@@ -69,7 +69,7 @@ export class Student {
       firstName: firstNameOrError,
     };
 
-    this._events.push(new FirstNameUpdated(firstNameOrError.value));
+    this.addEvent(new FirstNameUpdated(firstNameOrError.value));
   }
 
   updateLastName(lastName: string) {
@@ -83,10 +83,14 @@ export class Student {
       lastName: lastNameOrError,
     };
 
-    this._events.push(new LastNameUpdated(lastNameOrError.value));
+    this.addEvent(new LastNameUpdated(lastNameOrError.value));
   }
 
   getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
     return this._events.filter((event) => event.type === eventType);
+  }
+
+  private addEvent(event: StudentEvent) {
+    this._events.push(event);
   }
 }
