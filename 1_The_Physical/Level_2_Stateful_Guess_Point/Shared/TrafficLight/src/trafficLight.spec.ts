@@ -40,6 +40,10 @@ class TrafficLight {
         currentStatus: Status.Off,
       };
   }
+
+  getState() {
+    return this.props.currentStatus;
+  }
 }
 
 describe("TrafficLight", () => {
@@ -63,5 +67,11 @@ describe("TrafficLight", () => {
     trafficLight.turnOn();
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
+  });
+
+  it("should advance to boot when turned on", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    expect(trafficLight.getState()).toBe(Status.Boot);
   });
 });
