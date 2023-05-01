@@ -79,5 +79,11 @@ describe("Error handling object", () => {
       const result = Result.ok(1);
       expect(result.value).toBe(1);
     });
+
+    it("should return a Result with a Nothing value when calling ok with null", () => {
+      const result = Result.ok(null);
+      expect(result).toBeDefined();
+      expect(result.value?.type).toBe(MaybeType.Nothing);
+    });
   });
 });
