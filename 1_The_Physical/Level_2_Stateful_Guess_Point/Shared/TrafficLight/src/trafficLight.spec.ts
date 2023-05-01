@@ -7,15 +7,20 @@ enum Status {
 }
 
 type TrafficLightProps = {
-  currentStatus: Status;
+  readonly currentStatus: Status;
 };
 
 class TrafficLight {
-  private readonly currentStatus: Status = Status.Off;
-  constructor() {}
+  private props: TrafficLightProps;
+
+  constructor() {
+    this.props = {
+      currentStatus: Status.Off,
+    };
+  }
 
   isOff() {
-    return this.currentStatus === Status.Off;
+    return this.props.currentStatus === Status.Off;
   }
 }
 
