@@ -94,4 +94,10 @@ describe("TrafficLight", () => {
     trafficLight.advance();
     expect(trafficLight.isGreen()).toBe(true);
   });
+
+  it("should not advance to green when off", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.advance();
+    expect(trafficLight.isOff()).toBe(true);
+  });
 });
