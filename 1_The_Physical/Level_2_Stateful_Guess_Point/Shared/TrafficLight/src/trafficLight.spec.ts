@@ -3,7 +3,7 @@ enum Status {
   Yellow = "yellow",
   Green = "green",
   Off = "off",
-  On = "on",
+  Boot = "boot",
 }
 
 type TrafficLightProps = {
@@ -24,13 +24,13 @@ class TrafficLight {
   }
 
   isOn() {
-    return this.props.currentStatus === Status.On;
+    return this.props.currentStatus !== Status.Off;
   }
 
   turnOn() {
     if (this.isOff())
       this.props = {
-        currentStatus: Status.On,
+        currentStatus: Status.Boot,
       };
   }
 
