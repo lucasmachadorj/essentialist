@@ -9,9 +9,9 @@ export interface StudentInputProps {
 }
 
 interface StudentProps {
-  firstName: FirstName;
-  lastName: LastName;
-  email: StudentEmail;
+  readonly firstName: FirstName;
+  readonly lastName: LastName;
+  readonly email: StudentEmail;
 }
 
 type FirstNameUpdated = "UpdateFirstName";
@@ -20,17 +20,17 @@ type StudentCreated = "StudentCreated";
 
 type FirstNameUpdatedEvent = {
   type: FirstNameUpdated;
-  payload: FirstName;
+  payload: string;
 };
 
 type LastNameUpdatedEvent = {
   type: LastNameUpdated;
-  payload: LastName;
+  payload: string;
 };
 
 type StudentCreatedEvent = {
   type: StudentCreated;
-  payload: StudentProps;
+  payload: string;
 };
 
 type StudentEvent =
@@ -41,59 +41,57 @@ type StudentEvent =
 export class Student {
   private _events: StudentEvent[] = [];
 
-  private constructor(
-    private readonly _firstName: FirstName,
-    private readonly _lastName: LastName,
-    private readonly _email: StudentEmail
-  ) {
+  private constructor(private _currentState: StudentProps) {
     this.addEvent({
       type: "StudentCreated",
-      payload: {
-        firstName: this._firstName,
-        lastName: this._lastName,
-        email: this._email,
-      },
+      payload: JSON.stringify({
+        firstName: this._currentState.firstName.value,
+        lastName: this._currentState.lastName.value,
+        email: this._currentState.email.value,
+      }),
     });
   }
 
   static create(
     props: StudentInputProps
   ): Student | InvalidStudentProps<InvalidFirstName | InvalidLastName> {
-    const { firstName, lastName } = props;
-
-    const firstNameOrError = FirstName.create(firstName);
+    const firstNameOrError = FirstName.create(props.firstName);
     if (!(firstNameOrError instanceof FirstName)) {
       return firstNameOrError;
     }
 
-    const lastNameOrError = LastName.create(lastName);
+    const lastNameOrError = LastName.create(props.lastName);
     if (!(lastNameOrError instanceof LastName)) {
       return lastNameOrError;
     }
 
-    let email = StudentEmail.create(firstNameOrError, lastNameOrError);
+    const firstName = firstNameOrError;
+    const lastName = lastNameOrError;
+    let email = StudentEmail.create(firstName, lastName);
 
-    return new Student(firstNameOrError, lastNameOrError, email);
+    return new Student({
+      firstName,
+      lastName,
+      email,
+    });
   }
 
   // public API
 
   get name(): string {
-    const lastUpdateFirstNameEvent =
-      this.getEventsOfType("UpdateFirstName")?.at(-1);
-    const lastUpdateLastNameEvent =
-      this.getEventsOfType("UpdateLastName")?.at(-1);
+    return `${this.firstName} ${this.lastName}`;
+  }
 
-    const firstName =
-      (lastUpdateFirstNameEvent?.payload as FirstName) ?? this._firstName;
-    const lastName =
-      (lastUpdateLastNameEvent?.payload as LastName) ?? this._lastName;
+  get firstName(): string {
+    return this._currentState.firstName.value;
+  }
 
-    return `${firstName.value} ${lastName.value}`;
+  get lastName(): string {
+    return this._currentState.lastName.value;
   }
 
   get email(): string {
-    return this._email.value;
+    return this._currentState.email.value;
   }
 
   updateFirstName(firstName: string) {
@@ -102,9 +100,14 @@ export class Student {
       throw new Error(firstNameOrError.message);
     }
 
+    this._currentState = {
+      ...this._currentState,
+      firstName: firstNameOrError,
+    };
+
     this.addEvent({
       type: "UpdateFirstName",
-      payload: firstNameOrError,
+      payload: firstNameOrError.value,
     });
   }
 
@@ -114,9 +117,14 @@ export class Student {
       throw new Error(lastNameOrError.message);
     }
 
+    this._currentState = {
+      ...this._currentState,
+      lastName: lastNameOrError,
+    };
+
     this.addEvent({
       type: "UpdateLastName",
-      payload: lastNameOrError,
+      payload: lastNameOrError.value,
     });
   }
 
