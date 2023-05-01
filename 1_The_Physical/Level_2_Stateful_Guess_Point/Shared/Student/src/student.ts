@@ -33,8 +33,7 @@ export class Student {
 
     const firstName = firstNameOrError;
     const lastName = lastNameOrError;
-    let email = StudentEmail.create(firstName, lastName);
-
+    const email = StudentEmail.create(firstName, lastName);
     const id = uuidv4();
 
     return new Student({
