@@ -40,6 +40,10 @@ export class Result<T, E> {
     return this._value.type === MaybeType.Just;
   }
 
+  hasError(): boolean {
+    return this.error.type === MaybeType.Just;
+  }
+
   get value(): T | Nothing {
     if (this._value.type === MaybeType.Just) {
       return this._value.content;
@@ -64,6 +68,11 @@ describe("Error handling object", () => {
       const result = Result.ok(1);
       expect(result).toBeDefined();
       expect(result.isOk()).toBe(true);
+    });
+
+    it("should return false when calling hasError on a Result with a Just value", () => {
+      const result = Result.ok(1);
+      expect(result.hasError()).toBe(false);
     });
   });
 });
