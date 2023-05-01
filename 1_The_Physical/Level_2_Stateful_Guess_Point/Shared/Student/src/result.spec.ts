@@ -95,5 +95,10 @@ describe("Error handling object", () => {
       expect(result).toBeDefined();
       expect(result.hasError()).toBe(true);
     });
+
+    it("should return nothing when calling value on a Result with a Just error", () => {
+      const result = Result.fail(new Error("error"));
+      expect(result.value.type).toBe(MaybeType.Nothing);
+    });
   });
 });
