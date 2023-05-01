@@ -13,6 +13,7 @@ export type StudentInputProps = {
 };
 
 export type StudentProps = {
+  readonly id: string;
   readonly firstName: FirstName;
   readonly lastName: LastName;
   readonly email: StudentEmail;

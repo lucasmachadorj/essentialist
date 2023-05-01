@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/jest": "^28.1.8",
     "@types/node": "^18.6.1",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",
@@ -48,6 +49,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "jest-cucumber": "^3.0.1"
+    "jest-cucumber": "^3.0.1",
+    "uuid": "^9.0.0"
   }
 }

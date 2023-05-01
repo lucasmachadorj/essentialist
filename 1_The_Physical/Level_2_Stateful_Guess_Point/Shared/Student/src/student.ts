@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { FirstName, InvalidFirstName } from "./firstName";
 import { InvalidLastName, LastName } from "./lastName";
 import { StudentEmail } from "./studentEmail";
@@ -33,7 +35,10 @@ export class Student {
     const lastName = lastNameOrError;
     let email = StudentEmail.create(firstName, lastName);
 
+    const id = uuidv4();
+
     return new Student({
+      id,
       firstName,
       lastName,
       email,
@@ -56,6 +61,10 @@ export class Student {
 
   get email(): string {
     return this.currentState.email.value;
+  }
+
+  get id(): string {
+    return this.currentState.id;
   }
 
   updateFirstName(firstName: string) {

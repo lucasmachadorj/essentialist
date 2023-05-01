@@ -217,4 +217,14 @@ describe("student object", () => {
     student.updateLastName("Smith");
     expect(student.name).toEqual("Lucas Smith");
   });
+
+  it("should not create two students with the same id", () => {
+    const props = {
+      firstName: "Lucas",
+      lastName: "Machado",
+    };
+    const student = Student.create(props) as Student;
+    const student2 = Student.create(props) as Student;
+    expect(student.id).not.toEqual(student2.id);
+  });
 });
