@@ -36,6 +36,10 @@ export class Result<T, E> {
     return new Result<T, never>(_value, null);
   }
 
+  static fail<E>(_error: E): Result<Nothing, E> {
+    return new Result<never, E>(null, _error);
+  }
+
   isOk(): boolean {
     return this._value.type === MaybeType.Just;
   }
@@ -84,6 +88,12 @@ describe("Error handling object", () => {
       const result = Result.ok(null);
       expect(result).toBeDefined();
       expect(result.value?.type).toBe(MaybeType.Nothing);
+    });
+
+    it("should return a Result with a Just error when calling fail with an error", () => {
+      const result = Result.fail(new Error("error"));
+      expect(result).toBeDefined();
+      expect(result.hasError()).toBe(true);
     });
   });
 });
