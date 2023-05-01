@@ -1,3 +1,4 @@
+import { Result } from "./result";
 import { InvalidStudentProps } from "./types";
 
 export type InvalidFirstName = string;
@@ -7,11 +8,11 @@ export class FirstName {
 
   static create(
     firstName: string
-  ): FirstName | InvalidStudentProps<InvalidFirstName> {
+  ): Result<FirstName, InvalidStudentProps<InvalidFirstName>> {
     const invalidFirstName = FirstName.validateFirstName(firstName);
-    if (invalidFirstName) return invalidFirstName;
+    if (invalidFirstName) return Result.fail(invalidFirstName);
 
-    return new FirstName(firstName);
+    return Result.ok(new FirstName(firstName));
   }
 
   get value(): string {

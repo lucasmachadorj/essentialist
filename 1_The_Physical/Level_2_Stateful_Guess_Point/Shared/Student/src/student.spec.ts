@@ -20,7 +20,7 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const student = Student.create(props) as Student;
+      const { value: student } = Student.create(props);
       expect(student).toBeDefined();
       expect(student.name).toEqual(`${firstName} ${lastName}`);
       expect(student.getEventsOfType("StudentCreated")).toHaveLength(1);
@@ -39,13 +39,9 @@ describe("student object", () => {
         lastName,
       };
 
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidFirstName");
-      expect(userOrError.message).toEqual(
-        "firstName must be at least 2 characters"
-      );
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidFirstName");
+      expect(error.message).toEqual("firstName must be at least 2 characters");
     }
   );
 
@@ -60,13 +56,9 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidFirstName");
-      expect(userOrError.message).toEqual(
-        "firstName must be at most 10 characters"
-      );
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidFirstName");
+      expect(error.message).toEqual("firstName must be at most 10 characters");
     }
   );
 
@@ -81,13 +73,9 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidLastName");
-      expect(userOrError.message).toEqual(
-        "lastName must be at least 2 characters"
-      );
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidLastName");
+      expect(error.message).toEqual("lastName must be at least 2 characters");
     }
   );
 
@@ -102,13 +90,9 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidLastName");
-      expect(userOrError.message).toEqual(
-        "lastName must be at most 15 characters"
-      );
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidLastName");
+      expect(error.message).toEqual("lastName must be at most 15 characters");
     }
   );
 
@@ -123,11 +107,9 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidFirstName");
-      expect(userOrError.message).toEqual(
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidFirstName");
+      expect(error.message).toEqual(
         "firstName must contain only alphabetic characters"
       );
     }
@@ -144,11 +126,9 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const userOrError = Student.create(props) as InvalidStudentProps<
-        InvalidFirstName | InvalidLastName
-      >;
-      expect(userOrError.type).toEqual("InvalidLastName");
-      expect(userOrError.message).toEqual(
+      const { error } = Student.create(props);
+      expect(error.type).toEqual("InvalidLastName");
+      expect(error.message).toEqual(
         "lastName must contain only alphabetic characters"
       );
     }
@@ -167,7 +147,7 @@ describe("student object", () => {
         firstName,
         lastName,
       };
-      const student = Student.create(props) as Student;
+      const { value: student } = Student.create(props);
       expect(student.email).toEqual(buildEmail(firstName, lastName));
     }
   );
@@ -177,7 +157,7 @@ describe("student object", () => {
       firstName: "Lucas",
       lastName: "Machado",
     };
-    const student = Student.create(props) as Student;
+    const { value: student } = Student.create(props);
     student.updateFirstName("John");
     expect(student.name).toEqual("John Machado");
     expect(student.getEventsOfType("FirstNameUpdated")).toHaveLength(1);
@@ -188,7 +168,7 @@ describe("student object", () => {
       firstName: "Lucas",
       lastName: "Machado",
     };
-    const student = Student.create(props) as Student;
+    const { value: student } = Student.create(props);
     student.updateFirstName("John");
 
     student.updateFirstName("Lucas");
@@ -202,7 +182,7 @@ describe("student object", () => {
       firstName: "Lucas",
       lastName: "Machado",
     };
-    const student = Student.create(props) as Student;
+    const { value: student } = Student.create(props);
     expect(() => student.updateFirstName("L")).toThrowError(
       "firstName must be at least 2 characters"
     );
@@ -213,7 +193,7 @@ describe("student object", () => {
       firstName: "Lucas",
       lastName: "Machado",
     };
-    const student = Student.create(props) as Student;
+    const { value: student } = Student.create(props);
     student.updateLastName("Smith");
     expect(student.name).toEqual("Lucas Smith");
   });
@@ -223,8 +203,9 @@ describe("student object", () => {
       firstName: "Lucas",
       lastName: "Machado",
     };
-    const student = Student.create(props) as Student;
-    const student2 = Student.create(props) as Student;
+    const { value: student } = Student.create(props);
+    const { value: student2 } = Student.create(props);
+
     expect(student.id).not.toEqual(student2.id);
   });
 });

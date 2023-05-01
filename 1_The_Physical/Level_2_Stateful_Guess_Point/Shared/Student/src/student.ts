@@ -10,6 +10,7 @@ import {
   StudentCreated,
   StudentEvent,
 } from "./studentEvent";
+import { Result } from "./result";
 
 export class Student {
   private events: StudentEvent[] = [];
@@ -20,28 +21,36 @@ export class Student {
 
   static create(
     props: StudentInputProps
-  ): Student | InvalidStudentProps<InvalidFirstName | InvalidLastName> {
-    const firstNameOrError = FirstName.create(props.firstName);
-    if (!(firstNameOrError instanceof FirstName)) {
-      return firstNameOrError;
+  ): Result<Student, InvalidStudentProps<InvalidFirstName | InvalidLastName>> {
+    const firstNameResult = FirstName.create(props.firstName);
+    if (firstNameResult.hasError()) {
+      return Result.fail<
+        Student,
+        InvalidStudentProps<InvalidFirstName | InvalidLastName>
+      >(firstNameResult.error);
     }
 
-    const lastNameOrError = LastName.create(props.lastName);
-    if (!(lastNameOrError instanceof LastName)) {
-      return lastNameOrError;
+    const lastNameResult = LastName.create(props.lastName);
+    if (lastNameResult.hasError()) {
+      return Result.fail<
+        Student,
+        InvalidStudentProps<InvalidFirstName | InvalidLastName>
+      >(lastNameResult.error);
     }
 
-    const firstName = firstNameOrError;
-    const lastName = lastNameOrError;
+    const firstName = firstNameResult.value;
+    const lastName = lastNameResult.value;
     const email = StudentEmail.create(firstName, lastName);
     const id = uuidv4();
 
-    return new Student({
-      id,
-      firstName,
-      lastName,
-      email,
-    });
+    return Result.ok(
+      new Student({
+        id,
+        firstName,
+        lastName,
+        email,
+      })
+    );
   }
 
   // public API
@@ -67,31 +76,31 @@ export class Student {
   }
 
   updateFirstName(firstName: string) {
-    const firstNameOrError = FirstName.create(firstName);
-    if (!(firstNameOrError instanceof FirstName)) {
-      throw new Error(firstNameOrError.message);
+    const result = FirstName.create(firstName);
+    if (result.hasError()) {
+      throw new Error(result.error.message);
     }
 
     this.currentState = {
       ...this.currentState,
-      firstName: firstNameOrError,
+      firstName: result.value,
     };
 
-    this.addEvent(new FirstNameUpdated(firstNameOrError.value));
+    this.addEvent(new FirstNameUpdated(result.value));
   }
 
   updateLastName(lastName: string) {
-    const lastNameOrError = LastName.create(lastName);
-    if (!(lastNameOrError instanceof LastName)) {
-      throw new Error(lastNameOrError.message);
+    const result = LastName.create(lastName);
+    if (result.hasError()) {
+      throw new Error(result.error.message);
     }
 
     this.currentState = {
       ...this.currentState,
-      lastName: lastNameOrError,
+      lastName: result.value,
     };
 
-    this.addEvent(new LastNameUpdated(lastNameOrError.value));
+    this.addEvent(new LastNameUpdated(result.value));
   }
 
   getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {

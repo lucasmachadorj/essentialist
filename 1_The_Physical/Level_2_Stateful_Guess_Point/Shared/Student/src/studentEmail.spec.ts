@@ -4,8 +4,8 @@ import { StudentEmail } from "./studentEmail";
 
 describe("StudentEmail Value Object", () => {
   it("should be defined when a valid input is given", () => {
-    const firstName = FirstName.create("Lucas") as FirstName;
-    const lastName = LastName.create("Machado") as LastName;
+    const { value: firstName } = FirstName.create("Lucas");
+    const { value: lastName } = LastName.create("Machado");
 
     const email = StudentEmail.create(firstName, lastName);
     expect(email).toBeDefined();

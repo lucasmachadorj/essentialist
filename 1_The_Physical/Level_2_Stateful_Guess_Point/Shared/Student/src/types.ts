@@ -18,3 +18,17 @@ export type StudentProps = {
   readonly lastName: LastName;
   readonly email: StudentEmail;
 };
+
+export enum MaybeType {
+  Just = "Just",
+  Nothing = "Nothing",
+}
+
+export interface Just<T> {
+  type: MaybeType.Just;
+  content: T;
+}
+
+export interface Nothing {
+  type: MaybeType.Nothing;
+}

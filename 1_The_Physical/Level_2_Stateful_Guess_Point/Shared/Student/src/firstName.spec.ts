@@ -1,5 +1,4 @@
-import { FirstName, InvalidFirstName } from "./firstName";
-import { InvalidStudentProps } from "./types";
+import { FirstName } from "./firstName";
 
 describe("FirstName Value Object", () => {
   it("should be defined when a valid input is given", () => {
@@ -10,14 +9,10 @@ describe("FirstName Value Object", () => {
   it.each([["L"], ["M"], ["N"]])(
     "returns an error with type InvalidFirstName and message 'firstName must be at least 2 characters",
     (firstName) => {
-      const firstNameOrError = FirstName.create(
-        firstName
-      ) as InvalidStudentProps<InvalidFirstName>;
+      const { error } = FirstName.create(firstName);
 
-      expect(firstNameOrError.type).toEqual("InvalidFirstName");
-      expect(firstNameOrError.message).toEqual(
-        "firstName must be at least 2 characters"
-      );
+      expect(error.type).toEqual("InvalidFirstName");
+      expect(error.message).toEqual("firstName must be at least 2 characters");
     }
   );
 });
