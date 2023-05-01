@@ -10,10 +10,10 @@ import {
 } from "./studentEvent";
 
 export class Student {
-  private _events: StudentEvent[] = [];
+  private events: StudentEvent[] = [];
 
-  private constructor(private _currentState: StudentProps) {
-    this.addEvent(new StudentCreated(this._currentState));
+  private constructor(private currentState: StudentProps) {
+    this.addEvent(new StudentCreated(this.currentState));
   }
 
   static create(
@@ -47,15 +47,15 @@ export class Student {
   }
 
   get firstName(): string {
-    return this._currentState.firstName.value;
+    return this.currentState.firstName.value;
   }
 
   get lastName(): string {
-    return this._currentState.lastName.value;
+    return this.currentState.lastName.value;
   }
 
   get email(): string {
-    return this._currentState.email.value;
+    return this.currentState.email.value;
   }
 
   updateFirstName(firstName: string) {
@@ -64,8 +64,8 @@ export class Student {
       throw new Error(firstNameOrError.message);
     }
 
-    this._currentState = {
-      ...this._currentState,
+    this.currentState = {
+      ...this.currentState,
       firstName: firstNameOrError,
     };
 
@@ -78,8 +78,8 @@ export class Student {
       throw new Error(lastNameOrError.message);
     }
 
-    this._currentState = {
-      ...this._currentState,
+    this.currentState = {
+      ...this.currentState,
       lastName: lastNameOrError,
     };
 
@@ -87,10 +87,10 @@ export class Student {
   }
 
   getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
-    return this._events.filter((event) => event.type === eventType);
+    return this.events.filter((event) => event.type === eventType);
   }
 
   private addEvent(event: StudentEvent) {
-    this._events.push(event);
+    this.events.push(event);
   }
 }
