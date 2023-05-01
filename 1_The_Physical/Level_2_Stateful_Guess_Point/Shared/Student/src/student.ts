@@ -1,55 +1,19 @@
 import { FirstName, InvalidFirstName } from "./firstName";
 import { InvalidLastName, LastName } from "./lastName";
 import { StudentEmail } from "./studentEmail";
-import { InvalidStudentProps } from "./types";
-
-export interface StudentInputProps {
-  firstName: string;
-  lastName: string;
-}
-
-interface StudentProps {
-  readonly firstName: FirstName;
-  readonly lastName: LastName;
-  readonly email: StudentEmail;
-}
-
-type FirstNameUpdated = "FirstNameUpdated";
-type LastNameUpdated = "LastNameUpdated";
-type StudentCreated = "StudentCreated";
-
-type FirstNameUpdatedEvent = {
-  type: FirstNameUpdated;
-  payload: string;
-};
-
-type LastNameUpdatedEvent = {
-  type: LastNameUpdated;
-  payload: string;
-};
-
-type StudentCreatedEvent = {
-  type: StudentCreated;
-  payload: string;
-};
-
-type StudentEvent =
-  | FirstNameUpdatedEvent
-  | LastNameUpdatedEvent
-  | StudentCreatedEvent;
+import { InvalidStudentProps, StudentInputProps, StudentProps } from "./types";
+import {
+  FirstNameUpdated,
+  LastNameUpdated,
+  StudentCreated,
+  StudentEvent,
+} from "./studentEvent";
 
 export class Student {
   private _events: StudentEvent[] = [];
 
   private constructor(private _currentState: StudentProps) {
-    this.addEvent({
-      type: "StudentCreated",
-      payload: JSON.stringify({
-        firstName: this._currentState.firstName.value,
-        lastName: this._currentState.lastName.value,
-        email: this._currentState.email.value,
-      }),
-    });
+    this._events.push(new StudentCreated(this._currentState));
   }
 
   static create(
@@ -105,10 +69,7 @@ export class Student {
       firstName: firstNameOrError,
     };
 
-    this.addEvent({
-      type: "FirstNameUpdated",
-      payload: firstNameOrError.value,
-    });
+    this._events.push(new FirstNameUpdated(firstNameOrError.value));
   }
 
   updateLastName(lastName: string) {
@@ -122,20 +83,10 @@ export class Student {
       lastName: lastNameOrError,
     };
 
-    this.addEvent({
-      type: "LastNameUpdated",
-      payload: lastNameOrError.value,
-    });
+    this._events.push(new LastNameUpdated(lastNameOrError.value));
   }
 
   getEventsOfType(eventType: StudentEvent["type"]): StudentEvent[] {
     return this._events.filter((event) => event.type === eventType);
-  }
-
-  // private methods
-
-  private addEvent(event: StudentEvent) {
-    const { type, payload } = event;
-    this._events.push(Object.freeze(event));
   }
 }
