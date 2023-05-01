@@ -165,4 +165,13 @@ describe("TrafficLight", () => {
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
+
+  it("should turn off when yellow", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.advance();
+    trafficLight.advance();
+    trafficLight.turnOff();
+    expect(trafficLight.isOff()).toBe(true);
+  });
 });
