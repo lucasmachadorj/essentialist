@@ -5,7 +5,7 @@ enum MaybeType {
 
 interface Just<T> {
   type: MaybeType.Just;
-  value: T;
+  content: T;
 }
 
 interface Nothing {
@@ -14,9 +14,9 @@ interface Nothing {
 
 type Maybe<T> = Just<T> | Nothing;
 
-const Just = <T>(value: T): Just<T> => ({
+const Just = <T>(content: T): Just<T> => ({
   type: MaybeType.Just,
-  value,
+  content,
 });
 
 const Nothing = (): Nothing => ({
@@ -24,16 +24,27 @@ const Nothing = (): Nothing => ({
 });
 
 export class Result<T, E> {
-  private value: Maybe<T>;
+  private _value: Maybe<T>;
   private error: Maybe<E>;
 
-  private constructor(value: T | null, error: E | null) {
-    this.value = value ? Just(value) : Nothing();
+  private constructor(_value: T | null, error: E | null) {
+    this._value = _value ? Just(_value) : Nothing();
     this.error = error ? Just(error) : Nothing();
   }
 
-  static isOk<T>(value: T): Result<T, Nothing> {
-    return new Result<T, never>(value, null);
+  static ok<T>(_value: T): Result<T, Nothing> {
+    return new Result<T, never>(_value, null);
+  }
+
+  isOk(): boolean {
+    return this._value.type === MaybeType.Just;
+  }
+
+  get value(): T | Nothing {
+    if (this._value.type === MaybeType.Just) {
+      return this._value.content;
+    }
+    return Nothing();
   }
 }
 
@@ -45,8 +56,14 @@ describe("Error handling object", () => {
     });
 
     it("should have a isOk static method that returns an instance of Result", () => {
-      expect(Result.isOk).toBeDefined();
-      expect(Result.isOk(1)).toBeInstanceOf(Result);
+      expect(Result.ok).toBeDefined();
+      expect(Result.ok(1)).toBeInstanceOf(Result);
+    });
+
+    it("should return a Result with a Just value when calling ok", () => {
+      const result = Result.ok(1);
+      expect(result).toBeDefined();
+      expect(result.isOk()).toBe(true);
     });
   });
 });
