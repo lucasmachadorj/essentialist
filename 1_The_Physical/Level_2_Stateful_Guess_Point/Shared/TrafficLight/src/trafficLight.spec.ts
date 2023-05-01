@@ -41,8 +41,8 @@ class TrafficLight {
       };
   }
 
-  getState() {
-    return this.props.currentStatus;
+  isBoot() {
+    return this.props.currentStatus === Status.Boot;
   }
 }
 
@@ -72,6 +72,6 @@ describe("TrafficLight", () => {
   it("should advance to boot when turned on", () => {
     const trafficLight = new TrafficLight();
     trafficLight.turnOn();
-    expect(trafficLight.getState()).toBe(Status.Boot);
+    expect(trafficLight.isBoot()).toBe(true);
   });
 });
