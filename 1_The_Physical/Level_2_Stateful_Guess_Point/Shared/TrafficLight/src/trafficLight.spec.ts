@@ -44,6 +44,19 @@ class TrafficLight {
   isBoot() {
     return this.props.currentStatus === Status.Boot;
   }
+
+  advance() {
+    if (this.isBoot()) {
+      this.props = {
+        currentStatus: Status.Green,
+      };
+      return;
+    }
+  }
+
+  isGreen() {
+    return this.props.currentStatus === Status.Green;
+  }
 }
 
 describe("TrafficLight", () => {
@@ -73,5 +86,12 @@ describe("TrafficLight", () => {
     const trafficLight = new TrafficLight();
     trafficLight.turnOn();
     expect(trafficLight.isBoot()).toBe(true);
+  });
+
+  it("should advance to green when boot", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.advance();
+    expect(trafficLight.isGreen()).toBe(true);
   });
 });
