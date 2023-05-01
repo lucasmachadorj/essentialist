@@ -64,6 +64,13 @@ class TrafficLight {
       };
       return;
     }
+
+    if (this.isRed()) {
+      this.props = {
+        currentStatus: Status.Green,
+      };
+      return;
+    }
   }
 
   isGreen() {
@@ -136,5 +143,15 @@ describe("TrafficLight", () => {
     trafficLight.advance();
     trafficLight.advance();
     expect(trafficLight.isRed()).toBe(true);
+  });
+
+  it("should advance to green when red", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.advance();
+    trafficLight.advance();
+    trafficLight.advance();
+    trafficLight.advance();
+    expect(trafficLight.isGreen()).toBe(true);
   });
 });
