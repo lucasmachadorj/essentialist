@@ -122,9 +122,9 @@ describe("TrafficLight", () => {
     trafficLight.turnOn();
     trafficLight.turnOff();
     expect(trafficLight.getEvents()).toHaveLength(2);
-    // expect(
-    //   trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
-    // ).toHaveLength(1);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
+    ).toHaveLength(1);
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOff)
     ).toHaveLength(1);
