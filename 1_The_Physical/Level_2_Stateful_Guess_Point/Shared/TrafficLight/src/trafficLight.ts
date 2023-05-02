@@ -10,7 +10,19 @@ type TrafficLightProps = {
   readonly currentState: State;
 };
 
-export class TrafficLight {
+interface ITrafficLight {
+  turnOn(): void;
+  turnOff(): void;
+  advance(): void;
+  isOn(): boolean;
+  isOff(): boolean;
+  isBoot(): boolean;
+  isGreen(): boolean;
+  isYellow(): boolean;
+  isRed(): boolean;
+}
+
+export class TrafficLight implements ITrafficLight {
   private props: TrafficLightProps;
 
   constructor() {
@@ -25,6 +37,25 @@ export class TrafficLight {
 
   turnOff() {
     if (this.isOn()) this.advanceTo(State.Off);
+  }
+
+  advance() {
+    if (this.isBoot()) {
+      this.advanceTo(State.Green);
+      return;
+    }
+    if (this.isGreen()) {
+      this.advanceTo(State.Yellow);
+      return;
+    }
+    if (this.isYellow()) {
+      this.advanceTo(State.Red);
+      return;
+    }
+    if (this.isRed()) {
+      this.advanceTo(State.Green);
+      return;
+    }
   }
 
   isOn() {
@@ -49,25 +80,6 @@ export class TrafficLight {
 
   isRed() {
     return this.props.currentState === State.Red;
-  }
-
-  advance() {
-    if (this.isBoot()) {
-      this.advanceTo(State.Green);
-      return;
-    }
-    if (this.isGreen()) {
-      this.advanceTo(State.Yellow);
-      return;
-    }
-    if (this.isYellow()) {
-      this.advanceTo(State.Red);
-      return;
-    }
-    if (this.isRed()) {
-      this.advanceTo(State.Green);
-      return;
-    }
   }
 
   private advanceTo(State: State) {
