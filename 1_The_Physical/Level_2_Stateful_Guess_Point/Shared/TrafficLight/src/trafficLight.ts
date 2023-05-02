@@ -82,6 +82,10 @@ export class TrafficLight implements ITrafficLight {
     return this.props.currentState === State.Red;
   }
 
+  getEvents() {
+    return [];
+  }
+
   private advanceTo(State: State) {
     this.props = {
       ...this.props,

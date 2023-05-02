@@ -101,4 +101,9 @@ describe("TrafficLight", () => {
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
+
+  it("should have no initial event", () => {
+    const trafficLight = new TrafficLight();
+    expect(trafficLight.getEvents()).toHaveLength(0);
+  });
 });
