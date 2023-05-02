@@ -106,4 +106,10 @@ describe("TrafficLight", () => {
     const trafficLight = new TrafficLight();
     expect(trafficLight.getEvents()).toHaveLength(0);
   });
+
+  it("should have one event when turned on", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    expect(trafficLight.getEvents()).toHaveLength(1);
+  });
 });

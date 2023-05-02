@@ -1,3 +1,5 @@
+import { TrafficLightEvents, TurnedOnEvent } from "./trafficLightEvent";
+
 enum State {
   Red = "red",
   Yellow = "yellow",
@@ -20,19 +22,23 @@ interface ITrafficLight {
   isGreen(): boolean;
   isYellow(): boolean;
   isRed(): boolean;
+  getEvents(): any[];
 }
 
 export class TrafficLight implements ITrafficLight {
   private props: TrafficLightProps;
+  private events: TrafficLightEvents;
 
   constructor() {
     this.props = {
       currentState: State.Off,
     };
+    this.events = new TrafficLightEvents();
   }
 
   turnOn() {
     if (this.isOff()) this.advanceTo(State.Boot);
+    this.events.add(new TurnedOnEvent());
   }
 
   turnOff() {
@@ -83,7 +89,7 @@ export class TrafficLight implements ITrafficLight {
   }
 
   getEvents() {
-    return [];
+    return this.events.getItems();
   }
 
   private advanceTo(State: State) {
