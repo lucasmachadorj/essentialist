@@ -1,14 +1,20 @@
 import { Collection } from "./types";
 
-export class TrafficLightEvent {
+export abstract class TrafficLightEvent {
   private date: Date;
-  constructor() {
+  protected constructor() {
     this.date = new Date();
   }
 }
 
 export class TrafficLightEvents implements Collection<TrafficLightEvent> {
   private events: TrafficLightEvent[] = [];
+
+  private constructor() {}
+
+  static create() {
+    return new TrafficLightEvents();
+  }
 
   add(event: TrafficLightEvent) {
     this.events.push(event);
@@ -24,7 +30,11 @@ export class TrafficLightEvents implements Collection<TrafficLightEvent> {
 }
 
 export class TurnedOnEvent extends TrafficLightEvent {
-  constructor() {
+  private constructor() {
     super();
+  }
+
+  static create() {
+    return new TurnedOnEvent();
   }
 }
