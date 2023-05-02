@@ -19,26 +19,36 @@ export class TrafficLight {
     };
   }
 
-  isOff() {
-    return this.props.currentState === State.Off;
+  turnOn() {
+    if (this.isOff()) this.advanceTo(State.Boot);
+  }
+
+  turnOff() {
+    if (this.isOn()) this.advanceTo(State.Off);
   }
 
   isOn() {
     return this.props.currentState !== State.Off;
   }
 
-  turnOn() {
-    if (this.isOff())
-      this.props = {
-        currentState: State.Boot,
-      };
+  isOff() {
+    return this.props.currentState === State.Off;
   }
 
-  turnOff() {
-    if (this.isOn())
-      this.props = {
-        currentState: State.Off,
-      };
+  isBoot() {
+    return this.props.currentState === State.Boot;
+  }
+
+  isGreen() {
+    return this.props.currentState === State.Green;
+  }
+
+  isYellow() {
+    return this.props.currentState === State.Yellow;
+  }
+
+  isRed() {
+    return this.props.currentState === State.Red;
   }
 
   advance() {
@@ -60,24 +70,9 @@ export class TrafficLight {
     }
   }
 
-  isBoot() {
-    return this.props.currentState === State.Boot;
-  }
-
-  isGreen() {
-    return this.props.currentState === State.Green;
-  }
-
-  isYellow() {
-    return this.props.currentState === State.Yellow;
-  }
-
-  isRed() {
-    return this.props.currentState === State.Red;
-  }
-
   private advanceTo(State: State) {
     this.props = {
+      ...this.props,
       currentState: State,
     };
   }
