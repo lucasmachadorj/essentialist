@@ -122,15 +122,12 @@ export class TrafficLight implements ITrafficLight {
   private addEvent(state: State) {
     if (state === State.Green) {
       this.events.add(AdvancedToGreenEvent.create());
-      return;
     }
     if (state === State.Yellow) {
       this.events.add(AdvancedToYellowEvent.create());
-      return;
     }
     if (state === State.Red) {
       this.events.add(AdvancedToRedEvent.create());
-      return;
     }
   }
 }
