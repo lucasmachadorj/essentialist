@@ -54,8 +54,10 @@ export class TrafficLight implements ITrafficLight {
   }
 
   turnOff() {
-    if (this.isOn()) this.advanceTo(State.Off);
-    this.events.add(TurnedOffEvent.create());
+    if (this.isOn()) {
+      this.advanceTo(State.Off);
+      this.events.add(TurnedOffEvent.create());
+    }
   }
 
   advance() {
