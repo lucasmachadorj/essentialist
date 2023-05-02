@@ -1,4 +1,5 @@
 import {
+  AdvancedToGreenEvent,
   TrafficLightEvent,
   TrafficLightEventTypes,
   TrafficLightEvents,
@@ -104,10 +105,18 @@ export class TrafficLight implements ITrafficLight {
     return this.events.getItems().filter((event) => event.type === type);
   }
 
-  private advanceTo(State: State) {
+  private advanceTo(state: State) {
     this.props = {
       ...this.props,
-      currentState: State,
+      currentState: state,
     };
+    this.addEvent(state);
+  }
+
+  private addEvent(state: State) {
+    if (state === State.Green) {
+      this.events.add(AdvancedToGreenEvent.create());
+      return;
+    }
   }
 }

@@ -3,6 +3,7 @@ import { Collection } from "./types";
 export enum TrafficLightEventTypes {
   TurnedOn = "TurnedOn",
   TurnedOff = "TurnedOff",
+  AdvancedToGreen = "AdvancedToGreen",
 }
 
 export abstract class TrafficLightEvent {
@@ -52,5 +53,15 @@ export class TurnedOffEvent extends TrafficLightEvent {
 
   static create() {
     return new TurnedOffEvent();
+  }
+}
+
+export class AdvancedToGreenEvent extends TrafficLightEvent {
+  private constructor() {
+    super(TrafficLightEventTypes.AdvancedToGreen);
+  }
+
+  static create() {
+    return new AdvancedToGreenEvent();
   }
 }

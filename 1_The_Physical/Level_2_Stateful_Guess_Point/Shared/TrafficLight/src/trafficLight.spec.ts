@@ -129,4 +129,15 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOff)
     ).toHaveLength(1);
   });
+
+  it("should have three events when turned on, advanced and off", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.advance();
+    trafficLight.turnOff();
+    expect(trafficLight.getEvents()).toHaveLength(3);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToGreen)
+    ).toHaveLength(1);
+  });
 });
