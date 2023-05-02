@@ -5,6 +5,7 @@ export enum TrafficLightEventTypes {
   TurnedOff = "TurnedOff",
   AdvancedToGreen = "AdvancedToGreen",
   AdvancedToYellow = "AdvancedToYellow",
+  AdvancedToRed = "AdvancedToRed",
 }
 
 export abstract class TrafficLightEvent {
@@ -74,5 +75,15 @@ export class AdvancedToYellowEvent extends TrafficLightEvent {
 
   static create() {
     return new AdvancedToYellowEvent();
+  }
+}
+
+export class AdvancedToRedEvent extends TrafficLightEvent {
+  private constructor() {
+    super(TrafficLightEventTypes.AdvancedToRed);
+  }
+
+  static create() {
+    return new AdvancedToRedEvent();
   }
 }

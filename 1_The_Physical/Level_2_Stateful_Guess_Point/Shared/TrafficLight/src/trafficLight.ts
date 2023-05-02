@@ -1,5 +1,6 @@
 import {
   AdvancedToGreenEvent,
+  AdvancedToRedEvent,
   AdvancedToYellowEvent,
   TrafficLightEvent,
   TrafficLightEventTypes,
@@ -121,6 +122,10 @@ export class TrafficLight implements ITrafficLight {
     }
     if (state === State.Yellow) {
       this.events.add(AdvancedToYellowEvent.create());
+      return;
+    }
+    if (state === State.Red) {
+      this.events.add(AdvancedToRedEvent.create());
       return;
     }
   }
