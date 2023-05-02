@@ -1,8 +1,13 @@
 import { Collection } from "./types";
 
+export enum TrafficLightEventTypes {
+  TurnedOn = "TurnedOn",
+}
+
 export abstract class TrafficLightEvent {
   private date: Date;
-  protected constructor() {
+
+  protected constructor(public readonly type: TrafficLightEventTypes) {
     this.date = new Date();
   }
 }
@@ -20,7 +25,7 @@ export class TrafficLightEvents implements Collection<TrafficLightEvent> {
     this.events.push(event);
   }
 
-  getItems() {
+  getItems(): TrafficLightEvent[] {
     return this.events;
   }
 
@@ -31,7 +36,7 @@ export class TrafficLightEvents implements Collection<TrafficLightEvent> {
 
 export class TurnedOnEvent extends TrafficLightEvent {
   private constructor() {
-    super();
+    super(TrafficLightEventTypes.TurnedOn);
   }
 
   static create() {

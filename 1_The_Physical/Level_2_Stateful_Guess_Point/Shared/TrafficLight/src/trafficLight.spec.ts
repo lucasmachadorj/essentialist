@@ -1,4 +1,5 @@
 import { TrafficLight } from "./trafficLight";
+import { TrafficLightEventTypes } from "./trafficLightEvent";
 
 describe("TrafficLight", () => {
   it("should be defined", () => {
@@ -111,5 +112,8 @@ describe("TrafficLight", () => {
     const trafficLight = new TrafficLight();
     trafficLight.turnOn();
     expect(trafficLight.getEvents()).toHaveLength(1);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
+    ).toHaveLength(1);
   });
 });

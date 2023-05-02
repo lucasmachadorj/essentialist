@@ -1,4 +1,9 @@
-import { TrafficLightEvents, TurnedOnEvent } from "./trafficLightEvent";
+import {
+  TrafficLightEvent,
+  TrafficLightEventTypes,
+  TrafficLightEvents,
+  TurnedOnEvent,
+} from "./trafficLightEvent";
 
 enum State {
   Red = "red",
@@ -22,7 +27,8 @@ interface ITrafficLight {
   isGreen(): boolean;
   isYellow(): boolean;
   isRed(): boolean;
-  getEvents(): any[];
+  getEvents(): TrafficLightEvent[];
+  getEventsOfType(type: TrafficLightEventTypes): TrafficLightEvent[];
 }
 
 export class TrafficLight implements ITrafficLight {
@@ -88,8 +94,12 @@ export class TrafficLight implements ITrafficLight {
     return this.props.currentState === State.Red;
   }
 
-  getEvents() {
+  getEvents(): TrafficLightEvent[] {
     return this.events.getItems();
+  }
+
+  getEventsOfType(type: TrafficLightEventTypes) {
+    return this.events.getItems().filter((event) => event.type === type);
   }
 
   private advanceTo(State: State) {
