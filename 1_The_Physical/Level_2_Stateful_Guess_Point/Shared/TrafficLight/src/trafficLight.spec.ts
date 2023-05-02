@@ -179,4 +179,14 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToGreen)
     ).toHaveLength(2);
   });
+
+  it("should not add a TurnedOn event when already on", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.turnOn();
+    expect(trafficLight.getEvents()).toHaveLength(1);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
+    ).toHaveLength(1);
+  });
 });
