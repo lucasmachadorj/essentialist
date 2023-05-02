@@ -116,4 +116,17 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
     ).toHaveLength(1);
   });
+
+  it("should have two events when turned on and off", () => {
+    const trafficLight = new TrafficLight();
+    trafficLight.turnOn();
+    trafficLight.turnOff();
+    expect(trafficLight.getEvents()).toHaveLength(2);
+    // expect(
+    //   trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
+    // ).toHaveLength(1);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOff)
+    ).toHaveLength(1);
+  });
 });

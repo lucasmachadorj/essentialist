@@ -2,6 +2,7 @@ import {
   TrafficLightEvent,
   TrafficLightEventTypes,
   TrafficLightEvents,
+  TurnedOffEvent,
   TurnedOnEvent,
 } from "./trafficLightEvent";
 
@@ -49,6 +50,7 @@ export class TrafficLight implements ITrafficLight {
 
   turnOff() {
     if (this.isOn()) this.advanceTo(State.Off);
+    this.events.add(TurnedOffEvent.create());
   }
 
   advance() {
