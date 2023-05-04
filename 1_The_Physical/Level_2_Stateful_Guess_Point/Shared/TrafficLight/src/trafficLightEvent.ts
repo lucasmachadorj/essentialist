@@ -8,7 +8,7 @@ export enum TrafficLightEventTypes {
   AdvancedToRed = "AdvancedToRed",
 }
 
-export abstract class TrafficLightEvent {
+export class TrafficLightEvent {
   private date: Date;
 
   protected constructor(public readonly type: TrafficLightEventTypes) {
