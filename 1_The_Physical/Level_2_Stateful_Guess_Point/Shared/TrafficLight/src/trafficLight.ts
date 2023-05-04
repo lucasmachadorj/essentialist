@@ -21,21 +21,7 @@ type TrafficLightProps = {
   readonly currentState: State;
 };
 
-interface ITrafficLight {
-  turnOn(): void;
-  turnOff(): void;
-  advance(): void;
-  isOn(): boolean;
-  isOff(): boolean;
-  isBoot(): boolean;
-  isGreen(): boolean;
-  isYellow(): boolean;
-  isRed(): boolean;
-  getEvents(): TrafficLightEvent[];
-  getEventsOfType(type: TrafficLightEventTypes): TrafficLightEvent[];
-}
-
-export class TrafficLight implements ITrafficLight {
+export class TrafficLight {
   private props: TrafficLightProps;
   private events: TrafficLightEvents;
 
