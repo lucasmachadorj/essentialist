@@ -20,6 +20,8 @@ class Game {
   }
 
   playAt(row: number, column: number): void {
+    if (this.board[row][column] !== "") return;
+
     if (this.currentTurn() === "X") {
       this.board[row][column] = "X";
       this.turn = "O";
@@ -89,5 +91,11 @@ describe("Tic tac toe game", () => {
     game.playAt(0, 0);
     game.playAt(0, 1);
     expect(game.currentTurn()).toEqual("X");
+  });
+
+  it("should not allow a player to play in a cell already played", () => {
+    game.playAt(0, 0);
+    game.playAt(0, 0);
+    expect(game.playerAt(0, 0)).toEqual("X");
   });
 });
