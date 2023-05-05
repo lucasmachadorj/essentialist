@@ -110,4 +110,16 @@ describe("Tic tac toe game", () => {
     game.playAt(2, 1);
     expect(() => game.playAt(2, 0)).toThrow();
   });
+
+  it("should allow to restart the game after it is over", () => {
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    game.playAt(1, 0);
+    game.playAt(1, 1);
+    game.playAt(2, 2);
+    game.playAt(2, 1);
+    expect(game.isOver()).toEqual(true);
+    game.restart();
+    expect(game.isBoardEmpty()).toEqual(true);
+  });
 });

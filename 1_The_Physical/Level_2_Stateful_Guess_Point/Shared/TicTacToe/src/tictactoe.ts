@@ -65,6 +65,19 @@ export class Game {
     return this.isOver() && !this.winner;
   }
 
+  restart(): void {
+    this.props = {
+      board: [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+      turn: "X",
+      winner: "",
+      over: false,
+    };
+  }
+
   private get rowsSize(): number {
     return this.board.length;
   }
