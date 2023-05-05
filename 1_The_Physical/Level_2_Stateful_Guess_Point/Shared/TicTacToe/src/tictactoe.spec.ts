@@ -20,7 +20,7 @@ class Game {
   }
 
   playAt(row: number, column: number): void {
-    if (this.board[row][column] !== "") return;
+    if (!this.isCellEmpty(row, column)) return;
 
     if (this.currentTurn() === "X") {
       this.board[row][column] = "X";
@@ -45,6 +45,10 @@ class Game {
 
   private get columnsSize(): number {
     return this.board[0].length;
+  }
+
+  private isCellEmpty(row: number, column: number): boolean {
+    return this.board[row][column] === "";
   }
 }
 
