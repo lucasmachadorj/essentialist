@@ -41,11 +41,11 @@ class Game {
 
     if (this.currentTurn() === "X") {
       this.board[row][column] = "X";
+      this.verifyWinner(row, column);
       this.props = {
         ...this.props,
         turn: "O",
       };
-      this.updateGameStatus("X", row, column);
       return;
     }
     this.board[row][column] = "O";
@@ -83,15 +83,11 @@ class Game {
     return this.props.board;
   }
 
-  private updateGameStatus(
-    currentPlayer: Player,
-    row: number,
-    column: number
-  ): void {
-    if (this.isWholeRowMarkedBy(currentPlayer, row)) {
+  private verifyWinner(row: number, column: number): void {
+    if (this.isWholeRowMarkedBy(this.currentTurn(), row)) {
       this.props = {
         ...this.props,
-        winner: currentPlayer,
+        winner: this.currentTurn(),
         over: true,
       };
     }
