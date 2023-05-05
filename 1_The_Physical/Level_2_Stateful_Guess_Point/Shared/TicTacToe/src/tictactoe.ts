@@ -95,6 +95,15 @@ export class Game {
       };
       return;
     }
+
+    if (this.isDiagonalMarked()) {
+      this.props = {
+        ...this.props,
+        winner: this.currentTurn(),
+        over: true,
+      };
+      return;
+    }
   }
 
   private isWholeRowMarked(row: number): boolean {
@@ -103,6 +112,20 @@ export class Game {
 
   private isWholeColumnMarked(column: number): boolean {
     return this.board.every((row) => row[column] === this.currentTurn());
+  }
+
+  private isDiagonalMarked(): boolean {
+    return this.isFirstDiagonalMarked() || this.isSecondDiagonalMarked();
+  }
+
+  private isFirstDiagonalMarked(): boolean {
+    return this.board.every((row, index) => row[index] === this.currentTurn());
+  }
+
+  private isSecondDiagonalMarked(): boolean {
+    return this.board.every(
+      (row, index) => row[this.columnsSize - index - 1] === this.currentTurn()
+    );
   }
 
   private setMove(row: number, column: number): void {

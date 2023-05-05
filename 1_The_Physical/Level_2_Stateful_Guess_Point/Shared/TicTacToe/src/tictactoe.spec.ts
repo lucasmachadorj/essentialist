@@ -75,4 +75,14 @@ describe("Tic tac toe game", () => {
     expect(game.winner).toEqual("O");
     expect(game.isOver()).toEqual(true);
   });
+
+  it("should be player X the winner when X marks the diagonal", () => {
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    game.playAt(1, 1);
+    game.playAt(2, 1);
+    game.playAt(2, 2);
+    expect(game.winner).toEqual("X");
+    expect(game.isOver()).toEqual(true);
+  });
 });
