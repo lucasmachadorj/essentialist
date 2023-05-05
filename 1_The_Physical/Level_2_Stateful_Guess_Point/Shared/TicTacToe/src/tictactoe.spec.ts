@@ -20,6 +20,9 @@ class Game {
   }
 
   playAt(row: number, column: number): void {
+    if (row >= this.rowsSize || column >= this.columnsSize)
+      throw new Error("Cell out of range");
+
     if (!this.isCellEmpty(row, column)) return;
 
     if (this.currentTurn() === "X") {
@@ -101,5 +104,9 @@ describe("Tic tac toe game", () => {
     game.playAt(0, 0);
     game.playAt(0, 0);
     expect(game.playerAt(0, 0)).toEqual("X");
+  });
+
+  it("should not allow a player to play in a cell out of range", () => {
+    expect(() => game.playAt(0, 3)).toThrow();
   });
 });
