@@ -20,8 +20,13 @@ class Game {
   }
 
   playAt(row: number, column: number): void {
-    this.board[row][column] = "X";
-    this.turn = "O";
+    if (this.currentTurn() === "X") {
+      this.board[row][column] = "X";
+      this.turn = "O";
+      return;
+    }
+    this.board[row][column] = "O";
+    this.turn = "X";
   }
 
   playerAt(row: number, column: number): string {
@@ -71,5 +76,12 @@ describe("Tic tac toe game", () => {
     const game = new Game();
     game.playAt(0, 0);
     expect(game.currentTurn()).toEqual("O");
+  });
+
+  it("should mark the second cell with O when second player chooses the second cell", () => {
+    const game = new Game();
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    expect(game.playerAt(0, 1)).toEqual("O");
   });
 });
