@@ -1,6 +1,8 @@
 class Game {
   private board: string[][];
   private turn: string;
+  private _winner: string;
+  private over: boolean;
 
   constructor() {
     this.board = [
@@ -9,6 +11,8 @@ class Game {
       ["", "", ""],
     ];
     this.turn = "X";
+    this._winner = "";
+    this.over = false;
   }
 
   isBoardEmpty(): boolean {
@@ -28,6 +32,7 @@ class Game {
     if (this.currentTurn() === "X") {
       this.board[row][column] = "X";
       this.turn = "O";
+      this.updateGameStatus("X", row, column);
       return;
     }
     this.board[row][column] = "O";
@@ -42,6 +47,10 @@ class Game {
     return this.rowsSize * this.columnsSize;
   }
 
+  get winner(): string {
+    return this._winner;
+  }
+
   private get rowsSize(): number {
     return this.board.length;
   }
@@ -52,6 +61,25 @@ class Game {
 
   private isCellEmpty(row: number, column: number): boolean {
     return this.board[row][column] === "";
+  }
+
+  private updateGameStatus(
+    currentPlayer: string,
+    row: number,
+    column: number
+  ): void {
+    if (this.isWholeRowMarkedBy(currentPlayer, row)) {
+      this._winner = currentPlayer;
+      this.over = true;
+    }
+  }
+
+  isOver(): boolean {
+    return this.over;
+  }
+
+  private isWholeRowMarkedBy(player: string, row: number): boolean {
+    return this.board[row].every((cell) => cell === player);
   }
 }
 
@@ -108,5 +136,15 @@ describe("Tic tac toe game", () => {
 
   it("should not allow a player to play in a cell out of range", () => {
     expect(() => game.playAt(0, 3)).toThrow();
+  });
+
+  it("should be player X the winner when X marks the whole first row", () => {
+    game.playAt(0, 0);
+    game.playAt(1, 0);
+    game.playAt(0, 1);
+    game.playAt(2, 0);
+    game.playAt(0, 2);
+    expect(game.winner).toEqual("X");
+    expect(game.isOver()).toEqual(true);
   });
 });
