@@ -61,6 +61,10 @@ export class Game {
     return this.props.over;
   }
 
+  isDrawn(): boolean {
+    return this.isOver() && !this.winner;
+  }
+
   private get rowsSize(): number {
     return this.board.length;
   }
@@ -116,6 +120,12 @@ export class Game {
 
   private setMove(row: number, column: number): void {
     this.board[row][column] = this.currentTurn();
+    if (this.board.every((row) => row.every((cell) => cell !== ""))) {
+      this.props = {
+        ...this.props,
+        over: true,
+      };
+    }
   }
   private swithPlayer(): void {
     this.props = {

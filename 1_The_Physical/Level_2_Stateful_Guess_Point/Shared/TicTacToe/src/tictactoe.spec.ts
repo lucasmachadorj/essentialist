@@ -85,4 +85,19 @@ describe("Tic tac toe game", () => {
     expect(game.winner).toEqual("X");
     expect(game.isOver()).toEqual(true);
   });
+
+  it("should draw when all cells are marked and there is no winner", () => {
+    game.playAt(0, 1);
+    game.playAt(0, 0);
+    game.playAt(0, 2);
+    game.playAt(1, 1);
+    game.playAt(1, 0);
+    game.playAt(1, 2);
+    game.playAt(2, 0);
+    game.playAt(2, 1);
+    game.playAt(2, 2);
+    expect(game.winner).toEqual("");
+    expect(game.isOver()).toEqual(true);
+    expect(game.isDrawn()).toEqual(true);
+  });
 });
