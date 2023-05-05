@@ -16,6 +16,18 @@ class Game {
   currentTurn(): string {
     return "X";
   }
+
+  get boardSize(): number {
+    return this.rowsSize * this.columnsSize;
+  }
+
+  private get rowsSize(): number {
+    return this.board.length;
+  }
+
+  private get columnsSize(): number {
+    return this.board[0].length;
+  }
 }
 
 describe("Tic tac toe game", () => {
@@ -26,6 +38,11 @@ describe("Tic tac toe game", () => {
   it("should start with an empty board", () => {
     const game = new Game();
     expect(game.isBoardEmpty()).toEqual(true);
+  });
+
+  it("should have a board with 9 cells", () => {
+    const game = new Game();
+    expect(game.boardSize).toEqual(9);
   });
 
   it("should start with the player X", () => {
