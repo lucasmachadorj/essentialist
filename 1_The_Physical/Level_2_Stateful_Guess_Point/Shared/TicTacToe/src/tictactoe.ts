@@ -13,16 +13,7 @@ export class Game {
   private props: GameProps;
 
   constructor() {
-    this.props = {
-      board: [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
-      ],
-      turn: "X",
-      winner: "",
-      over: false,
-    };
+    this.props = this.reset();
   }
 
   isBoardEmpty(): boolean {
@@ -66,16 +57,7 @@ export class Game {
   }
 
   restart(): void {
-    this.props = {
-      board: [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
-      ],
-      turn: "X",
-      winner: "",
-      over: false,
-    };
+    this.props = this.reset();
   }
 
   private get rowsSize(): number {
@@ -149,4 +131,17 @@ export class Game {
   private get oponent(): Player {
     return this.currentTurn() === "X" ? "O" : "X";
   }
+
+  private reset = (): GameProps => {
+    return {
+      board: [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+      turn: "X",
+      winner: "",
+      over: false,
+    };
+  };
 }
