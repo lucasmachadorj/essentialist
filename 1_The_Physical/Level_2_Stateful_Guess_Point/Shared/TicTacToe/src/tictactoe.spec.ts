@@ -84,4 +84,11 @@ describe("Tic tac toe game", () => {
     game.playAt(0, 1);
     expect(game.playerAt(0, 1)).toEqual("O");
   });
+
+  it("should be X turn after O plays", () => {
+    const game = new Game();
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    expect(game.currentTurn()).toEqual("X");
+  });
 });
