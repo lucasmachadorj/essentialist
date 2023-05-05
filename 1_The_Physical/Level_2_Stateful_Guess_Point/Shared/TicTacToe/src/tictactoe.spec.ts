@@ -64,4 +64,15 @@ describe("Tic tac toe game", () => {
     expect(game.winner).toEqual("X");
     expect(game.isOver()).toEqual(true);
   });
+
+  it("should be player O the winner when O marks the whole second column", () => {
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    game.playAt(1, 0);
+    game.playAt(1, 1);
+    game.playAt(2, 2);
+    game.playAt(2, 1);
+    expect(game.winner).toEqual("O");
+    expect(game.isOver()).toEqual(true);
+  });
 });

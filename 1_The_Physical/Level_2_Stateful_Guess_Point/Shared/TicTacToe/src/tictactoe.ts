@@ -38,6 +38,7 @@ export class Game {
       throw new Error("Cell out of range");
 
     if (!this.isCellEmpty(row, column)) return;
+    if (this.isOver()) return;
 
     this.setMove(row, column);
     this.verifyWinner(row, column);
@@ -77,17 +78,31 @@ export class Game {
   }
 
   private verifyWinner(row: number, column: number): void {
+    console.log(this.board);
     if (this.isWholeRowMarked(row)) {
       this.props = {
         ...this.props,
         winner: this.currentTurn(),
         over: true,
       };
+      return;
+    }
+    if (this.isWholeColumnMarked(column)) {
+      this.props = {
+        ...this.props,
+        winner: this.currentTurn(),
+        over: true,
+      };
+      return;
     }
   }
 
   private isWholeRowMarked(row: number): boolean {
     return this.board[row].every((cell) => cell === this.currentTurn());
+  }
+
+  private isWholeColumnMarked(column: number): boolean {
+    return this.board.every((row) => row[column] === this.currentTurn());
   }
 
   private setMove(row: number, column: number): void {
