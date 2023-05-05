@@ -39,20 +39,9 @@ class Game {
 
     if (!this.isCellEmpty(row, column)) return;
 
-    if (this.currentTurn() === "X") {
-      this.board[row][column] = "X";
-      this.verifyWinner(row, column);
-      this.props = {
-        ...this.props,
-        turn: "O",
-      };
-      return;
-    }
-    this.board[row][column] = "O";
-    this.props = {
-      ...this.props,
-      turn: "X",
-    };
+    this.setMove(row, column);
+    this.verifyWinner(row, column);
+    this.swithPlayer();
   }
 
   playerAt(row: number, column: number): Player | Empty {
@@ -99,6 +88,19 @@ class Game {
 
   private isWholeRowMarkedBy(player: Player, row: number): boolean {
     return this.board[row].every((cell) => cell === player);
+  }
+
+  private setMove(row: number, column: number): void {
+    this.board[row][column] = this.currentTurn();
+  }
+  private swithPlayer(): void {
+    this.props = {
+      ...this.props,
+      turn: this.oponent,
+    };
+  }
+  private get oponent(): Player {
+    return this.currentTurn() === "X" ? "O" : "X";
   }
 }
 
