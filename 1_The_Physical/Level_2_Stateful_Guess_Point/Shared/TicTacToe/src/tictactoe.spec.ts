@@ -56,6 +56,10 @@ class Game {
     return this.props.winner;
   }
 
+  isOver(): boolean {
+    return this.props.over;
+  }
+
   private get rowsSize(): number {
     return this.board.length;
   }
@@ -80,10 +84,6 @@ class Game {
         over: true,
       };
     }
-  }
-
-  isOver(): boolean {
-    return this.props.over;
   }
 
   private isWholeRowMarked(row: number): boolean {
