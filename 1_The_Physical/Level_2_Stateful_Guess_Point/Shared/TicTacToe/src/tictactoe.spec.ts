@@ -1,18 +1,24 @@
+type GameProps = {
+  readonly board: string[][];
+  readonly turn: string;
+  readonly winner: string;
+  readonly over: boolean;
+};
+
 class Game {
-  private board: string[][];
-  private turn: string;
-  private _winner: string;
-  private over: boolean;
+  private props: GameProps;
 
   constructor() {
-    this.board = [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ];
-    this.turn = "X";
-    this._winner = "";
-    this.over = false;
+    this.props = {
+      board: [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+      turn: "X",
+      winner: "",
+      over: false,
+    };
   }
 
   isBoardEmpty(): boolean {
@@ -20,7 +26,7 @@ class Game {
   }
 
   currentTurn(): string {
-    return this.turn;
+    return this.props.turn;
   }
 
   playAt(row: number, column: number): void {
@@ -31,16 +37,22 @@ class Game {
 
     if (this.currentTurn() === "X") {
       this.board[row][column] = "X";
-      this.turn = "O";
+      this.props = {
+        ...this.props,
+        turn: "O",
+      };
       this.updateGameStatus("X", row, column);
       return;
     }
     this.board[row][column] = "O";
-    this.turn = "X";
+    this.props = {
+      ...this.props,
+      turn: "X",
+    };
   }
 
   playerAt(row: number, column: number): string {
-    return this.board[row][column];
+    return this.props.board[row][column];
   }
 
   get boardSize(): number {
@@ -48,7 +60,7 @@ class Game {
   }
 
   get winner(): string {
-    return this._winner;
+    return this.props.winner;
   }
 
   private get rowsSize(): number {
@@ -63,19 +75,26 @@ class Game {
     return this.board[row][column] === "";
   }
 
+  private get board(): string[][] {
+    return this.props.board;
+  }
+
   private updateGameStatus(
     currentPlayer: string,
     row: number,
     column: number
   ): void {
     if (this.isWholeRowMarkedBy(currentPlayer, row)) {
-      this._winner = currentPlayer;
-      this.over = true;
+      this.props = {
+        ...this.props,
+        winner: currentPlayer,
+        over: true,
+      };
     }
   }
 
   isOver(): boolean {
-    return this.over;
+    return this.props.over;
   }
 
   private isWholeRowMarkedBy(player: string, row: number): boolean {
