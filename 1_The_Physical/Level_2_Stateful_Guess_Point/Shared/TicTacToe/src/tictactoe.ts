@@ -78,31 +78,17 @@ export class Game {
   }
 
   private verifyWinner(row: number, column: number): void {
-    console.log(this.board);
-    if (this.isWholeRowMarked(row)) {
-      this.props = {
-        ...this.props,
-        winner: this.currentTurn(),
-        over: true,
-      };
-      return;
-    }
-    if (this.isWholeColumnMarked(column)) {
-      this.props = {
-        ...this.props,
-        winner: this.currentTurn(),
-        over: true,
-      };
-      return;
-    }
+    const isThereAWinner =
+      this.isWholeColumnMarked(column) ||
+      this.isWholeRowMarked(row) ||
+      this.isDiagonalMarked();
 
-    if (this.isDiagonalMarked()) {
+    if (isThereAWinner) {
       this.props = {
         ...this.props,
         winner: this.currentTurn(),
         over: true,
       };
-      return;
     }
   }
 
