@@ -12,6 +12,10 @@ class Game {
   isBoardEmpty(): boolean {
     return this.board.every((row) => row.every((cell) => cell === ""));
   }
+
+  currentTurn(): string {
+    return "X";
+  }
 }
 
 describe("Tic tac toe game", () => {
@@ -22,5 +26,10 @@ describe("Tic tac toe game", () => {
   it("should start with an empty board", () => {
     const game = new Game();
     expect(game.isBoardEmpty()).toEqual(true);
+  });
+
+  it("should start with the player X", () => {
+    const game = new Game();
+    expect(game.currentTurn()).toEqual("X");
   });
 });
