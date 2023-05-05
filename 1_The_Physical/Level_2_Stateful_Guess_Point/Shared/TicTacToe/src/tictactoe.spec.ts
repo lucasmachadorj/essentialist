@@ -17,6 +17,14 @@ class Game {
     return "X";
   }
 
+  playAt(row: number, column: number): void {
+    this.board[row][column] = "X";
+  }
+
+  playerAt(row: number, column: number): string {
+    return this.board[row][column];
+  }
+
   get boardSize(): number {
     return this.rowsSize * this.columnsSize;
   }
@@ -48,5 +56,11 @@ describe("Tic tac toe game", () => {
   it("should start with the player X", () => {
     const game = new Game();
     expect(game.currentTurn()).toEqual("X");
+  });
+
+  it("should mark the first cell with X when first player chooses the first cell", () => {
+    const game = new Game();
+    game.playAt(0, 0);
+    expect(game.playerAt(0, 0)).toEqual("X");
   });
 });
