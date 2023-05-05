@@ -37,8 +37,8 @@ export class Game {
     if (row >= this.rowsSize || column >= this.columnsSize)
       throw new Error("Cell out of range");
 
+    if (this.isOver()) throw new Error("Game is over");
     if (!this.isCellEmpty(row, column)) return;
-    if (this.isOver()) return;
 
     this.setMove(row, column);
     this.verifyWinner(row, column);

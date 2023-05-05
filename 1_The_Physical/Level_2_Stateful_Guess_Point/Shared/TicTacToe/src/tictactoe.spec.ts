@@ -100,4 +100,14 @@ describe("Tic tac toe game", () => {
     expect(game.isOver()).toEqual(true);
     expect(game.isDrawn()).toEqual(true);
   });
+
+  it("should not allow to play after the game is over", () => {
+    game.playAt(0, 0);
+    game.playAt(0, 1);
+    game.playAt(1, 0);
+    game.playAt(1, 1);
+    game.playAt(2, 2);
+    game.playAt(2, 1);
+    expect(() => game.playAt(2, 0)).toThrow();
+  });
 });
