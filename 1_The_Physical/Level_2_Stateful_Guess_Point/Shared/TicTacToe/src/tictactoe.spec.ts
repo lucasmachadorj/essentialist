@@ -140,5 +140,7 @@ describe("Tic tac toe game", () => {
     expect(game.isOver()).toEqual(true);
     game.restart();
     expect(game.isBoardEmpty()).toEqual(true);
+    expect(game.currentTurn()).toEqual("X");
+    expect(game.isOver()).toEqual(false);
   });
 });
