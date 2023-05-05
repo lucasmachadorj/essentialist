@@ -73,7 +73,7 @@ class Game {
   }
 
   private verifyWinner(row: number, column: number): void {
-    if (this.isWholeRowMarkedBy(this.currentTurn(), row)) {
+    if (this.isWholeRowMarked(row)) {
       this.props = {
         ...this.props,
         winner: this.currentTurn(),
@@ -86,8 +86,8 @@ class Game {
     return this.props.over;
   }
 
-  private isWholeRowMarkedBy(player: Player, row: number): boolean {
-    return this.board[row].every((cell) => cell === player);
+  private isWholeRowMarked(row: number): boolean {
+    return this.board[row].every((cell) => cell === this.currentTurn());
   }
 
   private setMove(row: number, column: number): void {
