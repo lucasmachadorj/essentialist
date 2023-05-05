@@ -34,20 +34,26 @@ describe("Tic tac toe game", () => {
   });
 
   it("should mark the second cell with O when second player chooses the second cell", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
+    [
+      [0, 0],
+      [0, 1],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.playerAt(0, 1)).toEqual("O");
   });
 
   it("should be X turn after O plays", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
+    [
+      [0, 0],
+      [0, 1],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.currentTurn()).toEqual("X");
   });
 
   it("should not allow a player to play in a cell already played", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 0);
+    [
+      [0, 0],
+      [0, 0],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.playerAt(0, 0)).toEqual("X");
   });
 
@@ -56,68 +62,81 @@ describe("Tic tac toe game", () => {
   });
 
   it("should be player X the winner when X marks the whole first row", () => {
-    game.playAt(0, 0);
-    game.playAt(1, 0);
-    game.playAt(0, 1);
-    game.playAt(2, 0);
-    game.playAt(0, 2);
+    [
+      [0, 0],
+      [1, 0],
+      [0, 1],
+      [1, 1],
+      [0, 2],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.winner).toEqual("X");
     expect(game.isOver()).toEqual(true);
   });
 
   it("should be player O the winner when O marks the whole second column", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
-    game.playAt(1, 0);
-    game.playAt(1, 1);
-    game.playAt(2, 2);
-    game.playAt(2, 1);
+    [
+      [0, 0],
+      [0, 1],
+      [1, 0],
+      [1, 1],
+      [2, 2],
+      [2, 1],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.winner).toEqual("O");
     expect(game.isOver()).toEqual(true);
   });
 
   it("should be player X the winner when X marks the diagonal", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
-    game.playAt(1, 1);
-    game.playAt(2, 1);
-    game.playAt(2, 2);
+    [
+      [0, 0],
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [2, 2],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.winner).toEqual("X");
     expect(game.isOver()).toEqual(true);
   });
 
   it("should draw when all cells are marked and there is no winner", () => {
-    game.playAt(0, 1);
-    game.playAt(0, 0);
-    game.playAt(0, 2);
-    game.playAt(1, 1);
-    game.playAt(1, 0);
-    game.playAt(1, 2);
-    game.playAt(2, 0);
-    game.playAt(2, 1);
-    game.playAt(2, 2);
+    [
+      [0, 1],
+      [0, 0],
+      [0, 2],
+      [1, 1],
+      [1, 0],
+      [1, 2],
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.winner).toEqual("");
     expect(game.isOver()).toEqual(true);
     expect(game.isDrawn()).toEqual(true);
   });
 
   it("should not allow to play after the game is over", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
-    game.playAt(1, 0);
-    game.playAt(1, 1);
-    game.playAt(2, 2);
-    game.playAt(2, 1);
+    [
+      [0, 0],
+      [0, 1],
+      [1, 0],
+      [1, 1],
+      [2, 2],
+      [2, 1],
+    ].forEach(([row, column]) => game.playAt(row, column));
+
     expect(() => game.playAt(2, 0)).toThrow();
   });
 
   it("should allow to restart the game after it is over", () => {
-    game.playAt(0, 0);
-    game.playAt(0, 1);
-    game.playAt(1, 0);
-    game.playAt(1, 1);
-    game.playAt(2, 2);
-    game.playAt(2, 1);
+    [
+      [0, 0],
+      [0, 1],
+      [1, 0],
+      [1, 1],
+      [2, 2],
+      [2, 1],
+    ].forEach(([row, column]) => game.playAt(row, column));
     expect(game.isOver()).toEqual(true);
     game.restart();
     expect(game.isBoardEmpty()).toEqual(true);
