@@ -1,5 +1,6 @@
 class Game {
   private board: string[][];
+  private turn: string;
 
   constructor() {
     this.board = [
@@ -7,6 +8,7 @@ class Game {
       ["", "", ""],
       ["", "", ""],
     ];
+    this.turn = "X";
   }
 
   isBoardEmpty(): boolean {
@@ -14,11 +16,12 @@ class Game {
   }
 
   currentTurn(): string {
-    return "X";
+    return this.turn;
   }
 
   playAt(row: number, column: number): void {
     this.board[row][column] = "X";
+    this.turn = "O";
   }
 
   playerAt(row: number, column: number): string {
@@ -62,5 +65,11 @@ describe("Tic tac toe game", () => {
     const game = new Game();
     game.playAt(0, 0);
     expect(game.playerAt(0, 0)).toEqual("X");
+  });
+
+  it("should be O turn after X plays", () => {
+    const game = new Game();
+    game.playAt(0, 0);
+    expect(game.currentTurn()).toEqual("O");
   });
 });
