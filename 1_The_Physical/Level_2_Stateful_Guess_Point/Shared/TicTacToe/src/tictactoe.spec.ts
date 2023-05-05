@@ -1,7 +1,11 @@
+type Empty = "";
+type Board = (Player | Empty)[][];
+type Player = "X" | "O";
+
 type GameProps = {
-  readonly board: string[][];
-  readonly turn: string;
-  readonly winner: string;
+  readonly board: Board;
+  readonly turn: Player;
+  readonly winner: Player | Empty;
   readonly over: boolean;
 };
 
@@ -25,7 +29,7 @@ class Game {
     return this.board.every((row) => row.every((cell) => cell === ""));
   }
 
-  currentTurn(): string {
+  currentTurn(): Player {
     return this.props.turn;
   }
 
@@ -51,7 +55,7 @@ class Game {
     };
   }
 
-  playerAt(row: number, column: number): string {
+  playerAt(row: number, column: number): Player | Empty {
     return this.props.board[row][column];
   }
 
@@ -59,7 +63,7 @@ class Game {
     return this.rowsSize * this.columnsSize;
   }
 
-  get winner(): string {
+  get winner(): Player | Empty {
     return this.props.winner;
   }
 
@@ -75,12 +79,12 @@ class Game {
     return this.board[row][column] === "";
   }
 
-  private get board(): string[][] {
+  private get board(): Board {
     return this.props.board;
   }
 
   private updateGameStatus(
-    currentPlayer: string,
+    currentPlayer: Player,
     row: number,
     column: number
   ): void {
@@ -97,7 +101,7 @@ class Game {
     return this.props.over;
   }
 
-  private isWholeRowMarkedBy(player: string, row: number): boolean {
+  private isWholeRowMarkedBy(player: Player, row: number): boolean {
     return this.board[row].every((cell) => cell === player);
   }
 }
