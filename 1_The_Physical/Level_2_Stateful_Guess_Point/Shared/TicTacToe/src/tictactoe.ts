@@ -113,9 +113,13 @@ export class Game {
     );
   }
 
+  private isBoardFull(): boolean {
+    return this.board.every((row) => row.every((cell) => cell !== ""));
+  }
+
   private setMove(row: number, column: number): void {
     this.board[row][column] = this.currentTurn();
-    if (this.board.every((row) => row.every((cell) => cell !== ""))) {
+    if (this.isBoardFull()) {
       this.props = {
         ...this.props,
         over: true,
