@@ -77,12 +77,12 @@ export class Game {
   }
 
   private verifyWinner(row: number, column: number): void {
-    const isThereAWinner =
+    const thereIsAWinner =
       this.isWholeColumnMarked(column) ||
       this.isWholeRowMarked(row) ||
       this.isDiagonalMarked();
 
-    if (isThereAWinner) {
+    if (thereIsAWinner) {
       this.props = {
         ...this.props,
         winner: this.currentTurn(),
