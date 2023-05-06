@@ -33,7 +33,7 @@ export class Game {
 
     this.setMove(row, column);
     this.verifyWinner(row, column);
-    this.swithPlayer();
+    this.switchPlayer();
   }
 
   playerAt(row: number, column: number): Player | Empty {
@@ -126,7 +126,7 @@ export class Game {
       };
     }
   }
-  private swithPlayer(): void {
+  private switchPlayer(): void {
     this.props = {
       ...this.props,
       turn: this.oponent,
