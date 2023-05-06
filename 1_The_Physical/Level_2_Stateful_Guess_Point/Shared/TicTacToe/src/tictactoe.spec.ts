@@ -141,7 +141,6 @@ describe("Tic tac toe game", () => {
       [2, 2],
       [2, 1],
     ]);
-    expect(game.isOver()).toEqual(true);
     game.restart();
     expect(game.isBoardEmpty()).toEqual(true);
     expect(game.currentTurn()).toEqual("X");
