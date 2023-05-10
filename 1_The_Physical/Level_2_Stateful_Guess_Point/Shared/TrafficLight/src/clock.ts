@@ -1,8 +1,9 @@
 import { TrafficLight } from "./trafficLight";
 import { TrafficLights } from "./trafficLights";
 
+type Seconds = number;
 export class Clock {
-  private currentTime: number;
+  private currentTime: Seconds;
   private subscribers: TrafficLights;
 
   constructor() {
@@ -10,11 +11,11 @@ export class Clock {
     this.subscribers = TrafficLights.create();
   }
 
-  getCurrentTime(): number {
+  getCurrentTime(): Seconds {
     return this.currentTime;
   }
 
-  goToFuture(timeDelay: number): void {
+  goToFuture(timeDelay: Seconds): void {
     this.currentTime += timeDelay;
   }
 
