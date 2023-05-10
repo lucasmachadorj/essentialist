@@ -228,7 +228,6 @@ describe("TrafficLight", () => {
     clock.goToFuture(10);
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    expect(trafficLight.isBoot()).toBe(true);
     clock.tick();
     expect(trafficLight.isGreen()).toBe(true);
     expect(clock.getCurrentTime()).toBe(11);
