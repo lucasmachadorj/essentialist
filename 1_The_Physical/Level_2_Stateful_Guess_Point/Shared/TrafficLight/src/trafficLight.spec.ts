@@ -9,6 +9,7 @@ const tick = (n: number) => (clock: Clock) => {
 const tick5 = tick(5);
 const tick30 = tick(30);
 const tick60 = tick(60);
+const tick192 = tick(192);
 
 const fromBootToGreen = (clock: Clock) => {
   clock.tick();
@@ -241,5 +242,22 @@ describe("TrafficLight", () => {
 
     expect(trafficLight.isGreen()).toBe(true);
     expect(clock.getCurrentTime()).toBe(11);
+  });
+
+  it("should have been green 4 times, yellow 3 times and red 3 times after 192 seconds", () => {
+    const trafficLight = new TrafficLight(clock);
+
+    trafficLight.turnOn();
+    tick192(clock);
+
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToGreen)
+    ).toHaveLength(4);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToYellow)
+    ).toHaveLength(3);
+    expect(
+      trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToRed)
+    ).toHaveLength(3);
   });
 });
