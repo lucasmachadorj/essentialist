@@ -222,4 +222,15 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time
     ).toBe(clock.getCurrentTime());
   });
+
+  it("should advance to green in instant 11s when turned on in instanct 10s", () => {
+    const clock = new Clock();
+    clock.goToFuture(10);
+    const trafficLight = new TrafficLight(clock);
+    trafficLight.turnOn();
+    expect(trafficLight.isBoot()).toBe(true);
+    clock.tick();
+    expect(trafficLight.isGreen()).toBe(true);
+    expect(trafficLight.isGreen()).toBe(true);
+  });
 });
