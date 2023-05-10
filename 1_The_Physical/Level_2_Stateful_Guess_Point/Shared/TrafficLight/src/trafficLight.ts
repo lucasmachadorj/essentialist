@@ -1,3 +1,4 @@
+import { Clock } from "./clock";
 import {
   AdvancedToGreenEvent,
   AdvancedToRedEvent,
@@ -19,15 +20,17 @@ enum State {
 
 type TrafficLightProps = {
   readonly currentState: State;
+  readonly clock: Clock;
 };
 
 export class TrafficLight {
   private props: TrafficLightProps;
   private events: TrafficLightEvents;
 
-  constructor() {
+  constructor(private clock: Clock) {
     this.props = {
       currentState: State.Off,
+      clock,
     };
     this.events = TrafficLightEvents.create();
   }
@@ -35,14 +38,14 @@ export class TrafficLight {
   turnOn() {
     if (this.isOff()) {
       this.advanceTo(State.Boot);
-      this.events.add(TurnedOnEvent.create());
+      this.events.add(TurnedOnEvent.create(this.clock.getTimeDelay()));
     }
   }
 
   turnOff() {
     if (this.isOn()) {
       this.advanceTo(State.Off);
-      this.events.add(TurnedOffEvent.create());
+      this.events.add(TurnedOffEvent.create(this.clock.getTimeDelay()));
     }
   }
 
@@ -97,6 +100,14 @@ export class TrafficLight {
     return this.events.getItems().filter((event) => event.type === type);
   }
 
+  getCurrentTime() {
+    return this.props.clock.getTimeDelay();
+  }
+
+  timePassed() {
+    return null;
+  }
+
   private advanceTo(state: State) {
     this.props = {
       ...this.props,
@@ -107,13 +118,13 @@ export class TrafficLight {
 
   private addEvent(state: State) {
     if (state === State.Green) {
-      this.events.add(AdvancedToGreenEvent.create());
+      this.events.add(AdvancedToGreenEvent.create(this.clock.getTimeDelay()));
     }
     if (state === State.Yellow) {
-      this.events.add(AdvancedToYellowEvent.create());
+      this.events.add(AdvancedToYellowEvent.create(this.clock.getTimeDelay()));
     }
     if (state === State.Red) {
-      this.events.add(AdvancedToRedEvent.create());
+      this.events.add(AdvancedToRedEvent.create(this.clock.getTimeDelay()));
     }
   }
 }

@@ -19,7 +19,7 @@ describe("Clock", () => {
 
   it("should subscribe a traffic light to the clock", () => {
     const clock = new Clock();
-    const trafficLight = new TrafficLight();
+    const trafficLight = new TrafficLight(clock);
     clock.subscribe(trafficLight);
     expect(clock.getSubscribers()).toContain(trafficLight);
   });
