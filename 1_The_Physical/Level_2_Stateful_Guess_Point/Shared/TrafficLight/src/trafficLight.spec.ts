@@ -42,19 +42,24 @@ describe("TrafficLight", () => {
 
   it("should start off", () => {
     const trafficLight = new TrafficLight(clock);
+
     expect(trafficLight.isOff()).toBe(true);
   });
 
   it("should be able to turn on", () => {
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
+
     expect(trafficLight.isOn()).toBe(true);
   });
 
   it("should be able to turn off when is boot", () => {
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
     trafficLight.turnOff();
+
     expect(trafficLight.isOff()).toBe(true);
   });
 
@@ -195,8 +200,10 @@ describe("TrafficLight", () => {
 
   it("should not add a TurnedOn event when already on", () => {
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
     trafficLight.turnOn();
+
     expect(trafficLight.getEvents()).toHaveLength(1);
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)
@@ -205,7 +212,9 @@ describe("TrafficLight", () => {
 
   it("should not add a TurnedOff event when already off", () => {
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOff();
+
     expect(trafficLight.getEvents()).toHaveLength(0);
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOff)
@@ -213,9 +222,9 @@ describe("TrafficLight", () => {
   });
 
   it("should add a turnedOn event with clock currentTime", () => {
-    const clock = new Clock();
     clock.goToFuture(30);
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
 
     expect(
@@ -224,11 +233,12 @@ describe("TrafficLight", () => {
   });
 
   it("should advance to green in instant 11s when turned on in instant 10s", () => {
-    const clock = new Clock();
     clock.goToFuture(10);
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
     clock.tick();
+
     expect(trafficLight.isGreen()).toBe(true);
     expect(clock.getCurrentTime()).toBe(11);
   });
