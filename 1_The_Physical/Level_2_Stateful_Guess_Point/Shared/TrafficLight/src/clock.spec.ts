@@ -8,13 +8,13 @@ describe("Clock", () => {
 
   it("should start with time delay of 0", () => {
     const clock = new Clock();
-    expect(clock.getTimeDelay()).toBe(0);
+    expect(clock.getCurrentTime()).toBe(0);
   });
 
   it("should be able to increase time delay, such as add 30 s", () => {
     const clock = new Clock();
-    clock.increaseTimeDelay(30);
-    expect(clock.getTimeDelay()).toBe(30);
+    clock.goToFuture(30);
+    expect(clock.getCurrentTime()).toBe(30);
   });
 
   it("should subscribe a traffic light to the clock", () => {
@@ -28,14 +28,14 @@ describe("Clock", () => {
     const clock = new Clock();
     const trafficLight = new TrafficLight(clock);
     clock.subscribe(trafficLight);
-    clock.increaseTimeDelay(30);
+    clock.goToFuture(30);
     expect(trafficLight.trigger).toHaveBeenCalled();
   });
 
   it("should advance 1 sec when tick", () => {
     const clock = new Clock();
-    const lastTime = clock.getTimeDelay();
+    const lastTime = clock.getCurrentTime();
     clock.tick();
-    expect(clock.getTimeDelay()).toBe(lastTime + 1);
+    expect(clock.getCurrentTime()).toBe(lastTime + 1);
   });
 });

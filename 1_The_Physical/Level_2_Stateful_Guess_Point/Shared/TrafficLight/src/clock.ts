@@ -1,20 +1,20 @@
 import { TrafficLight } from "./trafficLight";
 
 export class Clock {
-  private timeDelay: number;
+  private currentTime: number;
   private subscribers: TrafficLight[];
 
   constructor() {
-    this.timeDelay = 0;
+    this.currentTime = 0;
     this.subscribers = [];
   }
 
-  getTimeDelay(): number {
-    return this.timeDelay;
+  getCurrentTime(): number {
+    return this.currentTime;
   }
 
-  increaseTimeDelay(timeDelay: number): void {
-    this.timeDelay += timeDelay;
+  goToFuture(timeDelay: number): void {
+    this.currentTime += timeDelay;
   }
 
   subscribe(trafficLight: TrafficLight): void {
@@ -26,7 +26,7 @@ export class Clock {
   }
 
   tick() {
-    this.increaseTimeDelay(1);
+    this.goToFuture(1);
     this.subscribers.forEach((subscriber) => {
       subscriber.trigger();
     });

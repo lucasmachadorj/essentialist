@@ -31,7 +31,7 @@ export class TrafficLight {
   turnOn() {
     if (this.isOff()) {
       this.advanceTo(State.Boot);
-      this.events.add(TurnedOnEvent.create(this.clock.getTimeDelay()));
+      this.events.add(TurnedOnEvent.create(this.clock.getCurrentTime()));
       this.clock.subscribe(this);
     }
   }
@@ -39,7 +39,7 @@ export class TrafficLight {
   turnOff() {
     if (this.isOn()) {
       this.advanceTo(State.Off);
-      this.events.add(TurnedOffEvent.create(this.clock.getTimeDelay()));
+      this.events.add(TurnedOffEvent.create(this.clock.getCurrentTime()));
     }
   }
 
@@ -80,7 +80,8 @@ export class TrafficLight {
   }
 
   private isTimeTo = (state: State) => {
-    const timeDelayCycle = (this.clock.getTimeDelay() - this.turnedOnTime) % 61;
+    const timeDelayCycle =
+      (this.clock.getCurrentTime() - this.turnedOnTime) % 61;
 
     if (state === State.Green) {
       return (
@@ -127,13 +128,15 @@ export class TrafficLight {
 
   private addEvent(state: State) {
     if (state === State.Green) {
-      this.events.add(AdvancedToGreenEvent.create(this.clock.getTimeDelay()));
+      this.events.add(AdvancedToGreenEvent.create(this.clock.getCurrentTime()));
     }
     if (state === State.Yellow) {
-      this.events.add(AdvancedToYellowEvent.create(this.clock.getTimeDelay()));
+      this.events.add(
+        AdvancedToYellowEvent.create(this.clock.getCurrentTime())
+      );
     }
     if (state === State.Red) {
-      this.events.add(AdvancedToRedEvent.create(this.clock.getTimeDelay()));
+      this.events.add(AdvancedToRedEvent.create(this.clock.getCurrentTime()));
     }
   }
 

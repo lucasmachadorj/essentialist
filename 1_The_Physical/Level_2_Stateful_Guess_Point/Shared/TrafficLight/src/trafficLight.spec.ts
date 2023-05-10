@@ -187,8 +187,6 @@ describe("TrafficLight", () => {
     fullCycleFromBoot(clock);
     trafficLight.turnOff();
 
-    console.log(trafficLight.getEvents());
-
     expect(trafficLight.getEvents()).toHaveLength(6);
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToGreen)
@@ -216,12 +214,12 @@ describe("TrafficLight", () => {
 
   it("should add a turnedOn event with clock currentTime", () => {
     const clock = new Clock();
-    clock.increaseTimeDelay(30);
+    clock.goToFuture(30);
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
 
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time
-    ).toBe(clock.getTimeDelay());
+    ).toBe(clock.getCurrentTime());
   });
 });
