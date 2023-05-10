@@ -31,4 +31,11 @@ describe("Clock", () => {
     clock.increaseTimeDelay(30);
     expect(trafficLight.trigger).toHaveBeenCalled();
   });
+
+  it("should advance 1 sec when tick", () => {
+    const clock = new Clock();
+    const lastTime = clock.getTimeDelay();
+    clock.tick();
+    expect(clock.getTimeDelay()).toBe(lastTime + 1);
+  });
 });
