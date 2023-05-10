@@ -50,29 +50,6 @@ export class TrafficLight {
     }
   }
 
-  private advance() {
-    if (this.isOff()) {
-      return;
-    }
-    const timeDelayCycle = (this.clock.getTimeDelay() - this.turnedOnTime) % 61;
-    if (this.isBoot() && timeDelayCycle === 1) {
-      this.advanceTo(State.Green);
-      return;
-    }
-    if (this.isGreen() && timeDelayCycle === 31) {
-      this.advanceTo(State.Yellow);
-      return;
-    }
-    if (this.isYellow() && timeDelayCycle === 36) {
-      this.advanceTo(State.Red);
-      return;
-    }
-    if (this.isRed() && timeDelayCycle === 0) {
-      this.advanceTo(State.Green);
-      return;
-    }
-  }
-
   isOn() {
     return this.props.currentState !== State.Off;
   }
@@ -105,16 +82,44 @@ export class TrafficLight {
     return this.events.getItems().filter((event) => event.type === type);
   }
 
-  getCurrentTime() {
-    return this.props.clock.getTimeDelay();
-  }
-
-  timePassed() {
-    return null;
-  }
-
   trigger() {
     this.advance();
+  }
+
+  private isTimeTo = (state: State) => {
+    const timeDelayCycle = (this.clock.getTimeDelay() - this.turnedOnTime) % 61;
+
+    if (state === State.Green) {
+      return (
+        (this.isBoot() && timeDelayCycle === 1) ||
+        (this.isRed() && timeDelayCycle === 0)
+      );
+    }
+    if (state === State.Yellow) {
+      return this.isGreen() && timeDelayCycle === 31;
+    }
+    if (state === State.Red) {
+      return this.isYellow() && timeDelayCycle === 36;
+    }
+  };
+
+  private advance() {
+    if (this.isOff()) {
+      return;
+    }
+
+    if (this.isTimeTo(State.Green)) {
+      this.advanceTo(State.Green);
+      return;
+    }
+    if (this.isTimeTo(State.Yellow)) {
+      this.advanceTo(State.Yellow);
+      return;
+    }
+    if (this.isTimeTo(State.Red)) {
+      this.advanceTo(State.Red);
+      return;
+    }
   }
 
   private advanceTo(state: State) {

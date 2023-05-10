@@ -182,9 +182,13 @@ describe("TrafficLight", () => {
 
   it("should have six events when turn off after 61 seconds", () => {
     const trafficLight = new TrafficLight(clock);
+
     trafficLight.turnOn();
     fullCycleFromBoot(clock);
     trafficLight.turnOff();
+
+    console.log(trafficLight.getEvents());
+
     expect(trafficLight.getEvents()).toHaveLength(6);
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToGreen)
