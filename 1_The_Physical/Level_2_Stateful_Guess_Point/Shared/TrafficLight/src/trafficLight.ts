@@ -31,7 +31,7 @@ export class TrafficLight {
   turnOn() {
     if (this.isOff()) {
       this.advanceTo(State.Boot);
-      this.events.add(TurnedOnEvent.create(this.clock.getCurrentTime()));
+      this.events.add(TurnedOnEvent.createAtTime(this.clock.getCurrentTime()));
       this.clock.subscribe(this);
     }
   }
@@ -39,7 +39,7 @@ export class TrafficLight {
   turnOff() {
     if (this.isOn()) {
       this.advanceTo(State.Off);
-      this.events.add(TurnedOffEvent.create(this.clock.getCurrentTime()));
+      this.events.add(TurnedOffEvent.createAtTime(this.clock.getCurrentTime()));
     }
   }
 
@@ -128,15 +128,19 @@ export class TrafficLight {
 
   private addEvent(state: State) {
     if (state === State.Green) {
-      this.events.add(AdvancedToGreenEvent.create(this.clock.getCurrentTime()));
+      this.events.add(
+        AdvancedToGreenEvent.createAtTime(this.clock.getCurrentTime())
+      );
     }
     if (state === State.Yellow) {
       this.events.add(
-        AdvancedToYellowEvent.create(this.clock.getCurrentTime())
+        AdvancedToYellowEvent.createAtTime(this.clock.getCurrentTime())
       );
     }
     if (state === State.Red) {
-      this.events.add(AdvancedToRedEvent.create(this.clock.getCurrentTime()));
+      this.events.add(
+        AdvancedToRedEvent.createAtTime(this.clock.getCurrentTime())
+      );
     }
   }
 

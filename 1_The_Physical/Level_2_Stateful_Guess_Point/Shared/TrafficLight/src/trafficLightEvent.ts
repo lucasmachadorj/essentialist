@@ -42,7 +42,7 @@ export class TurnedOnEvent extends TrafficLightEvent {
     super(TrafficLightEventTypes.TurnedOn, time);
   }
 
-  static create(time: number) {
+  static createAtTime(time: number) {
     return new TurnedOnEvent(time);
   }
 }
@@ -52,7 +52,7 @@ export class TurnedOffEvent extends TrafficLightEvent {
     super(TrafficLightEventTypes.TurnedOff, time);
   }
 
-  static create(time: number) {
+  static createAtTime(time: number) {
     return new TurnedOffEvent(time);
   }
 }
@@ -62,7 +62,7 @@ export class AdvancedToGreenEvent extends TrafficLightEvent {
     super(TrafficLightEventTypes.AdvancedToGreen, time);
   }
 
-  static create(time: number) {
+  static createAtTime(time: number) {
     return new AdvancedToGreenEvent(time);
   }
 }
@@ -72,7 +72,7 @@ export class AdvancedToYellowEvent extends TrafficLightEvent {
     super(TrafficLightEventTypes.AdvancedToYellow, time);
   }
 
-  static create(time: number) {
+  static createAtTime(time: number) {
     return new AdvancedToYellowEvent(time);
   }
 }
@@ -82,7 +82,7 @@ export class AdvancedToRedEvent extends TrafficLightEvent {
     super(TrafficLightEventTypes.AdvancedToRed, time);
   }
 
-  static create(time: number) {
+  static createAtTime(time: number) {
     return new AdvancedToRedEvent(time);
   }
 }
