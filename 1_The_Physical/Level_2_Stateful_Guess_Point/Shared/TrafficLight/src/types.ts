@@ -3,3 +3,5 @@ export interface Collection<T> {
   count(): number;
   getItems(): T[];
 }
+
+export type Seconds = number;

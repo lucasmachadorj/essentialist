@@ -1,7 +1,7 @@
 import { TrafficLight } from "./trafficLight";
 import { TrafficLights } from "./trafficLights";
+import { Seconds } from "./types";
 
-type Seconds = number;
 export class Clock {
   private currentTime: Seconds;
   private subscribers: TrafficLights;
