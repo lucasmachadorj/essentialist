@@ -23,4 +23,12 @@ describe("Clock", () => {
     clock.subscribe(trafficLight);
     expect(clock.getSubscribers()).toContain(trafficLight);
   });
+
+  it("should notify subscribers when time delay is increased", () => {
+    const clock = new Clock();
+    const trafficLight = new TrafficLight(clock);
+    clock.subscribe(trafficLight);
+    clock.increaseTimeDelay(30);
+    expect(trafficLight.trigger).toHaveBeenCalled();
+  });
 });

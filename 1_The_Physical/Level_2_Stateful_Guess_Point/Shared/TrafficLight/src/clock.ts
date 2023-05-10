@@ -15,6 +15,9 @@ export class Clock {
 
   increaseTimeDelay(timeDelay: number): void {
     this.timeDelay += timeDelay;
+    this.subscribers.forEach((subscriber) => {
+      subscriber.trigger();
+    });
   }
 
   subscribe(trafficLight: TrafficLight): void {
