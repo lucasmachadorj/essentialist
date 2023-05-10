@@ -231,6 +231,6 @@ describe("TrafficLight", () => {
     expect(trafficLight.isBoot()).toBe(true);
     clock.tick();
     expect(trafficLight.isGreen()).toBe(true);
-    expect(trafficLight.isGreen()).toBe(true);
+    expect(clock.getCurrentTime()).toBe(11);
   });
 });
