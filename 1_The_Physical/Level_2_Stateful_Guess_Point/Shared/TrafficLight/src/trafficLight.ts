@@ -1,4 +1,5 @@
 import { Clock } from "./clock";
+import { State } from "./states";
 import {
   AdvancedToGreenEvent,
   AdvancedToRedEvent,
@@ -9,14 +10,6 @@ import {
   TurnedOffEvent,
   TurnedOnEvent,
 } from "./trafficLightEvent";
-
-enum State {
-  Red = "red",
-  Yellow = "yellow",
-  Green = "green",
-  Off = "off",
-  Boot = "boot",
-}
 
 type TrafficLightProps = {
   readonly currentState: State;
@@ -101,6 +94,8 @@ export class TrafficLight {
     if (state === State.Red) {
       return this.isYellow() && timeDelayCycle === 36;
     }
+
+    return false;
   };
 
   private advance() {
