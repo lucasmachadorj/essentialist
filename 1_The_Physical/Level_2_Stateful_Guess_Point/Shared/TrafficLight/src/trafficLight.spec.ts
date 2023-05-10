@@ -2,13 +2,13 @@ import { Clock } from "./clock";
 import { TrafficLight } from "./trafficLight";
 import { TrafficLightEventTypes } from "./trafficLightEvent";
 
-const advance = (n: number) => (trafficLight: TrafficLight) => {
-  [...Array(n)].forEach(() => trafficLight.advance());
+const tick = (n: number) => (clock: Clock) => {
+  [...Array(n)].forEach(() => clock.tick());
 };
 
-const advance2 = advance(2);
-const advance3 = advance(3);
-const advance4 = advance(4);
+const tick5 = tick(5);
+const tick30 = tick(30);
+const tick60 = tick(60);
 
 describe("TrafficLight", () => {
   let clock: Clock;
@@ -34,6 +34,7 @@ describe("TrafficLight", () => {
   it("should be able to turn off when is boot", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
+    clock.tick();
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
@@ -44,50 +45,46 @@ describe("TrafficLight", () => {
     expect(trafficLight.isBoot()).toBe(true);
   });
 
-  it("should advance to green when boot", () => {
+  it("should advance to green after 1 second", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    trafficLight.advance();
+    clock.tick();
     expect(trafficLight.isGreen()).toBe(true);
   });
 
   it("should not advance to green when off", () => {
     const trafficLight = new TrafficLight(clock);
-    trafficLight.advance();
+    clock.tick();
     expect(trafficLight.isOff()).toBe(true);
   });
 
-  it("should advance to yellow when green", () => {
+  it("should advance to yellow when green after 31 seconds", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance2(trafficLight);
+    clock.tick();
+    tick30(clock);
     expect(trafficLight.isYellow()).toBe(true);
   });
 
-  it("should advance to red when yellow", () => {
+  it("should advance to red when yellow after 36 seconds", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance3(trafficLight);
+    clock.tick();
+    tick30(clock);
+    tick5(clock);
     expect(trafficLight.isRed()).toBe(true);
-  });
-
-  it("should advance to green when red", () => {
-    const trafficLight = new TrafficLight(clock);
-    trafficLight.turnOn();
-    advance4(trafficLight);
-    expect(trafficLight.isGreen()).toBe(true);
   });
 
   it("should not advance when off", () => {
     const trafficLight = new TrafficLight(clock);
-    trafficLight.advance();
+    clock.tick();
     expect(trafficLight.isOff()).toBe(true);
   });
 
   it("should turn off when green", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    trafficLight.advance();
+    clock.tick();
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
@@ -95,7 +92,8 @@ describe("TrafficLight", () => {
   it("should turn off when yellow", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance2(trafficLight);
+    clock.tick();
+    tick30(clock);
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
@@ -103,7 +101,9 @@ describe("TrafficLight", () => {
   it("should turn off when red", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance3(trafficLight);
+    clock.tick();
+    tick30(clock);
+    tick5(clock);
     trafficLight.turnOff();
     expect(trafficLight.isOff()).toBe(true);
   });
@@ -135,10 +135,10 @@ describe("TrafficLight", () => {
     ).toHaveLength(1);
   });
 
-  it("should have three events when turned on, advanced and off", () => {
+  it("should have three events when turned on, advanced to green and off", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    trafficLight.advance();
+    clock.tick();
     trafficLight.turnOff();
     expect(trafficLight.getEvents()).toHaveLength(3);
     expect(
@@ -146,10 +146,11 @@ describe("TrafficLight", () => {
     ).toHaveLength(1);
   });
 
-  it("should have four events when turned on, advanced, advanced and off", () => {
+  it("should have four when turn off after 31 seconds", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance2(trafficLight);
+    clock.tick();
+    tick30(clock);
     trafficLight.turnOff();
     expect(trafficLight.getEvents()).toHaveLength(4);
     expect(
@@ -157,10 +158,12 @@ describe("TrafficLight", () => {
     ).toHaveLength(1);
   });
 
-  it("should have five events when turned on, advanced, advanced, advanced and off", () => {
+  it("should have five events 36 seconds", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance3(trafficLight);
+    clock.tick();
+    tick30(clock);
+    tick5(clock);
     trafficLight.turnOff();
     expect(trafficLight.getEvents()).toHaveLength(5);
     expect(
@@ -168,10 +171,11 @@ describe("TrafficLight", () => {
     ).toHaveLength(1);
   });
 
-  it("should have six events when turned on, advanced, advanced, advanced, advanced and off", () => {
+  it("should have six events after 61 seconds", () => {
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
-    advance4(trafficLight);
+    clock.tick();
+    tick60(clock);
     trafficLight.turnOff();
     expect(trafficLight.getEvents()).toHaveLength(6);
     expect(
@@ -203,15 +207,9 @@ describe("TrafficLight", () => {
     clock.increaseTimeDelay(30);
     const trafficLight = new TrafficLight(clock);
     trafficLight.turnOn();
+
     expect(
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time
     ).toBe(clock.getTimeDelay());
-  });
-
-  it("should advance to green when time passes 1 second ", () => {
-    const trafficLight = new TrafficLight(clock);
-    trafficLight.turnOn();
-    clock.increaseTimeDelay(1);
-    expect(trafficLight.isGreen()).toBe(true);
   });
 });

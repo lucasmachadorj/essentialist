@@ -50,20 +50,24 @@ export class TrafficLight {
     }
   }
 
-  advance() {
-    if (this.isBoot()) {
+  private advance() {
+    if (this.isOff()) {
+      return;
+    }
+    const timeDelayCycle = (this.clock.getTimeDelay() - this.turnedOnTime) % 61;
+    if (this.isBoot() && timeDelayCycle === 1) {
       this.advanceTo(State.Green);
       return;
     }
-    if (this.isGreen()) {
+    if (this.isGreen() && timeDelayCycle === 31) {
       this.advanceTo(State.Yellow);
       return;
     }
-    if (this.isYellow()) {
+    if (this.isYellow() && timeDelayCycle === 36) {
       this.advanceTo(State.Red);
       return;
     }
-    if (this.isRed()) {
+    if (this.isRed() && timeDelayCycle === 0) {
       this.advanceTo(State.Green);
       return;
     }
