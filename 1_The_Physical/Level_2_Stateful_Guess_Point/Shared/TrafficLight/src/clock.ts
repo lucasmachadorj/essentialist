@@ -1,12 +1,13 @@
 import { TrafficLight } from "./trafficLight";
+import { TrafficLights } from "./trafficLights";
 
 export class Clock {
   private currentTime: number;
-  private subscribers: TrafficLight[];
+  private subscribers: TrafficLights;
 
   constructor() {
     this.currentTime = 0;
-    this.subscribers = [];
+    this.subscribers = TrafficLights.create();
   }
 
   getCurrentTime(): number {
@@ -18,17 +19,15 @@ export class Clock {
   }
 
   subscribe(trafficLight: TrafficLight): void {
-    this.subscribers.push(trafficLight);
+    this.subscribers.add(trafficLight);
   }
 
   getSubscribers(): TrafficLight[] {
-    return this.subscribers;
+    return this.subscribers.getItems();
   }
 
   tick() {
     this.goToFuture(1);
-    this.subscribers.forEach((subscriber) => {
-      subscriber.trigger();
-    });
+    this.subscribers.notifyAll();
   }
 }
