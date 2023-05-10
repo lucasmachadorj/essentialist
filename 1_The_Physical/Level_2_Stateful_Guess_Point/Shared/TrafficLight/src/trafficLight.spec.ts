@@ -207,4 +207,11 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time
     ).toBe(clock.getTimeDelay());
   });
+
+  it("should advance to green when time passes 1 second ", () => {
+    const trafficLight = new TrafficLight(clock);
+    trafficLight.turnOn();
+    clock.increaseTimeDelay(1);
+    expect(trafficLight.isGreen()).toBe(true);
+  });
 });

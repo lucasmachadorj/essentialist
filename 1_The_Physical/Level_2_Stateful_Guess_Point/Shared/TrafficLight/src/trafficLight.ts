@@ -27,7 +27,7 @@ export class TrafficLight {
   private props: TrafficLightProps;
   private events: TrafficLightEvents;
 
-  constructor(private clock: Clock) {
+  constructor(clock: Clock) {
     this.props = {
       currentState: State.Off,
       clock,
@@ -39,6 +39,7 @@ export class TrafficLight {
     if (this.isOff()) {
       this.advanceTo(State.Boot);
       this.events.add(TurnedOnEvent.create(this.clock.getTimeDelay()));
+      this.clock.subscribe(this);
     }
   }
 
@@ -108,6 +109,10 @@ export class TrafficLight {
     return null;
   }
 
+  trigger() {
+    this.advance();
+  }
+
   private advanceTo(state: State) {
     this.props = {
       ...this.props,
@@ -126,5 +131,13 @@ export class TrafficLight {
     if (state === State.Red) {
       this.events.add(AdvancedToRedEvent.create(this.clock.getTimeDelay()));
     }
+  }
+
+  private get clock() {
+    return this.props.clock;
+  }
+
+  private get turnedOnTime() {
+    return this.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time;
   }
 }
