@@ -4,6 +4,7 @@ import { TrafficLight } from "./trafficLight";
 describe("Clock", () => {
   let clock: Clock;
   let trafficLight: TrafficLight;
+
   beforeEach(() => {
     clock = new Clock();
     trafficLight = new TrafficLight(clock);

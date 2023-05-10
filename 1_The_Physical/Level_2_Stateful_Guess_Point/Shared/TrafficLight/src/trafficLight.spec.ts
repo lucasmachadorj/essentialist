@@ -223,7 +223,7 @@ describe("TrafficLight", () => {
     ).toBe(clock.getCurrentTime());
   });
 
-  it("should advance to green in instant 11s when turned on in instanct 10s", () => {
+  it("should advance to green in instant 11s when turned on in instant 10s", () => {
     const clock = new Clock();
     clock.goToFuture(10);
     const trafficLight = new TrafficLight(clock);
