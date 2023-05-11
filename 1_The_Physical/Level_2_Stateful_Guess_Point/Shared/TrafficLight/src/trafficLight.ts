@@ -145,6 +145,8 @@ export class TrafficLight {
   }
 
   private get turnedOnTime() {
-    return this.getEventsOfType(TrafficLightEventTypes.TurnedOn)[0].time;
+    return this.getEventsOfType(TrafficLightEventTypes.TurnedOn).sort(
+      (a, b) => b.time - a.time
+    )[0].time;
   }
 }

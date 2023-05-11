@@ -260,4 +260,16 @@ describe("TrafficLight", () => {
       trafficLight.getEventsOfType(TrafficLightEventTypes.AdvancedToRed)
     ).toHaveLength(3);
   });
+
+  it("should boot go to green at instant 16s when turn off at instant 10s and turn 0 again at instance 15s", () => {
+    const trafficLight = new TrafficLight(clock);
+    trafficLight.turnOn();
+    tick5(clock);
+    tick5(clock);
+    trafficLight.turnOff();
+    tick5(clock);
+    trafficLight.turnOn();
+    clock.tick();
+    expect(trafficLight.isGreen()).toBe(true);
+  });
 });
