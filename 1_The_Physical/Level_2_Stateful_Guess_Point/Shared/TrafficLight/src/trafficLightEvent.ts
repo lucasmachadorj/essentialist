@@ -9,11 +9,10 @@ export enum TrafficLightEventTypes {
 }
 
 export class TrafficLightEvent {
-  private date: Date;
-
-  protected constructor(public readonly type: TrafficLightEventTypes) {
-    this.date = new Date();
-  }
+  protected constructor(
+    public readonly type: TrafficLightEventTypes,
+    public readonly time: number
+  ) {}
 }
 
 export class TrafficLightEvents implements Collection<TrafficLightEvent> {
@@ -39,51 +38,51 @@ export class TrafficLightEvents implements Collection<TrafficLightEvent> {
 }
 
 export class TurnedOnEvent extends TrafficLightEvent {
-  private constructor() {
-    super(TrafficLightEventTypes.TurnedOn);
+  private constructor(time: number) {
+    super(TrafficLightEventTypes.TurnedOn, time);
   }
 
-  static create() {
-    return new TurnedOnEvent();
+  static createAtTime(time: number) {
+    return new TurnedOnEvent(time);
   }
 }
 
 export class TurnedOffEvent extends TrafficLightEvent {
-  private constructor() {
-    super(TrafficLightEventTypes.TurnedOff);
+  private constructor(time: number) {
+    super(TrafficLightEventTypes.TurnedOff, time);
   }
 
-  static create() {
-    return new TurnedOffEvent();
+  static createAtTime(time: number) {
+    return new TurnedOffEvent(time);
   }
 }
 
 export class AdvancedToGreenEvent extends TrafficLightEvent {
-  private constructor() {
-    super(TrafficLightEventTypes.AdvancedToGreen);
+  private constructor(time: number) {
+    super(TrafficLightEventTypes.AdvancedToGreen, time);
   }
 
-  static create() {
-    return new AdvancedToGreenEvent();
+  static createAtTime(time: number) {
+    return new AdvancedToGreenEvent(time);
   }
 }
 
 export class AdvancedToYellowEvent extends TrafficLightEvent {
-  private constructor() {
-    super(TrafficLightEventTypes.AdvancedToYellow);
+  private constructor(time: number) {
+    super(TrafficLightEventTypes.AdvancedToYellow, time);
   }
 
-  static create() {
-    return new AdvancedToYellowEvent();
+  static createAtTime(time: number) {
+    return new AdvancedToYellowEvent(time);
   }
 }
 
 export class AdvancedToRedEvent extends TrafficLightEvent {
-  private constructor() {
-    super(TrafficLightEventTypes.AdvancedToRed);
+  private constructor(time: number) {
+    super(TrafficLightEventTypes.AdvancedToRed, time);
   }
 
-  static create() {
-    return new AdvancedToRedEvent();
+  static createAtTime(time: number) {
+    return new AdvancedToRedEvent(time);
   }
 }

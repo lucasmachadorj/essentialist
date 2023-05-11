@@ -1,3 +1,5 @@
+import { Clock } from "./clock";
+import { State } from "./states";
 import {
   AdvancedToGreenEvent,
   AdvancedToRedEvent,
@@ -9,25 +11,19 @@ import {
   TurnedOnEvent,
 } from "./trafficLightEvent";
 
-enum State {
-  Red = "red",
-  Yellow = "yellow",
-  Green = "green",
-  Off = "off",
-  Boot = "boot",
-}
-
 type TrafficLightProps = {
   readonly currentState: State;
+  readonly clock: Clock;
 };
 
 export class TrafficLight {
   private props: TrafficLightProps;
   private events: TrafficLightEvents;
 
-  constructor() {
+  constructor(clock: Clock) {
     this.props = {
       currentState: State.Off,
+      clock,
     };
     this.events = TrafficLightEvents.create();
   }
@@ -35,33 +31,15 @@ export class TrafficLight {
   turnOn() {
     if (this.isOff()) {
       this.advanceTo(State.Boot);
-      this.events.add(TurnedOnEvent.create());
+      this.events.add(TurnedOnEvent.createAtTime(this.clock.getCurrentTime()));
+      this.clock.subscribe(this);
     }
   }
 
   turnOff() {
     if (this.isOn()) {
       this.advanceTo(State.Off);
-      this.events.add(TurnedOffEvent.create());
-    }
-  }
-
-  advance() {
-    if (this.isBoot()) {
-      this.advanceTo(State.Green);
-      return;
-    }
-    if (this.isGreen()) {
-      this.advanceTo(State.Yellow);
-      return;
-    }
-    if (this.isYellow()) {
-      this.advanceTo(State.Red);
-      return;
-    }
-    if (this.isRed()) {
-      this.advanceTo(State.Green);
-      return;
+      this.events.add(TurnedOffEvent.createAtTime(this.clock.getCurrentTime()));
     }
   }
 
@@ -97,6 +75,45 @@ export class TrafficLight {
     return this.events.getItems().filter((event) => event.type === type);
   }
 
+  trigger() {
+    if (this.isOff()) {
+      return;
+    }
+
+    if (this.isTimeTo(State.Green)) {
+      this.advanceTo(State.Green);
+      return;
+    }
+    if (this.isTimeTo(State.Yellow)) {
+      this.advanceTo(State.Yellow);
+      return;
+    }
+    if (this.isTimeTo(State.Red)) {
+      this.advanceTo(State.Red);
+      return;
+    }
+  }
+
+  private isTimeTo = (state: State) => {
+    const timeDelayCycle =
+      (this.clock.getCurrentTime() - this.turnedOnTime) % 61;
+
+    if (state === State.Green) {
+      return (
+        (this.isBoot() && timeDelayCycle === 1) ||
+        (this.isRed() && timeDelayCycle === 0)
+      );
+    }
+    if (state === State.Yellow) {
+      return this.isGreen() && timeDelayCycle === 31;
+    }
+    if (state === State.Red) {
+      return this.isYellow() && timeDelayCycle === 36;
+    }
+
+    return false;
+  };
+
   private advanceTo(state: State) {
     this.props = {
       ...this.props,
@@ -107,13 +124,29 @@ export class TrafficLight {
 
   private addEvent(state: State) {
     if (state === State.Green) {
-      this.events.add(AdvancedToGreenEvent.create());
+      this.events.add(
+        AdvancedToGreenEvent.createAtTime(this.clock.getCurrentTime())
+      );
     }
     if (state === State.Yellow) {
-      this.events.add(AdvancedToYellowEvent.create());
+      this.events.add(
+        AdvancedToYellowEvent.createAtTime(this.clock.getCurrentTime())
+      );
     }
     if (state === State.Red) {
-      this.events.add(AdvancedToRedEvent.create());
+      this.events.add(
+        AdvancedToRedEvent.createAtTime(this.clock.getCurrentTime())
+      );
     }
+  }
+
+  private get clock() {
+    return this.props.clock;
+  }
+
+  private get turnedOnTime() {
+    return this.getEventsOfType(TrafficLightEventTypes.TurnedOn).sort(
+      (a, b) => b.time - a.time
+    )[0].time;
   }
 }
