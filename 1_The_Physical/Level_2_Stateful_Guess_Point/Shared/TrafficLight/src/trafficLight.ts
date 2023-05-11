@@ -76,7 +76,22 @@ export class TrafficLight {
   }
 
   trigger() {
-    this.advance();
+    if (this.isOff()) {
+      return;
+    }
+
+    if (this.isTimeTo(State.Green)) {
+      this.advanceTo(State.Green);
+      return;
+    }
+    if (this.isTimeTo(State.Yellow)) {
+      this.advanceTo(State.Yellow);
+      return;
+    }
+    if (this.isTimeTo(State.Red)) {
+      this.advanceTo(State.Red);
+      return;
+    }
   }
 
   private isTimeTo = (state: State) => {
@@ -98,25 +113,6 @@ export class TrafficLight {
 
     return false;
   };
-
-  private advance() {
-    if (this.isOff()) {
-      return;
-    }
-
-    if (this.isTimeTo(State.Green)) {
-      this.advanceTo(State.Green);
-      return;
-    }
-    if (this.isTimeTo(State.Yellow)) {
-      this.advanceTo(State.Yellow);
-      return;
-    }
-    if (this.isTimeTo(State.Red)) {
-      this.advanceTo(State.Red);
-      return;
-    }
-  }
 
   private advanceTo(state: State) {
     this.props = {
