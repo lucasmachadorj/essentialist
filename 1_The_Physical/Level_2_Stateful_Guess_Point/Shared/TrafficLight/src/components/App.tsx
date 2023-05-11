@@ -1,10 +1,9 @@
-import { clock, trafficLights } from "../core/domain";
-import { Transit } from "./transit";
+import { Transit } from "./transit.component";
 
 export function App() {
   return (
     <div>
-      <Transit clock={clock} trafficLights={trafficLights} />
+      <Transit />
     </div>
   );
 }

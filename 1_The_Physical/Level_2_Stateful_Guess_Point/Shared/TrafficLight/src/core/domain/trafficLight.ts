@@ -1,3 +1,4 @@
+import { makeAutoObservable } from "mobx";
 import { Clock } from "./clock";
 import { State } from "./states";
 import {
@@ -26,6 +27,7 @@ export class TrafficLight {
       clock,
     };
     this.events = TrafficLightEvents.create();
+    makeAutoObservable(this);
   }
 
   turnOn() {
