@@ -1,3 +1,4 @@
+import { makeAutoObservable } from "mobx";
 import { TrafficLight } from "./trafficLight";
 import { TrafficLights } from "./trafficLights";
 import { Seconds } from "./types";
@@ -14,6 +15,7 @@ export class Clock {
       currentTime: 0,
       subscribers: TrafficLights.create(),
     };
+    makeAutoObservable(this);
   }
 
   getCurrentTime(): Seconds {

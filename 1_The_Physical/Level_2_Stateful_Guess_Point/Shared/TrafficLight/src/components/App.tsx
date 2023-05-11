@@ -1,7 +1,10 @@
+import { clock, trafficLights } from "../core/domain";
+import { Transit } from "./transit";
+
 export function App() {
   return (
     <div>
-      <h1>Hello, world!</h1>
+      <Transit clock={clock} trafficLights={trafficLights} />
     </div>
   );
 }

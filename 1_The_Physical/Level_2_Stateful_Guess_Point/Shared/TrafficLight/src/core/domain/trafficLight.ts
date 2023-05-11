@@ -94,6 +94,10 @@ export class TrafficLight {
     }
   }
 
+  getState() {
+    return this.props.currentState;
+  }
+
   private isTimeTo = (state: State) => {
     const timeDelayCycle =
       (this.clock.getCurrentTime() - this.turnedOnTime) % 61;
