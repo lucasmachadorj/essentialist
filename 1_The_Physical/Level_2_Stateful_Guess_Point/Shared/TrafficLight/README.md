@@ -80,3 +80,7 @@ In case of a change in the frontend library or framework, the only thing that ne
 Notice that CQRS is used to separate the read and write operations. The read operations are reactive, in a way the the presented is responsible for subscribing to the changes in the state of the application and propagate them its children. The write operations are requests that are sent to the controller.
 
 The repository is a facade to the domain data. It is responsible for providing the necessary data requested by the controller.
+
+#### Demonstration
+
+![demonstration](./docs/application.gif)
