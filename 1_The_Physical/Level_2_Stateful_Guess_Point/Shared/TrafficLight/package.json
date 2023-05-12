@@ -1,32 +1,16 @@
 {
-  "name": "typescript-starter",
+  "name": "Traffic Light App",
   "version": "1.0.0",
-  "description": "A basic typescript app starter for 2023.",
+  "description": "A traffic light state machine app",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start:dev": "npx nodemon",
-    "start": "npm run build && node build/index.js",
-    "lint": "eslint . --ext .ts",
-    "prettier-format": "run-script-os",
-    "prettier-format:win32": "prettier --config .prettierrc \"./src/**/*.ts\" --write",
-    "prettier-format:darwin:linux": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prettier-format:default": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prettier-watch": "run-script-os",
-    "prettier-watch:win32": "onchange \"src/**/*.ts\" -- prettier --write {{changed}}",
-    "prettier-watch:darwin:linux": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "test": "jest",
     "test:dev": "jest --watchAll"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test && npm run prettier-format && npm run lint"
-    }
-  },
   "keywords": [],
-  "author": "",
+  "author": "Lucas Machado",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^28.1.8",
