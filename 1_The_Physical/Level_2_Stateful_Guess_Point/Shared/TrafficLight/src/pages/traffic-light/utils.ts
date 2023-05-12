@@ -1,4 +1,4 @@
-import { TrafficLight } from "../../core/trafficLight";
+import { TrafficLight } from "../../domain/trafficLight";
 
 const colors = {
   off: {

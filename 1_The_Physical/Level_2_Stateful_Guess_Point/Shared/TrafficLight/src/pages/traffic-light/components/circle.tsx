@@ -1,6 +1,10 @@
 import { CSSProperties } from "react";
 import "./circle.css";
 
-export default ({ color }: { color: CSSProperties }) => (
+type Props = {
+  color: CSSProperties;
+};
+
+export default ({ color }: Props) => (
   <div className="circle" style={color}></div>
 );

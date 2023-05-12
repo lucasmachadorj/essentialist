@@ -1,5 +1,5 @@
-import { TrafficLight } from "../../core/trafficLight";
-import { Clock } from "../../core/clock";
+import { TrafficLight } from "../../domain/trafficLight";
+import { Clock } from "../../domain/clock";
 
 export class Repository {
   private trafficLights: TrafficLight[];

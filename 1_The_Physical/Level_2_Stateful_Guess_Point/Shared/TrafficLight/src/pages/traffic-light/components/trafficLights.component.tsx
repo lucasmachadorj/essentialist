@@ -1,12 +1,12 @@
-import { TrafficLight } from "../../../core/trafficLight";
+import { TrafficLight } from "../../../domain/trafficLight";
 import { TrafficLight as TrafficLightUI } from "./trafficLight.component";
 import "./trafficLights.css";
 
-export const TrafficLights = ({
-  trafficLights,
-}: {
+type Props = {
   trafficLights: TrafficLight[];
-}) => {
+};
+
+export const TrafficLights = ({ trafficLights }: Props) => {
   return (
     <div className="box">
       <div>Traffic lights</div>

@@ -1,7 +1,7 @@
 import { Controller } from "./controller";
 import { Repository } from "./repository";
 import { Presenter } from "./presenter";
-import { Clock } from "../../core/clock";
+import { Clock } from "../../domain/clock";
 
 const clock = Clock.create();
 const repository = Repository.create(clock);

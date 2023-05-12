@@ -22,9 +22,11 @@ export const Presenter = observer(() => {
     }, delay);
   };
 
+  const getTrafficLightsSize = () => getTrafficLights().length;
+
   return (
     <div className="container">
-      <NewTrafficLight />
+      <NewTrafficLight size={getTrafficLightsSize()} />
       <Clock currentTime={getCurrentTime()} />
       <TrafficLights trafficLights={getTrafficLights()} />
     </div>
