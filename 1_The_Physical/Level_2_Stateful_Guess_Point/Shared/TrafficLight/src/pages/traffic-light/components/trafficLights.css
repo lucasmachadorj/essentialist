@@ -1,0 +1,14 @@
+.box {
+  width: 100%;
+}
+
+.box > :nth-child(1) {
+  width: 100px;
+  margin: 20px auto;
+}
+
+.items {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}

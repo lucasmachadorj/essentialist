@@ -1,0 +1,12 @@
+.container {
+  margin: 20px;
+}
+
+.container > :nth-child(1) {
+  margin: 20px auto;
+}
+
+.container > :nth-child(2) {
+  width: 10%;
+  margin: 0 auto;
+}

@@ -28,4 +28,22 @@ export class Repository {
   public getTrafficLights(): TrafficLight[] {
     return this.trafficLights;
   }
+
+  public turnOnTrafficLight(id: string): void {
+    const trafficLight = this.trafficLights.find(
+      (trafficLight) => trafficLight.getId() === id
+    );
+    if (trafficLight) {
+      trafficLight.turnOn();
+    }
+  }
+
+  public turnOffTrafficLight(id: string): void {
+    const trafficLight = this.trafficLights.find(
+      (trafficLight) => trafficLight.getId() === id
+    );
+    if (trafficLight) {
+      trafficLight.turnOff();
+    }
+  }
 }

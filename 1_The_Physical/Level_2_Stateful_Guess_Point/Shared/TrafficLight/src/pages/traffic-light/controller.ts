@@ -1,3 +1,4 @@
+import { TrafficLight } from "../../core/trafficLight";
 import { Repository } from "./repository";
 
 export class Controller {
@@ -13,5 +14,13 @@ export class Controller {
 
   public addTrafficLightUseCase(): void {
     this.repository.addTrafficLight();
+  }
+
+  public turnOnTrafficLightUseCase(id: string): void {
+    this.repository.turnOnTrafficLight(id);
+  }
+
+  public turnOffTrafficLightUseCase(id: string): void {
+    this.repository.turnOffTrafficLight(id);
   }
 }
