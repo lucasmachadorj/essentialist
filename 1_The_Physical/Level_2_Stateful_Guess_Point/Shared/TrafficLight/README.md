@@ -59,6 +59,14 @@ The Coordinator is responsible for managing the transitions between the states. 
 
 This two abstraction are the core of the application.
 
+The Sequence Diagram bellow shows the flow of the application:
+
+![sequence diagram](./docs/sequence-diagram.png)
+
+Each traffic light has its own state machine, and the coordinator is responsible for managing the transitions of them independently.
+
+![timeline](./docs/timeline.png)
+
 ### Frontend Architecture
 
 The core described above is part of the frontend architecture. The purpose of this architecture is to decouple the business logic from the frontend library or framework.
