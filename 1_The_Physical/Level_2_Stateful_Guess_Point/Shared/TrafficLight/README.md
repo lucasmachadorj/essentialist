@@ -2,7 +2,7 @@
 
 #### Introduction
 
-This project was developed based on a task of the course Essencialist, created by Khalil Stemmler.
+This project was developed based on a task of the [course Essencialist](https://www.essentialist.dev), created by [Khalil Stemmler](https://github.com/stemmlerjs).
 
 #### Description
 
