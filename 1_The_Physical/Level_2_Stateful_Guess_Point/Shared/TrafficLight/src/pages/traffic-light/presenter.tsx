@@ -7,14 +7,18 @@ import { NewTrafficLight } from "./newTrafficLight.component";
 
 export const Presenter = observer(() => {
   useEffect(() => {
-    const interval = setInterval(() => {
-      controller.updateClockUseCase();
-    }, 1000);
+    const interval = updateClockEach(1000);
     return () => clearInterval(interval);
   }, []);
 
   const getCurrentTime = () => repository.getCurrentTime();
   const getTrafficLights = () => repository.getTrafficLights();
+
+  const updateClockEach = (delay: number) => {
+    return setInterval(() => {
+      controller.updateClockUseCase();
+    }, delay);
+  };
 
   return (
     <div>
