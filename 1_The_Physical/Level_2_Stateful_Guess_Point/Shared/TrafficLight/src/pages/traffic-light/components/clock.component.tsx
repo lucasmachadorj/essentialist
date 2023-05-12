@@ -6,17 +6,20 @@ type Props = {
   currentTime: number;
 };
 
-export const Clock = observer(({ currentTime }: Props) => {
+export const Clock = ({ currentTime }: Props) => {
   return (
-    <div
-      className="clock"
-      style={
-        {
-          "--seconds": `${currentTime % 60}`,
-        } as CSSProperties
-      }
-    >
-      <span className="clock__seconds" />
-    </div>
+    <>
+      <div className="description">Total time: {currentTime} </div>
+      <div
+        className="clock"
+        style={
+          {
+            "--seconds": `${currentTime % 60}`,
+          } as CSSProperties
+        }
+      >
+        <span className="clock__seconds" />
+      </div>
+    </>
   );
-});
+};

@@ -6,7 +6,8 @@
   margin: 20px auto;
 }
 
-.container > :nth-child(2) {
+.container > :nth-child(2),
+.container > :nth-child(3) {
   width: 10%;
   margin: 0 auto;
 }

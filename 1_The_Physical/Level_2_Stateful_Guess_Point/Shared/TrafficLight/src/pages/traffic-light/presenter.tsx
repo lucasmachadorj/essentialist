@@ -15,6 +15,7 @@ export const Presenter = observer(() => {
 
   const getCurrentTime = () => repository.getCurrentTime();
   const getTrafficLights = () => repository.getTrafficLights();
+  const getTrafficLightsSize = () => getTrafficLights().length;
 
   const updateClockEach = (delay: number) => {
     return setInterval(() => {
@@ -22,13 +23,11 @@ export const Presenter = observer(() => {
     }, delay);
   };
 
-  const getTrafficLightsSize = () => getTrafficLights().length;
-
   return (
     <div className="container">
       <NewTrafficLight size={getTrafficLightsSize()} />
       <Clock currentTime={getCurrentTime()} />
-      <TrafficLights trafficLights={getTrafficLights()} />
+      <TrafficLights trafficLightProps={getTrafficLights()} />
     </div>
   );
 });

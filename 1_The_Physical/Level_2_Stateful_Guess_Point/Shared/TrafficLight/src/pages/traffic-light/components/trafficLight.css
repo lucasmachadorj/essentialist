@@ -11,3 +11,7 @@
   flex-direction: column;
   align-items: center;
 }
+
+.button__container {
+  margin-top: 10px;
+}

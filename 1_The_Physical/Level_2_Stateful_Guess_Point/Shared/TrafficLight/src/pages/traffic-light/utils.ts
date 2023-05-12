@@ -1,3 +1,4 @@
+import { State } from "../../domain/states";
 import { TrafficLight } from "../../domain/trafficLight";
 
 const colors = {
@@ -21,29 +22,30 @@ const colors = {
   },
 };
 
-export const renderColor = (trafficLight: TrafficLight) => {
-  if (trafficLight.isOff()) {
+export const renderColor = (state: State) => {
+  console.log(state);
+  if (state === State.Off) {
     return {
       red: colors.off,
       yellow: colors.off,
       green: colors.off,
     };
   }
-  if (trafficLight.isRed()) {
+  if (state === State.Red) {
     return {
       red: colors.red,
       yellow: colors.grey,
       green: colors.grey,
     };
   }
-  if (trafficLight.isYellow()) {
+  if (state === State.Yellow) {
     return {
       red: colors.grey,
       yellow: colors.yellow,
       green: colors.grey,
     };
   }
-  if (trafficLight.isGreen()) {
+  if (state === State.Green) {
     return {
       red: colors.grey,
       yellow: colors.grey,

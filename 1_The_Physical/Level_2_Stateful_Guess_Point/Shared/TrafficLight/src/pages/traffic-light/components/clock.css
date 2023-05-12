@@ -44,3 +44,8 @@
   height: 96%;
   width: 2px;
 }
+
+.description {
+  margin-top: 1rem;
+  text-align: center;
+}

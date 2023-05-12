@@ -4,19 +4,29 @@ import Circle from "./circle";
 import { TurnOffButton } from "./turnOffButton";
 import { TurnOnButton } from "./turnOnButton";
 import "./trafficLight.css";
+import { State } from "../../../domain/states";
 
 type Props = {
-  trafficLight: Traffic;
+  id: string;
+  state: State;
+  turnedOnAt: number | null;
 };
 
-export const TrafficLight = ({ trafficLight }: Props) => {
-  const { red, yellow, green } = renderColor(trafficLight);
+export const TrafficLight = ({ id, state, turnedOnAt }: Props) => {
+  const { red, yellow, green } = renderColor(state);
 
   const onOffButton = () => {
-    if (trafficLight.isOff()) {
-      return <TurnOnButton id={trafficLight.getId()} />;
+    if (state === State.Off) {
+      return <TurnOnButton {...{ id }} />;
     }
-    return <TurnOffButton id={trafficLight.getId()} />;
+    return <TurnOffButton {...{ id }} />;
+  };
+
+  const startTime = () => {
+    if (turnedOnAt) {
+      return turnedOnAt % 60;
+    }
+    return "not started yet";
   };
 
   return (
@@ -27,8 +37,9 @@ export const TrafficLight = ({ trafficLight }: Props) => {
         <Circle color={green} />
       </div>
       <div>Traffic Light </div>
-      <div>state: {trafficLight.getState()}</div>
-      {onOffButton()}
+      <div>state: {state}</div>
+      <div>started at: {startTime()} </div>
+      <div className="button__container">{onOffButton()}</div>
     </div>
   );
 };

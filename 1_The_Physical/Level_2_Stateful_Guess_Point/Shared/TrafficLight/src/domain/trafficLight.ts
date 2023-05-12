@@ -104,6 +104,16 @@ export class TrafficLight {
     return this.props.currentState;
   }
 
+  getTurnedOnAt() {
+    const turnedOnEvents = this.getEventsOfType(
+      TrafficLightEventTypes.TurnedOn
+    );
+    if (turnedOnEvents.length === 0) {
+      return null;
+    }
+    return turnedOnEvents.sort((a, b) => b.time - a.time)[0].time;
+  }
+
   public getId() {
     return this.props.id;
   }

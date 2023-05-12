@@ -25,10 +25,6 @@ export class Repository {
     this.trafficLights.push(trafficLight);
   }
 
-  public getTrafficLights(): TrafficLight[] {
-    return this.trafficLights;
-  }
-
   public turnOnTrafficLight(id: string): void {
     const trafficLight = this.trafficLights.find(
       (trafficLight) => trafficLight.getId() === id
@@ -45,5 +41,13 @@ export class Repository {
     if (trafficLight) {
       trafficLight.turnOff();
     }
+  }
+
+  public getTrafficLights() {
+    return this.trafficLights.map((trafficLight) => ({
+      id: trafficLight.getId(),
+      state: trafficLight.getState(),
+      turnedOnAt: trafficLight.getTurnedOnAt(),
+    }));
   }
 }
