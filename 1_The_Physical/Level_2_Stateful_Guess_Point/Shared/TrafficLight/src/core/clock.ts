@@ -9,6 +9,7 @@ type ClockProps = {
 };
 export class Clock {
   private props: ClockProps;
+  private static instance: Clock;
 
   constructor() {
     this.props = {
@@ -16,6 +17,13 @@ export class Clock {
       subscribers: TrafficLights.create(),
     };
     makeAutoObservable(this);
+  }
+
+  static create(): Clock {
+    if (!Clock.instance) {
+      Clock.instance = new Clock();
+    }
+    return Clock.instance;
   }
 
   getCurrentTime(): Seconds {
