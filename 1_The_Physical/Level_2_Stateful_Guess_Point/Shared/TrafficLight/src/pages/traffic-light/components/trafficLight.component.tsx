@@ -1,8 +1,8 @@
 import { TrafficLight as Traffic } from "../../../core/trafficLight";
 import { renderColor } from "../utils";
 import Circle from "./circle";
-import { TurnOffButton } from "./traffic-light/turnOffButton";
-import { TurnOnButton } from "./traffic-light/turnOnButton";
+import { TurnOffButton } from "./turnOffButton";
+import { TurnOnButton } from "./turnOnButton";
 import "./trafficLight.css";
 
 export const TrafficLight = ({ trafficLight }: { trafficLight: Traffic }) => {

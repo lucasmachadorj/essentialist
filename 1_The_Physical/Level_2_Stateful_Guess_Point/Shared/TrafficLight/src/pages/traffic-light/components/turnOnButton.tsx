@@ -1,4 +1,4 @@
-import { controller } from "../..";
+import { controller } from "..";
 
 export const TurnOnButton = ({ id }: { id: string }) => {
   return (
