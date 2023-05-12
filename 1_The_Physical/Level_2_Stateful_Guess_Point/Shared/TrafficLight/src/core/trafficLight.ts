@@ -1,4 +1,6 @@
 import { makeAutoObservable } from "mobx";
+import { v4 as uuidv4 } from "uuid";
+
 import { Clock } from "./clock";
 import { State } from "./states";
 import {
@@ -15,6 +17,7 @@ import {
 type TrafficLightProps = {
   readonly currentState: State;
   readonly clock: Clock;
+  readonly id: string;
 };
 
 export class TrafficLight {
@@ -25,6 +28,7 @@ export class TrafficLight {
     this.props = {
       currentState: State.Off,
       clock,
+      id: uuidv4(),
     };
     this.events = TrafficLightEvents.create();
     makeAutoObservable(this);
@@ -98,6 +102,10 @@ export class TrafficLight {
 
   getState() {
     return this.props.currentState;
+  }
+
+  public getId() {
+    return this.props.id;
   }
 
   private isTimeTo = (state: State) => {

@@ -272,4 +272,9 @@ describe("TrafficLight", () => {
     clock.tick();
     expect(trafficLight.isGreen()).toBe(true);
   });
+
+  it("should have an id", () => {
+    const trafficLight = new TrafficLight(clock);
+    expect(trafficLight.getId()).toBeDefined();
+  });
 });
