@@ -84,3 +84,5 @@ The repository is a facade to the domain data. It is responsible for providing t
 #### Demonstration
 
 ![demonstration](./docs/application.gif)
+
+PS: To speed up the transitions, each 1 second in the application is 100 milliseconds in the real world.
