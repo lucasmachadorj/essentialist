@@ -1,7 +1,7 @@
+import { GlobalCache } from "../../core/shared/globalCache";
 import { Controller } from "./controller";
 import { Presenter } from "./presenter";
 import { Repository } from "./repository";
-import { GlobalCache } from "./shared/globalCache";
 
 describe("Presenter queries use cases", () => {
   describe("When the user opens the traffic light page", () => {

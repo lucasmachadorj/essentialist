@@ -1,5 +1,5 @@
+import { Presenter } from "../../pages/traffic-light/presenter";
 import { Clock } from "../domain/clock";
-import { Presenter } from "../presenter";
 import { GlobalCache } from "./globalCache";
 
 describe("Global cache", () => {

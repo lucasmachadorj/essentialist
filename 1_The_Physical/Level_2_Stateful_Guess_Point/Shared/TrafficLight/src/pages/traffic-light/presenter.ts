@@ -1,4 +1,4 @@
-import { GlobalCache } from "./shared/globalCache";
+import { GlobalCache } from "../../core/shared/globalCache";
 import { ViewModel } from "./viewModel";
 
 export class Presenter {

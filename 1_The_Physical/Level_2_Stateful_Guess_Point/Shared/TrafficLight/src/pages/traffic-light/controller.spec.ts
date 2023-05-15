@@ -1,6 +1,6 @@
 import { Controller } from "./controller";
 import { Repository } from "./repository";
-import { GlobalCache } from "./shared/globalCache";
+import { GlobalCache } from "../../core/shared/globalCache";
 
 describe("Controller commands use cases", () => {
   describe("Given the user opens the traffic light page", () => {

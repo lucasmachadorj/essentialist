@@ -1,4 +1,4 @@
-import { Clock } from "./domain/clock";
+import { Clock } from "../../core/domain/clock";
 import { Repository } from "./repository";
 
 export class Controller {
