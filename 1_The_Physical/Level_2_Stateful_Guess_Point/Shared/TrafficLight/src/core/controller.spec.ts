@@ -11,9 +11,7 @@ describe("Controller commands use cases", () => {
       controller.initializeClock();
       expect(repository.getCurrentTime()).toBe(0);
     });
-  });
 
-  describe("Given the user is on the traffic light page", () => {
     it("should update the clock time", () => {
       const cache = new GlobalCache();
       const repository = new Repository(cache);
