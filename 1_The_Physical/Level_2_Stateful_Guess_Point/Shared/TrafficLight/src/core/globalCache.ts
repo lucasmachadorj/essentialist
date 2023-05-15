@@ -7,8 +7,8 @@ export class GlobalCache {
     this.clock = null;
   }
 
-  getCurrentTime(): number {
-    return this.clock ? this.clock.getCurrentTime() : 0;
+  getClock(): Clock | null {
+    return this.clock;
   }
 
   saveClock(clock: Clock) {

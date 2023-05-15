@@ -6,6 +6,6 @@ describe("Global cache", () => {
     const cache = new GlobalCache();
     const clock = Clock.create();
     cache.saveClock(clock);
-    expect(cache.getCurrentTime()).toBe(0);
+    expect(cache.getClock()).toBe(clock);
   });
 });

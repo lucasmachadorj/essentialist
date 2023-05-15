@@ -13,6 +13,7 @@ export class Repository {
   }
 
   getCurrentTime(): number {
-    return this.cache.getCurrentTime();
+    const clock = this.cache.getClock();
+    return clock ? clock.getCurrentTime() : 0;
   }
 }
