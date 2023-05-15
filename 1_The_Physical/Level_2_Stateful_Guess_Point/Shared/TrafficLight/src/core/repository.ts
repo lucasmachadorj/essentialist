@@ -1,6 +1,6 @@
 import { Clock } from "./domain/clock";
 import { TrafficLight } from "./domain/trafficLight";
-import { GlobalCache } from "./globalCache";
+import { GlobalCache } from "./shared/globalCache";
 
 export class Repository {
   constructor(private cache: GlobalCache) {}

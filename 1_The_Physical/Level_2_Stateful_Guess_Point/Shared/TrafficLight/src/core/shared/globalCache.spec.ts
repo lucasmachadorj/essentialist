@@ -1,6 +1,6 @@
-import { Clock } from "./domain/clock";
+import { Clock } from "../domain/clock";
+import { Presenter } from "../presenter";
 import { GlobalCache } from "./globalCache";
-import { Presenter } from "./presenter";
 
 describe("Global cache", () => {
   it("should add a new clock to the cache", () => {
