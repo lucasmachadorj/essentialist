@@ -16,4 +16,11 @@ export class Repository {
     const clock = this.cache.getClock();
     return clock ? clock.getCurrentTime() : 0;
   }
+
+  updateTime() {
+    const clock = this.cache.getClock();
+    if (clock) {
+      clock.tick();
+    }
+  }
 }

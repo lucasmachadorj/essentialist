@@ -12,4 +12,8 @@ export class Controller {
     clock = Clock.create();
     this.repository.saveClock(clock);
   }
+
+  updateClock() {
+    this.repository.updateTime();
+  }
 }
