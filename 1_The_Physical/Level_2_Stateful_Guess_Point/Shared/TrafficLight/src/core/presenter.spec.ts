@@ -4,8 +4,8 @@ import { Presenter } from "./presenter";
 import { Repository } from "./repository";
 
 describe("Presenter queries use cases", () => {
-  describe("Given the user opens the traffic light page", () => {
-    it("should have a clock initialized with value 0 ", () => {
+  describe("When the user opens the traffic light page", () => {
+    it("should see a clock initialized with value 0", () => {
       const cache = new GlobalCache();
       const repository = new Repository(cache);
       const controller = new Controller(repository);
