@@ -28,7 +28,6 @@ describe("Presenter queries use cases", () => {
     });
 
     it("should see a new traffic light", () => {
-      controller.initializeClock();
       controller.addTrafficLight();
       expect(presenter.getTrafficLights().length).toBe(1);
     });
