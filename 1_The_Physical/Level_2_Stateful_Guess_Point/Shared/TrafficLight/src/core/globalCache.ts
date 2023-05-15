@@ -3,65 +3,88 @@ import { TrafficLight } from "./domain/trafficLight";
 import { Presenter } from "./presenter";
 
 type TrafficLightDTO = {
-  id: string;
-  currentState: string;
+  readonly id: string;
+  readonly currentState: string;
+};
+
+type CacheProps = {
+  readonly clock: Clock | null;
+  readonly trafficLights: TrafficLightDTO[];
+  readonly listeners: Record<string, Presenter[]>;
 };
 export class GlobalCache {
-  private clock: Clock | null;
-  private trafficLights: TrafficLightDTO[];
-
-  private listeners: Record<string, Presenter[]>;
+  private props: CacheProps;
 
   constructor() {
-    this.clock = null;
-    this.listeners = {};
-    this.trafficLights = [];
+    this.props = {
+      clock: null,
+      trafficLights: [],
+      listeners: {},
+    };
+  }
+
+  private get clock(): Clock | null {
+    return this.props.clock;
   }
 
   getClock(): Clock | null {
-    return this.clock;
+    return this.props.clock;
   }
 
   saveClock(clock: Clock) {
-    this.clock = clock;
+    this.props = {
+      ...this.props,
+      clock: clock,
+    };
     this.propagateClock();
   }
 
   subscribeToClock(presenter: Presenter) {
-    this.listeners["clock"] = this.listeners["clock"] || [];
-    this.listeners["clock"].push(presenter);
+    this.props = {
+      ...this.props,
+      listeners: {
+        ...this.props.listeners,
+        clock: [...(this.props.listeners["clock"] || []), presenter],
+      },
+    };
   }
 
   subscribeToTrafficLights(presenter: Presenter) {
-    this.listeners["trafficLights"] = this.listeners["trafficLights"] || [];
-    this.listeners["trafficLights"].push(presenter);
+    this.props = {
+      ...this.props,
+      listeners: {
+        ...this.props.listeners,
+        trafficLights: [
+          ...(this.props.listeners["trafficLights"] || []),
+          presenter,
+        ],
+      },
+    };
   }
 
   addTrafficLight(trafficLight: TrafficLightDTO) {
-    this.trafficLights.push(trafficLight);
+    this.props = {
+      ...this.props,
+      trafficLights: [...this.props.trafficLights, trafficLight],
+    };
     this.propagateTrafficLights();
   }
 
   getTrafficLights() {
-    return this.trafficLights;
+    return this.props.trafficLights;
   }
 
   private propagateClock() {
-    const listeners = this.listeners["clock"];
-    if (!listeners) {
-      return;
-    }
     if (!this.clock) return;
-    listeners.forEach((listener) => listener.updateClock(this.clock!));
+
+    this.props.listeners["clock"]?.forEach((listener) =>
+      listener.updateClock(this.clock!.getCurrentTime())
+    );
   }
 
   private propagateTrafficLights() {
-    const listeners = this.listeners["trafficLights"];
-    if (!listeners) {
-      return;
-    }
-    listeners.forEach((listener) =>
-      listener.updateTrafficLights(this.trafficLights)
+    this.props.listeners["trafficLights"]?.forEach((listener) =>
+      listener.updateTrafficLights(this.props.trafficLights)
     );
   }
 }

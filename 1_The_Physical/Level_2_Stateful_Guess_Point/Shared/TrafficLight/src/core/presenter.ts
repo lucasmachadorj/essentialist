@@ -11,8 +11,7 @@ export class Presenter {
     this.viewModel = new ViewModel();
   }
 
-  updateClock(clock: Clock) {
-    const currentTime = clock.getCurrentTime();
+  updateClock(currentTime: number) {
     this.viewModel.setCurrentTime(currentTime);
   }
 
