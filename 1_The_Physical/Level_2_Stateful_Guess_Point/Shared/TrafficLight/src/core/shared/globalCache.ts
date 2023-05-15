@@ -86,19 +86,27 @@ export class GlobalCache {
   private propagateClock() {
     if (!this.clock) return;
 
-    this.props.listeners["clock"]?.forEach((listener) =>
+    this.listeners["clock"]?.forEach((listener) =>
       listener.updateClock(this.clock!.getCurrentTime())
     );
   }
 
   private propagateTrafficLights() {
-    const trafficLightProps = this.props.trafficLights.map((tl) => ({
+    const trafficLightProps = this.trafficLights.map((tl) => ({
       id: tl.getId(),
       currentState: tl.getState(),
     }));
 
-    this.props.listeners["trafficLights"]?.forEach((listener) => {
+    this.listeners["trafficLights"]?.forEach((listener) => {
       listener.updateTrafficLights(trafficLightProps);
     });
+  }
+
+  private get trafficLights(): TrafficLight[] {
+    return this.props.trafficLights;
+  }
+
+  private get listeners(): Record<string, Presenter[]> {
+    return this.props.listeners;
   }
 }
