@@ -13,5 +13,15 @@ describe("Presenter queries use cases", () => {
       controller.initializeClock();
       expect(presenter.getCurrentTime()).toBe(0);
     });
+
+    it("should see the clock time updated", () => {
+      const cache = new GlobalCache();
+      const repository = new Repository(cache);
+      const controller = new Controller(repository);
+      const presenter = new Presenter(cache);
+      controller.initializeClock();
+      controller.updateClock();
+      expect(presenter.getCurrentTime()).toBe(1);
+    });
   });
 });

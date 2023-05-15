@@ -21,6 +21,7 @@ export class Repository {
     const clock = this.cache.getClock();
     if (clock) {
       clock.tick();
+      this.cache.saveClock(clock);
     }
   }
 }
