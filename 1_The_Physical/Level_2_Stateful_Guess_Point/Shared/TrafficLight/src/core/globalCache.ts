@@ -2,14 +2,14 @@ import { Clock } from "./domain/clock";
 import { TrafficLight } from "./domain/trafficLight";
 import { Presenter } from "./presenter";
 
-type TrafficLightDTO = {
+type TrafficLightState = {
   readonly id: string;
   readonly currentState: string;
 };
 
 type CacheProps = {
   readonly clock: Clock | null;
-  readonly trafficLights: TrafficLightDTO[];
+  readonly trafficLights: TrafficLightState[];
   readonly listeners: Record<string, Presenter[]>;
 };
 export class GlobalCache {
@@ -62,7 +62,7 @@ export class GlobalCache {
     };
   }
 
-  addTrafficLight(trafficLight: TrafficLightDTO) {
+  addTrafficLight(trafficLight: TrafficLightState) {
     this.props = {
       ...this.props,
       trafficLights: [...this.props.trafficLights, trafficLight],
