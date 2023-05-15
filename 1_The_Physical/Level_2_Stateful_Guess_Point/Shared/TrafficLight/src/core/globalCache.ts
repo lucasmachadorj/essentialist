@@ -1,5 +1,4 @@
 import { Clock } from "./domain/clock";
-import { TrafficLight } from "./domain/trafficLight";
 import { Presenter } from "./presenter";
 
 type TrafficLightState = {
