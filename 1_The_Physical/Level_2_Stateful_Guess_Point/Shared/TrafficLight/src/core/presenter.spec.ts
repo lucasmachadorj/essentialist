@@ -5,30 +5,29 @@ import { Repository } from "./repository";
 
 describe("Presenter queries use cases", () => {
   describe("When the user opens the traffic light page", () => {
-    it("should see a clock initialized with value 0", () => {
-      const cache = new GlobalCache();
-      const repository = new Repository(cache);
-      const controller = new Controller(repository);
-      const presenter = new Presenter(cache);
+    let cache: GlobalCache;
+    let repository: Repository;
+    let controller: Controller;
+    let presenter: Presenter;
+
+    beforeEach(() => {
+      cache = new GlobalCache();
+      repository = new Repository(cache);
+      controller = new Controller(repository);
+      presenter = new Presenter(cache);
       controller.initializeClock();
+    });
+
+    it("should see a clock initialized with value 0", () => {
       expect(presenter.getCurrentTime()).toBe(0);
     });
 
     it("should see the clock time updated", () => {
-      const cache = new GlobalCache();
-      const repository = new Repository(cache);
-      const controller = new Controller(repository);
-      const presenter = new Presenter(cache);
-      controller.initializeClock();
       controller.updateClock();
       expect(presenter.getCurrentTime()).toBe(1);
     });
 
     it("should see a new traffic light", () => {
-      const cache = new GlobalCache();
-      const repository = new Repository(cache);
-      const controller = new Controller(repository);
-      const presenter = new Presenter(cache);
       controller.initializeClock();
       controller.addTrafficLight();
       expect(presenter.getTrafficLights().length).toBe(1);
