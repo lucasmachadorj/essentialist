@@ -20,4 +20,8 @@ export class Controller {
   addTrafficLight() {
     this.repository.addTrafficLight();
   }
+
+  turnOnTrafficLight(id: string) {
+    this.repository.turnOnTrafficLight(id);
+  }
 }

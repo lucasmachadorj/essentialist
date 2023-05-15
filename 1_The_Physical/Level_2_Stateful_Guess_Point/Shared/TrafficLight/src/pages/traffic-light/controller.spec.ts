@@ -28,5 +28,12 @@ describe("Controller commands use cases", () => {
       controller.addTrafficLight();
       expect(repository.getTrafficLights().length).toBe(1);
     });
+
+    it("should turn on a traffic light", () => {
+      controller.addTrafficLight();
+      const trafficLight = repository.getTrafficLights()[0];
+      controller.turnOnTrafficLight(trafficLight.getId());
+      expect(trafficLight.getState()).toBe("boot");
+    });
   });
 });

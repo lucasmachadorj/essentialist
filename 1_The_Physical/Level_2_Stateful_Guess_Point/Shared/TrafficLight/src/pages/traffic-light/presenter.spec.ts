@@ -22,7 +22,7 @@ describe("Presenter queries use cases", () => {
       expect(presenter.getCurrentTime()).toBe(0);
     });
 
-    it("should see the clock time updated", () => {
+    it("should see the clock time updating", () => {
       controller.updateClock();
       expect(presenter.getCurrentTime()).toBe(1);
     });

@@ -1,14 +1,10 @@
 import { Presenter } from "../../pages/traffic-light/presenter";
 import { Clock } from "../domain/clock";
-
-type TrafficLightState = {
-  readonly id: string;
-  readonly currentState: string;
-};
+import { TrafficLight } from "../domain/trafficLight";
 
 type CacheProps = {
   readonly clock: Clock | null;
-  readonly trafficLights: TrafficLightState[];
+  readonly trafficLights: TrafficLight[];
   readonly listeners: Record<string, Presenter[]>;
 };
 export class GlobalCache {
@@ -61,7 +57,7 @@ export class GlobalCache {
     };
   }
 
-  addTrafficLight(trafficLight: TrafficLightState) {
+  addTrafficLight(trafficLight: TrafficLight) {
     this.props = {
       ...this.props,
       trafficLights: [...this.props.trafficLights, trafficLight],
@@ -73,6 +69,20 @@ export class GlobalCache {
     return this.props.trafficLights;
   }
 
+  getTrafficLight(id: string) {
+    return this.props.trafficLights.find((tl) => tl.getId() === id);
+  }
+
+  updateTrafficLight(trafficLight: TrafficLight) {
+    this.props = {
+      ...this.props,
+      trafficLights: this.props.trafficLights.map((tl) =>
+        tl.getId() === trafficLight.getId() ? trafficLight : tl
+      ),
+    };
+    this.propagateTrafficLights();
+  }
+
   private propagateClock() {
     if (!this.clock) return;
 
@@ -82,8 +92,13 @@ export class GlobalCache {
   }
 
   private propagateTrafficLights() {
-    this.props.listeners["trafficLights"]?.forEach((listener) =>
-      listener.updateTrafficLights(this.props.trafficLights)
-    );
+    const trafficLightProps = this.props.trafficLights.map((tl) => ({
+      id: tl.getId(),
+      currentState: tl.getState(),
+    }));
+
+    this.props.listeners["trafficLights"]?.forEach((listener) => {
+      listener.updateTrafficLights(trafficLightProps);
+    });
   }
 }

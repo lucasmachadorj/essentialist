@@ -32,14 +32,19 @@ export class Repository {
       return;
     }
     const trafficLight = new TrafficLight(clock);
-    const trafficLightDTO = {
-      id: trafficLight.getId(),
-      currentState: trafficLight.getState(),
-    };
-    this.cache.addTrafficLight(trafficLightDTO);
+    this.cache.addTrafficLight(trafficLight);
   }
 
   getTrafficLights() {
     return this.cache.getTrafficLights();
+  }
+
+  turnOnTrafficLight(id: string) {
+    const trafficLight = this.cache.getTrafficLight(id);
+    if (!trafficLight) {
+      return;
+    }
+    trafficLight.turnOn();
+    this.cache.updateTrafficLight(trafficLight);
   }
 }
