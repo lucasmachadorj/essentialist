@@ -16,4 +16,8 @@ export class Controller {
   updateClock() {
     this.repository.updateTime();
   }
+
+  addTrafficLight() {
+    this.repository.addTrafficLight();
+  }
 }

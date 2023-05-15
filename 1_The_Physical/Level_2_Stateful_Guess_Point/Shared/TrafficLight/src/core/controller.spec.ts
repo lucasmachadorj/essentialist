@@ -20,5 +20,14 @@ describe("Controller commands use cases", () => {
       controller.updateClock();
       expect(repository.getCurrentTime()).toBe(1);
     });
+
+    it("should add a new traffic light", () => {
+      const cache = new GlobalCache();
+      const repository = new Repository(cache);
+      const controller = new Controller(repository);
+      controller.initializeClock();
+      controller.addTrafficLight();
+      expect(repository.getTrafficLights().length).toBe(1);
+    });
   });
 });

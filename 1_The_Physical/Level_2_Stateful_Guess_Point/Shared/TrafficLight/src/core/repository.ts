@@ -1,4 +1,5 @@
 import { Clock } from "./domain/clock";
+import { TrafficLight } from "./domain/trafficLight";
 import { GlobalCache } from "./globalCache";
 
 export class Repository {
@@ -23,5 +24,18 @@ export class Repository {
       clock.tick();
       this.cache.saveClock(clock);
     }
+  }
+
+  addTrafficLight() {
+    const clock = this.cache.getClock();
+    if (!clock) {
+      return;
+    }
+    const trafficLight = new TrafficLight(clock);
+    this.cache.addTrafficLight(trafficLight);
+  }
+
+  getTrafficLights() {
+    return this.cache.getTrafficLights();
   }
 }
