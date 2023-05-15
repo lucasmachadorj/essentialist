@@ -25,4 +25,8 @@ export class Presenter {
   getTrafficLights() {
     return this.viewModel.getTrafficLights();
   }
+
+  getTrafficLight(id: string) {
+    return this.viewModel.getTrafficLight(id);
+  }
 }

@@ -32,6 +32,7 @@ export class GlobalCache {
       clock: clock,
     };
     this.propagateClock();
+    this.propagateTrafficLights();
   }
 
   subscribeToClock(presenter: Presenter) {

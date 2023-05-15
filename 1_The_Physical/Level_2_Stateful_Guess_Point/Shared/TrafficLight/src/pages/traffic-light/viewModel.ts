@@ -41,4 +41,8 @@ export class ViewModel {
   getTrafficLights() {
     return this.props.trafficLights;
   }
+
+  getTrafficLight(id: string) {
+    return this.props.trafficLights.find((tl) => tl.id === id);
+  }
 }

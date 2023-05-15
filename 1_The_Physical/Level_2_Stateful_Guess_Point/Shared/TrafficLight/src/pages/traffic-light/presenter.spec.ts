@@ -3,6 +3,11 @@ import { Controller } from "./controller";
 import { Presenter } from "./presenter";
 import { Repository } from "./repository";
 
+const updateTime = (n: number) => (controller: Controller) =>
+  [...Array(n)].forEach(() => controller.updateClock());
+
+const updateTime10 = updateTime(10);
+
 describe("Presenter queries use cases", () => {
   describe("When the user opens the traffic light page", () => {
     let cache: GlobalCache;
@@ -30,6 +35,15 @@ describe("Presenter queries use cases", () => {
     it("should see a new traffic light", () => {
       controller.addTrafficLight();
       expect(presenter.getTrafficLights().length).toBe(1);
+    });
+
+    it("should see a traffic light turns green", () => {
+      controller.addTrafficLight();
+      const { id } = presenter.getTrafficLights()[0];
+      controller.turnOnTrafficLight(id);
+      updateTime10(controller);
+      const trafficLight = presenter.getTrafficLight(id);
+      expect(trafficLight?.currentState).toBe("green");
     });
   });
 });
