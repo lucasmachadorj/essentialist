@@ -2,9 +2,14 @@ import { Clock } from "./domain/clock";
 import { TrafficLight } from "./domain/trafficLight";
 import { Presenter } from "./presenter";
 
+type TrafficLightDTO = {
+  id: string;
+  currentState: string;
+};
 export class GlobalCache {
   private clock: Clock | null;
-  private trafficLights: TrafficLight[];
+  private trafficLights: TrafficLightDTO[];
+
   private listeners: Record<string, Presenter[]>;
 
   constructor() {
@@ -27,8 +32,14 @@ export class GlobalCache {
     this.listeners["clock"].push(presenter);
   }
 
-  addTrafficLight(trafficLight: TrafficLight) {
+  subscribeToTrafficLights(presenter: Presenter) {
+    this.listeners["trafficLights"] = this.listeners["trafficLights"] || [];
+    this.listeners["trafficLights"].push(presenter);
+  }
+
+  addTrafficLight(trafficLight: TrafficLightDTO) {
     this.trafficLights.push(trafficLight);
+    this.propagateTrafficLights();
   }
 
   getTrafficLights() {
@@ -42,5 +53,15 @@ export class GlobalCache {
     }
     if (!this.clock) return;
     listeners.forEach((listener) => listener.updateClock(this.clock!));
+  }
+
+  private propagateTrafficLights() {
+    const listeners = this.listeners["trafficLights"];
+    if (!listeners) {
+      return;
+    }
+    listeners.forEach((listener) =>
+      listener.updateTrafficLights(this.trafficLights)
+    );
   }
 }

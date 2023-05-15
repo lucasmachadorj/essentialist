@@ -1,5 +1,6 @@
 export class ViewModel {
   private currentTime: number = -1;
+  private trafficLights: { id: string; currentState: string }[] = [];
 
   constructor() {}
 
@@ -7,7 +8,15 @@ export class ViewModel {
     this.currentTime = currentTime;
   }
 
+  setTrafficLights(trafficLights: { id: string; currentState: string }[]) {
+    this.trafficLights = trafficLights;
+  }
+
   getCurrentTime(): number {
     return this.currentTime;
+  }
+
+  getTrafficLights() {
+    return this.trafficLights;
   }
 }

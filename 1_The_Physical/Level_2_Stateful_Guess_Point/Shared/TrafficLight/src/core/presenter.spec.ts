@@ -23,5 +23,15 @@ describe("Presenter queries use cases", () => {
       controller.updateClock();
       expect(presenter.getCurrentTime()).toBe(1);
     });
+
+    it("should see a new traffic light", () => {
+      const cache = new GlobalCache();
+      const repository = new Repository(cache);
+      const controller = new Controller(repository);
+      const presenter = new Presenter(cache);
+      controller.initializeClock();
+      controller.addTrafficLight();
+      expect(presenter.getTrafficLights().length).toBe(1);
+    });
   });
 });

@@ -7,6 +7,7 @@ export class Presenter {
 
   constructor(cache: GlobalCache) {
     cache.subscribeToClock(this);
+    cache.subscribeToTrafficLights(this);
     this.viewModel = new ViewModel();
   }
 
@@ -15,7 +16,15 @@ export class Presenter {
     this.viewModel.setCurrentTime(currentTime);
   }
 
+  updateTrafficLights(trafficLights: { id: string; currentState: string }[]) {
+    this.viewModel.setTrafficLights(trafficLights);
+  }
+
   getCurrentTime(): number {
     return this.viewModel.getCurrentTime();
+  }
+
+  getTrafficLights() {
+    return this.viewModel.getTrafficLights();
   }
 }
