@@ -93,14 +93,8 @@ export class GlobalCache {
   }
 
   private propagateTrafficLights() {
-    const trafficLightProps = this.trafficLights.map((tl) => ({
-      id: tl.getId(),
-      currentState: tl.getState(),
-      turnedOnAt: tl.getTurnedOnAt() || -1,
-    }));
-
     this.listeners["trafficLights"]?.forEach((listener) => {
-      listener.updateTrafficLights(trafficLightProps);
+      listener.updateTrafficLights(this.trafficLights);
     });
   }
 

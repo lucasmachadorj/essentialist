@@ -1,3 +1,4 @@
+import { TrafficLight } from "../../core/domain/trafficLight";
 import { GlobalCache } from "../../core/shared/globalCache";
 import { ViewModel } from "./viewModel";
 
@@ -14,10 +15,13 @@ export class Presenter {
     this.viewModel.setCurrentTime(currentTime);
   }
 
-  updateTrafficLights(
-    trafficLights: { id: string; currentState: string; turnedOnAt: number }[]
-  ) {
-    this.viewModel.setTrafficLights(trafficLights);
+  updateTrafficLights(trafficLights: TrafficLight[]) {
+    const trafficLightsState = trafficLights.map((t) => ({
+      id: t.getId(),
+      currentState: t.getState(),
+      turnedOnAt: t.getTurnedOnAt() || 0,
+    }));
+    this.viewModel.setTrafficLights(trafficLightsState);
   }
 
   getCurrentTime(): number {
