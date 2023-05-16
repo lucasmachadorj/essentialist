@@ -4,7 +4,7 @@ import { Repository } from "./repository";
 export class Controller {
   constructor(private repository: Repository) {}
 
-  initializeClock() {
+  initializeClockUseCase() {
     let clock = this.repository.getClock();
     if (clock) {
       return;
@@ -13,15 +13,15 @@ export class Controller {
     this.repository.saveClock(clock);
   }
 
-  updateClock() {
+  updateClockUseCase() {
     this.repository.updateTime();
   }
 
-  addTrafficLight() {
+  addTrafficLightUseCase() {
     this.repository.addTrafficLight();
   }
 
-  turnOnTrafficLight(id: string) {
+  turnOnTrafficLightUseCase(id: string) {
     this.repository.turnOnTrafficLight(id);
   }
 }

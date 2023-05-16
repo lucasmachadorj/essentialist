@@ -12,7 +12,7 @@ describe("Controller commands use cases", () => {
       cache = new GlobalCache();
       repository = new Repository(cache);
       controller = new Controller(repository);
-      controller.initializeClock();
+      controller.initializeClockUseCase();
     });
 
     it("should initialize a clock with value 0", () => {
@@ -20,19 +20,19 @@ describe("Controller commands use cases", () => {
     });
 
     it("should update the clock time", () => {
-      controller.updateClock();
+      controller.updateClockUseCase();
       expect(repository.getCurrentTime()).toBe(1);
     });
 
     it("should add a new traffic light", () => {
-      controller.addTrafficLight();
+      controller.addTrafficLightUseCase();
       expect(repository.getTrafficLights().length).toBe(1);
     });
 
     it("should turn on a traffic light", () => {
-      controller.addTrafficLight();
+      controller.addTrafficLightUseCase();
       const trafficLight = repository.getTrafficLights()[0];
-      controller.turnOnTrafficLight(trafficLight.getId());
+      controller.turnOnTrafficLightUseCase(trafficLight.getId());
       expect(trafficLight.getState()).toBe("boot");
     });
   });

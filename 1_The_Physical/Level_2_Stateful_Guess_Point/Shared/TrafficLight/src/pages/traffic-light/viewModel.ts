@@ -1,8 +1,11 @@
+import { makeAutoObservable } from "mobx";
+
 type TimeState = number;
 
 type TrafficLightState = {
   readonly id: string;
   readonly currentState: string;
+  readonly turnedOnAt: number;
 };
 
 type ViewModelProps = {
@@ -18,6 +21,7 @@ export class ViewModel {
       currentTime: -1,
       trafficLights: [],
     };
+    makeAutoObservable(this);
   }
 
   setCurrentTime(currentTime: number) {
@@ -27,7 +31,9 @@ export class ViewModel {
     };
   }
 
-  setTrafficLights(trafficLights: { id: string; currentState: string }[]) {
+  setTrafficLights(
+    trafficLights: { id: string; currentState: string; turnedOnAt: number }[]
+  ) {
     this.props = {
       ...this.props,
       trafficLights: trafficLights,

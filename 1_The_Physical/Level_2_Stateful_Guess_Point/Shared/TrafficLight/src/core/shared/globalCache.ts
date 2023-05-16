@@ -96,6 +96,7 @@ export class GlobalCache {
     const trafficLightProps = this.trafficLights.map((tl) => ({
       id: tl.getId(),
       currentState: tl.getState(),
+      turnedOnAt: tl.getTurnedOnAt() || -1,
     }));
 
     this.listeners["trafficLights"]?.forEach((listener) => {

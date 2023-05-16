@@ -1,0 +1,17 @@
+.box__trafficlight {
+  width: 100px;
+  text-align: center;
+}
+
+.light {
+  height: 300px;
+  width: 100px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button__container {
+  margin-top: 10px;
+}

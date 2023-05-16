@@ -4,7 +4,7 @@ import { Presenter } from "./presenter";
 import { Repository } from "./repository";
 
 const updateTime = (n: number) => (controller: Controller) =>
-  [...Array(n)].forEach(() => controller.updateClock());
+  [...Array(n)].forEach(() => controller.updateClockUseCase());
 
 const updateTime10 = updateTime(10);
 
@@ -20,7 +20,7 @@ describe("Presenter queries use cases", () => {
       repository = new Repository(cache);
       controller = new Controller(repository);
       presenter = new Presenter(cache);
-      controller.initializeClock();
+      controller.initializeClockUseCase();
     });
 
     it("should see a clock initialized with value 0", () => {
@@ -28,19 +28,19 @@ describe("Presenter queries use cases", () => {
     });
 
     it("should see the clock time updating", () => {
-      controller.updateClock();
+      controller.updateClockUseCase();
       expect(presenter.getCurrentTime()).toBe(1);
     });
 
     it("should see a new traffic light", () => {
-      controller.addTrafficLight();
+      controller.addTrafficLightUseCase();
       expect(presenter.getTrafficLights().length).toBe(1);
     });
 
     it("should see a traffic light turns green", () => {
-      controller.addTrafficLight();
+      controller.addTrafficLightUseCase();
       const { id } = presenter.getTrafficLights()[0];
-      controller.turnOnTrafficLight(id);
+      controller.turnOnTrafficLightUseCase(id);
       updateTime10(controller);
       const trafficLight = presenter.getTrafficLight(id);
       expect(trafficLight?.currentState).toBe("green");

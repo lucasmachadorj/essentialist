@@ -14,7 +14,9 @@ export class Presenter {
     this.viewModel.setCurrentTime(currentTime);
   }
 
-  updateTrafficLights(trafficLights: { id: string; currentState: string }[]) {
+  updateTrafficLights(
+    trafficLights: { id: string; currentState: string; turnedOnAt: number }[]
+  ) {
     this.viewModel.setTrafficLights(trafficLights);
   }
 
