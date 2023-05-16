@@ -18,7 +18,7 @@ export class ViewModel {
 
   constructor() {
     this.props = {
-      currentTime: -1,
+      currentTime: 0,
       trafficLights: [],
     };
     makeAutoObservable(this);
@@ -49,6 +49,10 @@ export class ViewModel {
   }
 
   getTrafficLight(id: string) {
-    return this.props.trafficLights.find((tl) => tl.id === id);
+    return this.trafficLights.find((t) => t.id === id);
+  }
+
+  private get trafficLights() {
+    return this.props.trafficLights;
   }
 }
