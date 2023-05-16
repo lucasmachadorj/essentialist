@@ -35,5 +35,13 @@ describe("Controller commands use cases", () => {
       controller.turnOnTrafficLightUseCase(trafficLight.getId());
       expect(trafficLight.getState()).toBe("boot");
     });
+
+    it("should turn off a traffic light", () => {
+      controller.addTrafficLightUseCase();
+      const trafficLight = repository.getTrafficLights()[0];
+      controller.turnOnTrafficLightUseCase(trafficLight.getId());
+      controller.turnOffTrafficLightUseCase(trafficLight.getId());
+      expect(trafficLight.getState()).toBe("off");
+    });
   });
 });

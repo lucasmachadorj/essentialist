@@ -24,4 +24,8 @@ export class Controller {
   turnOnTrafficLightUseCase(id: string) {
     this.repository.turnOnTrafficLight(id);
   }
+
+  turnOffTrafficLightUseCase(id: string) {
+    this.repository.turnOffTrafficLight(id);
+  }
 }

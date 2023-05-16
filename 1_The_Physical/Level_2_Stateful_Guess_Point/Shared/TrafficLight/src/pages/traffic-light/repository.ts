@@ -47,4 +47,13 @@ export class Repository {
     trafficLight.turnOn();
     this.cache.updateTrafficLight(trafficLight);
   }
+
+  turnOffTrafficLight(id: string) {
+    const trafficLight = this.cache.getTrafficLight(id);
+    if (!trafficLight) {
+      return;
+    }
+    trafficLight.turnOff();
+    this.cache.updateTrafficLight(trafficLight);
+  }
 }
