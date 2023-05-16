@@ -14,6 +14,8 @@ The main point of this project is to implement a decoupled architecture, where t
 
 Notice that the domain was implemented using TDD to guide the emergent design.
 
+The controller and presenter also have their application level tests.
+
 #### Getting Started
 
 To run the application, follow the steps below from the root of the project:
@@ -75,9 +77,9 @@ The diagram below shows the frontend architecture:
 
 ![frontend architecture](./docs/architecture.png)
 
-In case of a change in the frontend library or framework, the only thing that needs to be changed is the implementation of the View and adjust the presented. The business logic is completely decoupled from the View.
+In case of a change in the frontend library or framework, the only thing that needs to be changed is the implementation of the components. The business logic is completely decoupled from the View.
 
-Notice that CQRS is used to separate the read and write operations. The read operations are reactive, in a way the the presented is responsible for subscribing to the changes in the state of the application and propagate them its children. The write operations are requests that are sent to the controller.
+Notice that CQRS is used to separate the read and write operations. The read operations are reactive, in a way the the presenter is responsible for subscribing to the changes in the state of the application and updates the View State. The write operations are requests that are sent to the controller.
 
 The repository is a facade to the domain data. It is responsible for providing the necessary data requested by the controller.
 
