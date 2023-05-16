@@ -1,20 +1,17 @@
-import { controller } from "..";
+import { controller, presenter } from "..";
 import "./newTrafficLight.css";
 
-type Props = {
-  size: number;
-};
-
-export const NewTrafficLight = ({ size }: Props) => {
-  if (size < 5) {
-    return (
-      <button
-        onClick={() => controller.addTrafficLightUseCase()}
-        className="button"
-      >
-        Add traffic light
-      </button>
-    );
+export const NewTrafficLight = () => {
+  if (presenter.isTrafficLightLimitReached()) {
+    return <div className="alert"> You cannot add more traffic lights </div>;
   }
-  return <div className="alert"> You cannot add more traffic lights </div>;
+
+  return (
+    <button
+      onClick={() => controller.addTrafficLightUseCase()}
+      className="button"
+    >
+      Add traffic light
+    </button>
+  );
 };

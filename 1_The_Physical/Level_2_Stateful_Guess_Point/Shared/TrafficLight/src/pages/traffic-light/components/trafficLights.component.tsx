@@ -1,4 +1,3 @@
-import { State } from "../../../core/domain/states";
 import { TrafficLight } from "./trafficLight.component";
 import "./trafficLights.css";
 

@@ -24,7 +24,7 @@ export const Container = observer(() => {
 
   return (
     <div className="container">
-      <NewTrafficLight size={presenter.getTrafficLights().length} />
+      <NewTrafficLight />
       <Clock currentTime={presenter.getCurrentTime()} />
       <TrafficLights trafficLightProps={presenter.getTrafficLights()} />
     </div>
