@@ -45,5 +45,12 @@ describe("Presenter queries use cases", () => {
       const trafficLight = presenter.getTrafficLight(id);
       expect(trafficLight?.currentState).toBe("green");
     });
+
+    it("should check if the limit of 3 traffic lights is reached", () => {
+      controller.addTrafficLightUseCase();
+      controller.addTrafficLightUseCase();
+      controller.addTrafficLightUseCase();
+      expect(presenter.isTrafficLightLimitReached()).toBe(true);
+    });
   });
 });

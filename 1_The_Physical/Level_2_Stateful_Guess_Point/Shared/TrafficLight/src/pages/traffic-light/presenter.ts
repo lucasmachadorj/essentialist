@@ -35,4 +35,8 @@ export class Presenter {
   getTrafficLight(id: string) {
     return this.viewModel.getTrafficLight(id);
   }
+
+  isTrafficLightLimitReached(): boolean {
+    return this.getTrafficLights().length >= 3;
+  }
 }
