@@ -6,7 +6,7 @@ type Props = {
 
 export const TurnOffButton = ({ id }: Props) => {
   return (
-    <button onClick={() => controller.turnOnTrafficLightUseCase(id)}>
+    <button onClick={() => controller.turnOffTrafficLightUseCase(id)}>
       Turn off
     </button>
   );
