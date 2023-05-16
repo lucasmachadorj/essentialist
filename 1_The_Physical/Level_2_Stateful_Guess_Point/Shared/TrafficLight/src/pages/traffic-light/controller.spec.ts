@@ -43,5 +43,13 @@ describe("Controller commands use cases", () => {
       controller.turnOffTrafficLightUseCase(trafficLight.getId());
       expect(trafficLight.getState()).toBe("off");
     });
+
+    it("should not add more than 3 traffic lights", () => {
+      controller.addTrafficLightUseCase();
+      controller.addTrafficLightUseCase();
+      controller.addTrafficLightUseCase();
+      controller.addTrafficLightUseCase();
+      expect(repository.getTrafficLights().length).toBe(3);
+    });
   });
 });

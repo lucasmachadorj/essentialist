@@ -18,6 +18,10 @@ export class Controller {
   }
 
   addTrafficLightUseCase() {
+    const trafficLights = this.repository.getTrafficLights();
+    if (trafficLights.length >= 3) {
+      return;
+    }
     this.repository.addTrafficLight();
   }
 
