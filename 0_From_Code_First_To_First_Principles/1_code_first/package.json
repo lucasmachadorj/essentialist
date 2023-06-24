@@ -1,9 +1,9 @@
 {
-  "name": "typescript-starter",
+  "name": "code-first-project-essencialist-course",
   "version": "1.0.0",
-  "description": "A basic typescript app starter for 2023.",
+  "description": "essencialist course project - code first",
   "main": "main.js",
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
     "build": "rimraf ./build && tsc",
     "start:dev": "npx nodemon -r dotenv/config --exec 'ts-node' src/main.ts",
