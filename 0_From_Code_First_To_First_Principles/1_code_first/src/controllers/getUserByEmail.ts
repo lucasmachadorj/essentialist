@@ -12,7 +12,7 @@ export const UserDTO = z.object({
   query: UserQuery,
 });
 
-export type GetUser = z.infer<typeof UserQuery>;
+export type GetUserByEmail = z.infer<typeof UserQuery>;
 
 export type User = {
   id: string;
@@ -20,7 +20,7 @@ export type User = {
   email: string;
 };
 
-const getUser = async (user: GetUser): Promise<User> => {
+const getUserByEmail = async (user: GetUserByEmail): Promise<User> => {
   const data = await db
     .select({
       id: users.id,
@@ -38,4 +38,4 @@ const getUser = async (user: GetUser): Promise<User> => {
   return data[0];
 };
 
-export { getUser };
+export { getUserByEmail };
