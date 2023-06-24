@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.get("", validate(UserDTO), async (req: Request, res: Response) => {
+router.get("/", validate(UserDTO), async (req: Request, res: Response) => {
   const { email } = req.query;
 
   try {
