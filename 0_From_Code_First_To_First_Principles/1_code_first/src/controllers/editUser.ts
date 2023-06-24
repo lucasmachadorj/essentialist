@@ -5,7 +5,9 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 
 const EditUserBody = z.object({
-  name: z.string(),
+  firstName: z.string().nonempty(),
+  lastName: z.string().nonempty(),
+  username: z.string().nonempty(),
   email: z.string().email(),
 });
 
@@ -32,7 +34,9 @@ const editUser = async (user: EditUser) => {
       .where(eq(users.id, userId))
       .returning({
         id: users.id,
-        name: users.name,
+        firstName: users.firstName,
+        lastName: users.lastName,
+        username: users.username,
         email: users.email,
       })
       .execute();

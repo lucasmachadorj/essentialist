@@ -15,7 +15,9 @@ export type GetUserByEmail = z.infer<typeof UserQuery>;
 
 export type User = {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  username: string;
   email: string;
 };
 
@@ -23,7 +25,9 @@ const getUserByEmail = async (user: GetUserByEmail): Promise<User> => {
   const data = await db
     .select({
       id: users.id,
-      name: users.name,
+      firstName: users.firstName,
+      lastName: users.lastName,
+      username: users.username,
       email: users.email,
     })
     .from(users)

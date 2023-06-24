@@ -4,7 +4,9 @@ import { users } from "../models/users";
 import { z } from "zod";
 
 const CreateUserBody = z.object({
-  name: z.string(),
+  firstName: z.string().nonempty(),
+  lastName: z.string().nonempty(),
+  username: z.string().nonempty(),
   email: z.string().email("invalid email format"),
 });
 
