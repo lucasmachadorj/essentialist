@@ -5,7 +5,7 @@ import { z } from "zod";
 
 const CreateUserBody = z.object({
   name: z.string(),
-  email: z.string().email(),
+  email: z.string().email("invalid email format"),
 });
 
 export const CreateUserDTO = z.object({

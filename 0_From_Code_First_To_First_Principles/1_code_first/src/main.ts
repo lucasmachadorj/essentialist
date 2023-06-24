@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { CreateUserDTO, createUser } from "./controllers/createUser";
 import { validate } from "./middlewares/parser";
 import { EditUserDTO, editUser } from "./controllers/editUser";
+import { UserDTO, getUser } from "./controllers/getUser";
 
 const app = express();
 
@@ -9,6 +10,21 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   return res.json({ message: "ok" });
+});
+
+app.get("/users", validate(UserDTO), async (req: Request, res: Response) => {
+  const { email } = req.query;
+
+  try {
+    const user = await getUser({ email: email as string });
+    res.status(200).json({ ...user });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+      return;
+    }
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.post(
