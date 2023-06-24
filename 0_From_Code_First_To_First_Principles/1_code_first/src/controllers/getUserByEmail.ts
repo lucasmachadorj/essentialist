@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { db } from "../models";
 import { users } from "../models/users";
 import { z } from "zod";

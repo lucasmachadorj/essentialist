@@ -1,8 +1,13 @@
 import { Request, Response, Router } from "express";
 import { validate } from "../middlewares/parser";
-import { UserDTO, getUserByEmail } from "../controllers/getUserByEmail";
-import { CreateUserDTO, createUser } from "../controllers/createUser";
-import { EditUserDTO, editUser } from "../controllers/editUser";
+import {
+  CreateUserDTO,
+  EditUserDTO,
+  UserDTO,
+  createUser,
+  editUser,
+  getUserByEmail,
+} from "../controllers";
 
 const router = Router();
 
