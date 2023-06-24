@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.get("/users", validate(UserDTO), async (req: Request, res: Response) => {
+router.get("", validate(UserDTO), async (req: Request, res: Response) => {
   const { email } = req.query;
 
   try {
@@ -27,7 +27,7 @@ router.get("/users", validate(UserDTO), async (req: Request, res: Response) => {
 });
 
 router.post(
-  "/users/new",
+  "/new",
   validate(CreateUserDTO),
   async (req: Request, res: Response) => {
     const user = req.body;
@@ -45,14 +45,14 @@ router.post(
 );
 
 router.put(
-  "/users/edit/:userId",
+  "/edit/:userId",
   validate(EditUserDTO),
   async (req: Request, res: Response) => {
     const user = req.body;
     const { userId: id } = req.params;
     try {
-      await editUser({ ...user, id });
-      res.status(201).json({ message: "User updated" });
+      const updatedUser = await editUser({ ...user, userId: id });
+      res.status(201).json({ user: updatedUser });
     } catch (error: unknown) {
       if (error instanceof Error) {
         res.status(400).json({ error: error.message });

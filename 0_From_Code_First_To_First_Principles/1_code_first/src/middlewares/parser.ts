@@ -15,7 +15,6 @@ export const validate = (schema: AnyZodObject): ExpressMiddleware => {
         query: req.query,
         params: req.params,
       });
-      req;
       next();
     } catch (error: unknown) {
       if (error instanceof Error) {

@@ -17,7 +17,7 @@ const deleteTableQuery = `
 
 const createTableQuery = `
   CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id CHAR(36) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),

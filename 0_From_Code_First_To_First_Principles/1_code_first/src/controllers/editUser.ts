@@ -10,7 +10,7 @@ const EditUserBody = z.object({
 });
 
 const EditUserParams = z.object({
-  id: z.string(),
+  userId: z.string(),
 });
 
 export const EditUserDTO = z.object({
@@ -22,17 +22,24 @@ export type EditUser = z.infer<typeof EditUserBody> &
   z.infer<typeof EditUserParams>;
 
 const editUser = async (user: EditUser) => {
-  const { id, ...updateFields } = user;
-  await db
-    .update(users)
-    .set(updateFields)
-    .where(eq(users.id, id))
-    .returning({
-      id: users.id,
-      name: users.name,
-      email: users.email,
-    })
-    .execute();
+  const { userId, ...updateFields } = user;
+  try {
+    const user = await db
+      .update(users)
+      .set({
+        ...updateFields,
+      })
+      .where(eq(users.id, userId))
+      .returning({
+        id: users.id,
+        name: users.name,
+        email: users.email,
+      })
+      .execute();
+    return user[0];
+  } catch (error) {
+    throw error;
+  }
 };
 
 export { editUser };
